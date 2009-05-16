@@ -28,10 +28,14 @@
 
 
 // -----------------------------------------------------------------------------
-#pragma mark file scope
+// MARK: Constants
 
+// Unique module name.
 static NSString * const SubstrateMacModuleName = @"com.heydaddio.substratemac";
-static HeySubstrateRGB const substrateRGBPalette[] = {
+
+// Palette of sand colors.
+static HeySubstrateRGB const substrateRGBPalette[] = 
+{
   {0x06, 0x05, 0x01}, {0x0A, 0x11, 0x16}, {0x2C, 0x0B, 0x02}, {0x0F, 0x24, 0x0B}, 
   {0x38, 0x10, 0x1F}, {0x0F, 0x27, 0x29}, {0x2A, 0x28, 0x0B}, {0x2C, 0x2F, 0x29}, 
   {0x27, 0x32, 0x47}, {0x53, 0x2B, 0x0F}, {0x2F, 0x46, 0x2B}, {0x5A, 0x31, 0x3B}, 
@@ -96,35 +100,44 @@ static HeySubstrateRGB const substrateRGBPalette[] = {
   {0xFF, 0xFF, 0x99}, {0xED, 0xFF, 0xCC}, {0xFF, 0xEE, 0xFF}, {0xFF, 0xFF, 0xAA}, 
   {0xED, 0xFF, 0xDD}, {0xFF, 0xFF, 0xBB}, {0xED, 0xFF, 0xEE}, {0xEB, 0xFF, 0xFF}, 
   {0xFF, 0xFF, 0xCC}, {0xFF, 0xFF, 0xDD}, {0xFF, 0xFF, 0xEE}, {0xFF, 0xFF, 0xFF}, 
-};                            // Palette of sand colors
+};
+
+// Number of colors in palette.
 static const int maxPaletteEntries 
-                    = sizeof(substrateRGBPalette) / sizeof(HeySubstrateRGB);  
-                              // # of colors in palette
+  = sizeof(substrateRGBPalette) / sizeof(HeySubstrateRGB);  
+
 static NSColor *crackColor;                 // Color to draw _all_ cracks
-static const float curvedCrackStep = 0.42;  // Curve drawing step increment
-static const float animationFPS = 60.0;     // Frames per second to animate
+static const float curvedCrackStep = 0.42f; // Curve drawing step increment
+static const float animationFPS = 60.0f;    // Frames per second to animate
 static const int cagEmpty = 10000;          // Empty test value for crackAngleGrid
 static const int cagEmptyFlag = 10001;      // Empty flag value in crackAngleGrid
 
-static const float M_PI_180_F = M_PI / 180; // Cache, used many times
+// Cache this calc, used many times.
+static const float M_PI_180_F = (float)M_PI / 180.0f;
 
 static NSString * const defaultsKeyNumberOfCracks = @"NumberOfCracks";
 static NSString * const defaultsKeySpeedOfCracking = @"SpeedOfCracking";
 static NSString * const defaultsKeyAmountOfSand = @"AmountOfSand";
 static NSString * const defaultsKeyDensityOfDrawing = @"DensityOfDrawing";
-static NSString * const defaultsKeyPauseBetweenDrawings = 
-                          @"PauseBetweenDrawings";
+static NSString * const defaultsKeyPauseBetweenDrawings = @"PauseBetweenDrawings";
 static NSString * const defaultsKeyDrawCracksOnly = @"DrawCracksOnly";
-static NSString * const defaultsKeyPercentageOfCurvedCracks = 
-                          @"PercentageOfCurvedCracks";
+static NSString * const defaultsKeyPercentageOfCurvedCracks = @"PercentageOfCurvedCracks";
 
 static NSString * const optionSheetNibName = @"SubstrateMacOptions";
 
+
 // -----------------------------------------------------------------------------
+// MARK: HeySubstrateMacView
+
 @implementation HeySubstrateMacView
 
-// ----------------------------------------------
-- (id)initWithFrame:(NSRect)frame isPreview:(BOOL)isPreview {
+
+// -----------------------------------------------------------------------------
+// MARK: Init and dealloc
+
+// Designated initializer.
+- (id)initWithFrame:(NSRect)frame isPreview:(BOOL)isPreview 
+{
   self = [super initWithFrame:frame isPreview:isPreview];
   if (!self)
     return nil;
@@ -133,13 +146,13 @@ static NSString * const optionSheetNibName = @"SubstrateMacOptions";
   defaults = [ScreenSaverDefaults defaultsForModuleWithName:SubstrateMacModuleName];
   [defaults registerDefaults:
     [NSDictionary dictionaryWithObjectsAndKeys:
-      [NSNumber numberWithFloat:11.0],      defaultsKeyNumberOfCracks,
-      [NSNumber numberWithFloat:1.0],       defaultsKeySpeedOfCracking,
-      [NSNumber numberWithFloat:-0.05],     defaultsKeyAmountOfSand,
-      [NSNumber numberWithFloat:100000.0],  defaultsKeyDensityOfDrawing,
-      [NSNumber numberWithFloat:15.0],      defaultsKeyPauseBetweenDrawings,
+      [NSNumber numberWithFloat:11.0f],      defaultsKeyNumberOfCracks,
+      [NSNumber numberWithFloat:1.0f],       defaultsKeySpeedOfCracking,
+      [NSNumber numberWithFloat:-0.05f],     defaultsKeyAmountOfSand,
+      [NSNumber numberWithFloat:100000.0f],  defaultsKeyDensityOfDrawing,
+      [NSNumber numberWithFloat:15.0f],      defaultsKeyPauseBetweenDrawings,
       @"NO",                                defaultsKeyDrawCracksOnly,
-      [NSNumber numberWithFloat:15.0],      defaultsKeyPercentageOfCurvedCracks,
+      [NSNumber numberWithFloat:15.0f],      defaultsKeyPercentageOfCurvedCracks,
       nil]];
   
   optionNumberOfCracks        = [defaults floatForKey:defaultsKeyNumberOfCracks];
@@ -165,14 +178,16 @@ static NSString * const optionSheetNibName = @"SubstrateMacOptions";
   [crackArray retain];
   
   if (!crackColor)
-    crackColor = [NSColor colorWithDeviceRed:0.0 green:0.0 blue:0.0 alpha:0.5];
+    crackColor = [NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.5f];
   [crackColor retain];
 
   return self;
 }
 
 
-- (void) dealloc {
+// Destroy the view.
+- (void) dealloc 
+{
   [crackColor release];
   [crackArray release], crackArray = nil;
   free(crackAngleGrid), crackAngleGrid = NULL;
@@ -180,8 +195,13 @@ static NSString * const optionSheetNibName = @"SubstrateMacOptions";
 }
 
 
-- (void)makeACrack {
-  if (currNumCracks < optionNumberOfCracks ) {
+// -----------------------------------------------------------------------------
+// MARK: Drawing and animation methods
+
+- (void)makeACrack 
+{
+  if (currNumCracks < optionNumberOfCracks ) 
+  {
     // make a new crack instance
     HeySubstrateCrack *newCrack;
     newCrack = [[HeySubstrateCrack alloc] initWithSSView:self];
@@ -191,30 +211,36 @@ static NSString * const optionSheetNibName = @"SubstrateMacOptions";
 }
 
 
-- (void)startAnimation {
+- (void)startAnimation 
+{
   [super startAnimation];
   [self setupAnimation];
   return;
 }
 
 
-- (void)stopAnimation {
+- (void)stopAnimation 
+{
   [super stopAnimation];
 }
 
 
-- (void)restartAnimation {
+- (void)restartAnimation 
+{
   [crackArray removeAllObjects];
   bgCleared = NO;
   [self setupAnimation];
 }
 
 
-- (void)setupAnimation {
+- (void)setupAnimation 
+{
   // Erase crackAngleGrid
   int x, y;
-  for (y = 0; y < viewHeight; y++) {
-    for (x = 0; x < viewWidth; x++) {
+  for (y = 0; y < viewHeight; y++) 
+  {
+    for (x = 0; x < viewWidth; x++) 
+    {
       crackAngleGrid[y * viewWidth + x] = cagEmptyFlag;     
     }
   }
@@ -222,7 +248,8 @@ static NSString * const optionSheetNibName = @"SubstrateMacOptions";
   // Make random crack seeds
   int i, k;
   srandom(time(0));
-  for (k = 0; k < 16; k++) {
+  for (k = 0; k < 16; k++) 
+  {
     i = random() % (viewWidth * viewHeight);
     crackAngleGrid[i] = random() % 360;
   }
@@ -230,24 +257,28 @@ static NSString * const optionSheetNibName = @"SubstrateMacOptions";
   // Make just three cracks to start with
   int c;
   currNumCracks = 0;
-  for (c = 0; c < 3; c++) {
+  for (c = 0; c < 3; c++) 
+  {
     [self makeACrack];
   }
   return;
 }
 
 
-- (void)drawRect:(NSRect)rect {
+- (void)drawRect:(NSRect)rect 
+{
   [super drawRect:rect];
 }
 
 
-- (void)animateOneFrame {
+- (void)animateOneFrame 
+{
   // Clear background
-  if (bgCleared == NO) {
+  if (bgCleared == NO) 
+  {
     //[[NSColor whiteColor] set];
     // Warm up the canvas a bit: RGB:255/251/239
-    [[NSColor colorWithDeviceRed:1.0 green:0.9843 blue:0.9373 alpha:1.0] set];
+    [[NSColor colorWithDeviceRed:1.0f green:0.9843f blue:0.9373f alpha:1.0f] set];
     [NSBezierPath fillRect:[self frame]];
     bgCleared = YES;
   }
@@ -255,21 +286,28 @@ static NSString * const optionSheetNibName = @"SubstrateMacOptions";
   int i;
   int spdLoops;
 
-  if (drawingPaused) {
-    if (framesPaused++ >= framesToPause) {
+  if (drawingPaused) 
+  {
+    if (framesPaused++ >= framesToPause) 
+    {
       drawingPaused = NO;
       framesPaused = 0;
       iterationsDone = 0;
       [self restartAnimation];
     }
-  } else {
+  } 
+  else 
+  {
     // crack all cracks
-    for (spdLoops = (int)optionSpeedOfCracking; spdLoops > 0; spdLoops--) {
-      for (i = 0; i < currNumCracks; i++) {
+    for (spdLoops = (int)optionSpeedOfCracking; spdLoops > 0; spdLoops--) 
+    {
+      for (i = 0; i < currNumCracks; i++) 
+      {
         iterationsDone++;
         [[crackArray objectAtIndex:i] move];
       }
-      if (iterationsDone >= optionDensityOfDrawing) {
+      if (iterationsDone >= optionDensityOfDrawing) 
+      {
         drawingPaused = YES;
         framesPaused = 0;
         iterationsDone = 0;
@@ -281,22 +319,28 @@ static NSString * const optionSheetNibName = @"SubstrateMacOptions";
 }
 
 
-- (BOOL)isOpaque {
+- (BOOL)isOpaque 
+{
   return YES;
 }
 
 
-- (BOOL)hasConfigureSheet {
+- (BOOL)hasConfigureSheet 
+{
   return YES;
 }
 
 
-- (NSWindow*)configureSheet {
+// Set up the option sheet.
+- (NSWindow*)configureSheet 
+{
   ScreenSaverDefaults *defaults;
   defaults = [ScreenSaverDefaults defaultsForModuleWithName:SubstrateMacModuleName];
   
-  if (!optionSheet) {
-    if (![NSBundle loadNibNamed:optionSheetNibName owner:self]) {
+  if (!optionSheet) 
+  {
+    if (![NSBundle loadNibNamed:optionSheetNibName owner:self]) 
+    {
       NSLog(@"Unable to load options configuration sheet.");
       NSBeep();
     }
@@ -313,8 +357,10 @@ static NSString * const optionSheetNibName = @"SubstrateMacOptions";
 }
 
 
-- (IBAction)okClick:(id)sender {
-  #pragma unused(sender)
+// Save the options.
+- (IBAction)okClick:(id)sender 
+{
+  (void)sender;
   ScreenSaverDefaults *defaults;
   defaults = [ScreenSaverDefaults defaultsForModuleWithName:SubstrateMacModuleName];
   [defaults setFloat:[numberOfCracksSlider        floatValue] forKey:defaultsKeyNumberOfCracks];
@@ -341,49 +387,70 @@ static NSString * const optionSheetNibName = @"SubstrateMacOptions";
 }
 
 
-- (IBAction)cancelClick:(id)sender {
-#pragma unused(sender)
+- (IBAction)cancelClick:(id)sender 
+{
+  (void)sender;
   [[NSApplication sharedApplication] endSheet:optionSheet];
 }
 
 
-- (int)optionPercentCurves {
+- (int)optionPercentCurves 
+{
   return optionPercentCurves;
 }
 
-- (float)optionAmountOfSand {
+
+- (float)optionAmountOfSand 
+{
   return optionAmountOfSand;
 }
 
-- (BOOL)optionDrawCracksOnly {
+
+- (BOOL)optionDrawCracksOnly 
+{
   return optionDrawCracksOnly;
 }
 
-- (int)viewWidth {
+
+- (int)viewWidth 
+{
   return viewWidth;
 }
 
-- (int)viewHeight {
+
+- (int)viewHeight 
+{
   return viewHeight;
 }
 
-- (int *)crackAngleGrid {
+
+- (int *)crackAngleGrid 
+{
   return crackAngleGrid;
 }
 
 
 @end
-// -----------------------------------------------------------------------------
+
+
+// =============================================================================
 
 
 // -----------------------------------------------------------------------------
+// MARK: HeySubstractCrack
+
 @implementation HeySubstrateCrack
 
+
+// MARK: Constants
 static const int sandGrainCnt = 64;     // Number of grains of sand
 static const int sandGrainVecLen = 4;   // Number of floats in vector (vectF_t)
 static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
 
-- (id)initWithSSView:(HeySubstrateMacView *)view {
+
+// Designated initializer.
+- (id)initWithSSView:(HeySubstrateMacView *)view 
+{
   self = [super init];
   if (!self)
     return nil;
@@ -398,7 +465,10 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
   return self;
 }
 
-- (void) dealloc {
+
+// Destroy.
+- (void) dealloc 
+{
   [baseSandColor release];
   free(vFSource);
   free(vFDest);
@@ -406,7 +476,10 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
   [super dealloc];
 }
 
-- (void)findStartPointAndTravelAngle {
+
+// Begin a new crack.
+- (void)findStartPointAndTravelAngle 
+{
   [self setupSand];
   // Pick random points looking for a crack
   int randomX = 0;
@@ -416,10 +489,12 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
   int vWidth = [saverView viewWidth];
   int vHeight = [saverView viewHeight];
   int *cag = [saverView crackAngleGrid];
-  while (!found && timeout++ < 10000) {
+  while (!found && timeout++ < 10000) 
+  {
     randomX = random() % vWidth;
     randomY = random() % vHeight;
-    if (cag[randomY * vWidth + randomX] < cagEmpty) {
+    if (cag[randomY * vWidth + randomX] < cagEmpty) 
+    {
       // <10,000 means pixel has a crack through it
       found = YES;
     }
@@ -433,34 +508,40 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
   else
     angleOfTravel = random() % 360;
   
-  if ((random() % 100) < 50) {
+  if ((random() % 100) < 50) 
+  {
     // Half of new cracks as positive angle, half negative
     angleOfTravel -= 90 + (int)(((random() % 41000) / 10000.0) - 2.0);  
     // original java: int(random(-2.0, 2.1)
-  } else {
+  } 
+  else 
+  {
     angleOfTravel += 90 + (int)(((random() % 41000) / 10000.0) - 2.0);  
   }
-  cosAnglePi180 = cos(angleOfTravel * M_PI / 180);
-  sinAnglePi180 = sin(angleOfTravel * M_PI / 180);
-  posX += 0.61 * cosAnglePi180;
-  posY += 0.61 * sinAnglePi180;
+  cosAnglePi180 = cosf(angleOfTravel * (float)M_PI / 180.0f);
+  sinAnglePi180 = sinf(angleOfTravel * (float)M_PI / 180.0f);
+  posX += 0.61f * cosAnglePi180;
+  posY += 0.61f * sinAnglePi180;
 
-  
   float radius;
   float radian_inc;
-  if (random() % 100 < [saverView optionPercentCurves]) {
+  if (random() % 100 < [saverView optionPercentCurves]) 
+  {
     curved = YES;
     degrees_drawn = 0;
     radius = 10 + (random() % ((vWidth + vHeight) / 2));
-    if (random() % 100 < 50) {
+    if (random() % 100 < 50) 
+    {
       radius *= -1;
     }
     // arc length  = radius * theta => theta = arc length / radius
     radian_inc = curvedCrackStep / radius;
-    t_inc = radian_inc * 360 / 2 / M_PI;
-    ys = radius * sin(radian_inc);
-    xs = radius * (1 - cos(radian_inc));
-  } else {
+    t_inc = radian_inc * 360.0f / 2.0f / (float)M_PI;
+    ys = radius * sinf(radian_inc);
+    xs = radius * (1.0f - cosf(radian_inc));
+  } 
+  else 
+  {
     curved = NO;
     degrees_drawn = 0;
     radius = 0;
@@ -471,56 +552,68 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
 }
 
 
-- (void)move {
+// Move the cracking of the cracks forward.
+- (void)move 
+{
   int vWidth = [saverView viewWidth];
   int vHeight = [saverView viewHeight];
   int *cag = [saverView crackAngleGrid];
   
   // Continue cracking
-  if (!curved) {
-    posX += 0.42 * cosAnglePi180;
-    posY += 0.42 * sinAnglePi180;
-  } else {
+  if (!curved) 
+  {
+    posX += 0.42f * cosAnglePi180;
+    posY += 0.42f * sinAnglePi180;
+  } 
+  else 
+  {
     float oldx, oldy;
     oldx = posX;
     oldy = posY;
     posX += ys * cosAnglePi180;
     posY += ys * sinAnglePi180;
-    posX += xs * (cosAnglePi180 - M_PI / 2);
-    posY += xs * (sinAnglePi180 - M_PI / 2);
+    posX += xs * (cosAnglePi180 - (float)M_PI / 2.0f);
+    posY += xs * (sinAnglePi180 - (float)M_PI / 2.0f);
     angleOfTravel += t_inc;
     degrees_drawn += abs(t_inc);
-    cosAnglePi180 = cos(angleOfTravel * M_PI / 180);
-    sinAnglePi180 = sin(angleOfTravel * M_PI / 180);
+    cosAnglePi180 = cosf(angleOfTravel * (float)M_PI / 180.0f);
+    sinAnglePi180 = sinf(angleOfTravel * (float)M_PI / 180.0f);
   }
 
   // Add fuzz to line of crack and draw
   int drawX, drawY;
-  float z = 0.33;
-  drawX = (int)(posX + ((random() % (int)(z * 200)) / 100.0) - z); // java: random(-z,z)
-  drawY = (int)(posY + ((random() % (int)(z * 200)) / 100.0) - z);
+  float z = 0.33f;
+  drawX = (int)(posX + ((random() % (int)(z * 200.0f)) / 100.0f) - z); // java: random(-z,z)
+  drawY = (int)(posY + ((random() % (int)(z * 200.0f)) / 100.0f) - z);
   
   // Draw sand
-  if (![saverView optionDrawCracksOnly]) {
+  if (![saverView optionDrawCracksOnly]) 
+  {
     [self regionColor];
   }
 
   // Draw black-ish crack
   [crackColor set];
-  [NSBezierPath fillRect:NSMakeRect(drawX, drawY, 1.0, 1.0)];
+  [NSBezierPath fillRect:NSMakeRect(drawX, drawY, 1.0f, 1.0f)];
   
   // Bounds check, collision detection.
-  if (drawX >= 0 && drawX < vWidth && drawY >= 0 && drawY < vHeight) {
+  if (drawX >= 0 && drawX < vWidth && drawY >= 0 && drawY < vHeight) 
+  {
     // If empty space, or angle of collision < 5 degrees, continue cracking.
-    if (cag[drawY * vWidth + drawX] > cagEmpty || abs(cag[drawY * vWidth + drawX] - angleOfTravel) < 5) {
+    if (cag[drawY * vWidth + drawX] > cagEmpty || abs(cag[drawY * vWidth + drawX] - angleOfTravel) < 5) 
+    {
       cag[drawY * vWidth + drawX] = (int)angleOfTravel;
-    } else if (abs(cag[drawY * vWidth + drawX] - angleOfTravel) > 2) {
+    } 
+    else if (abs(cag[drawY * vWidth + drawX] - angleOfTravel) > 2) 
+    {
       // crack encountered (not self), stop cracking this crack here,
       //  move to another point and also make another crack.
       [self findStartPointAndTravelAngle];
       [saverView makeACrack];
     }
-  } else {
+  } 
+  else 
+  {
     // Out of bounds, stop cracking this crack here,
     //  move to another point and also make another crack.
     [self findStartPointAndTravelAngle];
@@ -530,7 +623,9 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
 }
 
 
-- (void)regionColor {
+// Spread the sand color into the open space.
+- (void)regionColor 
+{
   float openRegionX = posX;
   float openRegionY = posY;
   int checkX, checkY;
@@ -540,20 +635,27 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
   int *cag = [saverView crackAngleGrid];
   
   // Find extents of open space, start checking one step away from crack.
-  while (openspace) {
+  while (openspace) 
+  {
     // Move perpendicular to crack
     openRegionX += 0.81f * sinf(angleOfTravel * M_PI_180_F);
     openRegionY -= 0.81f * cosf(angleOfTravel * M_PI_180_F);
     checkX = (int)openRegionX;
     checkY = (int)openRegionY;
     // Bounds check
-    if (checkX >= 0 && checkX < vWidth && checkY >= 0 && checkY < vHeight) {
-      if (cag[checkY * vWidth + checkX] > cagEmpty) {
+    if (checkX >= 0 && checkX < vWidth && checkY >= 0 && checkY < vHeight) 
+    {
+      if (cag[checkY * vWidth + checkX] > cagEmpty) 
+      {
         // Space is open, continue looking.
-      } else {
+      } 
+      else 
+      {
         openspace = NO;
       }
-    } else {
+    } 
+    else 
+    {
       openspace = NO;
     }
   }
@@ -562,11 +664,12 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
 }
 
 
-- (void)paintToX:(float)xEnd Y:(float)yEnd 
-          FromCrackX:(float)crackPosX CrackY:(float)crackPosY {
+// Draw the sand.
+- (void)paintToX:(float)xEnd Y:(float)yEnd FromCrackX:(float)crackPosX CrackY:(float)crackPosY 
+{
   // modulate gain
-  sandGain += (random() % 10) / 100.0 + [saverView optionAmountOfSand];
-  float maxSandGain = 1.0;
+  sandGain += (random() % 10) / 100.0f + [saverView optionAmountOfSand];
+  float maxSandGain = 1.0f;
   if (sandGain < 0)
     sandGain = 0;
   if (sandGain > maxSandGain)
@@ -578,8 +681,10 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
   //    sinCalc = sin(sin(i * w));
   float w = sandGain / (sandGrainCnt - 1);
   int i, j;
-  for (i = 0; i < sandGrainVecCnt; i++) {
-    for (j = 0; j < sandGrainVecLen; j++) {
+  for (i = 0; i < sandGrainVecCnt; i++) 
+  {
+    for (j = 0; j < sandGrainVecLen; j++) 
+    {
       vFSource[i].f[j] = (i * sandGrainVecLen + j) * w;
     }
   }
@@ -591,47 +696,52 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
   int pixSandX, pixSandY;
   int prevPixSandX = 0, prevPixSandY = 0;
   
-  for (i = 0; i < sandGrainVecCnt; i++) {    
-    for (j = 0; j < sandGrainVecLen; j++) {
+  for (i = 0; i < sandGrainVecCnt; i++) 
+  {    
+    for (j = 0; j < sandGrainVecLen; j++) 
+    {
       sandX = crackPosX + (xEnd - crackPosX) * vFSource[i].f[j];
       sandY = crackPosY + (yEnd - crackPosY) * vFSource[i].f[j];
       pixSandX = (int)sandX;
       pixSandY = (int)sandY;
       // Drawing optimization: don't keep drawing the same pixels over and over again
-      if ((pixSandX != prevPixSandX) || (pixSandY !=prevPixSandY)) {
+      if ((pixSandX != prevPixSandX) || (pixSandY !=prevPixSandY)) 
+      {
         prevPixSandX = pixSandX;
         prevPixSandY = pixSandY;
         // sandAlpha = 0.1 - (i * sandGrainVecLen + j) / (sandGrainCnt * 10.0); // too pale, punch up a bit
-        sandAlpha = 0.15 - (i * sandGrainVecLen + j) / (sandGrainCnt * 10.0);
+        sandAlpha = 0.15f - (i * sandGrainVecLen + j) / (sandGrainCnt * 10.0f);
         [[baseSandColor colorWithAlphaComponent:sandAlpha] set];
-        [NSBezierPath fillRect:NSMakeRect(pixSandX + 0.5, pixSandY + 0.5, 1.0, 1.0)];
+        [NSBezierPath fillRect:NSMakeRect(pixSandX + 0.5f, pixSandY + 0.5f, 1.0f, 1.0f)];
       }
     }
   }
 }
 
 
-- (void)setupSand {
+- (void)setupSand 
+{
   HeySubstrateRGB const *sandRGB = [self randomSubstrateRGB];
-  if (baseSandColor) {
+  if (baseSandColor) 
+  {
     [baseSandColor release];
   }
-  baseSandColor = [NSColor colorWithDeviceRed:sandRGB->redValue/255.0 
-                                        green:sandRGB->greenValue/255.0 
-                                         blue:sandRGB->blueValue/255.0 
-                                        alpha:1.0];
+  baseSandColor = [NSColor colorWithDeviceRed:sandRGB->redValue/255.0f 
+                                        green:sandRGB->greenValue/255.0f 
+                                         blue:sandRGB->blueValue/255.0f 
+                                        alpha:1.0f];
   [baseSandColor retain];
-  sandGain = (random() % 10) / 100.0 + 0.01;
+  sandGain = (random() % 10) / 100.0f + 0.01f;
 }
 
 
-- (HeySubstrateRGB const *)randomSubstrateRGB {
+- (HeySubstrateRGB const *)randomSubstrateRGB 
+{
   return substrateRGBPalette + (random() & (maxPaletteEntries - 1));
 }
 
 
 @end
-// -----------------------------------------------------------------------------
 
 
 // End of HeySubstrateMacView.m

@@ -1,7 +1,7 @@
 // !$*UTF8*$!
 {
 	089C1669FE841209C02AAC07 /* Project object */ = {
-		activeBuildConfigurationName = Release;
+		activeBuildConfigurationName = Debug;
 		activeExecutable = 80EA610609F72DAB00AF42C1 /* Executable */;
 		activeTarget = 8D255AC50486D3F9007BF209 /* SubstrateMac */;
 		addToTargets = (
@@ -108,8 +108,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 260838060;
-			PBXWorkspaceStateSaveDate = 260838060;
+			PBXPerProjectTemplateStateSaveDate = 264127516;
+			PBXWorkspaceStateSaveDate = 264127516;
 		};
 		sourceControlManager = 804CB3D409E205CB0014DE78 /* Source Control */;
 		userBuildSettings = {
@@ -129,6 +129,22 @@
 		name = SaverLab;
 		path = /Applications/DevTools/SaverLab.app/Contents/MacOS/SaverLab;
 		sourceTree = "<absolute>";
+	};
+	802122580FBE233900DD9A3B /* HeySubstrateMacView.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {752, 1764}}";
+			sepNavSelRange = "{3192, 29}";
+			sepNavVisRange = "{1400, 2360}";
+			sepNavWindowFrame = "{{83, 304}, {685, 848}}";
+		};
+	};
+	802122590FBE233900DD9A3B /* HeySubstrateMacView.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {752, 8820}}";
+			sepNavSelRange = "{19032, 12}";
+			sepNavVisRange = "{18939, 2085}";
+			sepNavWindowFrame = "{{668, 182}, {811, 996}}";
+		};
 	};
 	804CB3D409E205CB0014DE78 /* Source Control */ = {
 		isa = PBXSourceControlManager;
@@ -191,24 +207,6 @@
 			sepNavSelRange = "{667, 0}";
 			sepNavVisRect = "{{0, 0}, {720, 569}}";
 			sepNavWindowFrame = "{{130, 91}, {765, 677}}";
-		};
-	};
-	F50079790118B23001CA0E54 /* HeySubstrateMacView.h */ = {
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {706, 1872}}";
-			sepNavSelRange = "{163, 0}";
-			sepNavVisRange = "{0, 1454}";
-			sepNavVisRect = "{{0, 0}, {720, 548}}";
-			sepNavWindowFrame = "{{513, 26}, {765, 677}}";
-		};
-	};
-	F500797A0118B23001CA0E54 /* HeySubstrateMacView.m */ = {
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {706, 8307}}";
-			sepNavSelRange = "{23923, 0}";
-			sepNavVisRange = "{22418, 1506}";
-			sepNavVisRect = "{{0, 0}, {864, 507}}";
-			sepNavWindowFrame = "{{513, 26}, {765, 677}}";
 		};
 	};
 }

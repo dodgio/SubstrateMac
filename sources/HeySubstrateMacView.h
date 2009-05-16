@@ -29,7 +29,8 @@
 #import <ScreenSaver/ScreenSaver.h>
 
 
-typedef struct {
+typedef struct 
+{
   unsigned int redValue;
   unsigned int greenValue;
   unsigned int blueValue;
@@ -76,6 +77,7 @@ typedef union
   int viewHeight;             // Dimensions of view
   int *crackAngleGrid;        // Array/Grid of cracks, one per pixel
 }
+
 // User Interface
 - (IBAction)okClick:(id)sender;
 - (IBAction)cancelClick:(id)sender;
@@ -101,9 +103,13 @@ typedef union
 - (int)viewWidth;
 - (int)viewHeight;
 - (int *)crackAngleGrid;
+
 @end
 
-// -----------------------------------------------------------------------------
+
+// =============================================================================
+
+
 @interface HeySubstrateCrack : NSObject 
 {
   float posX;                 // Current X position of crack
@@ -122,6 +128,7 @@ typedef union
   vectF_t *vFSource;          // Vector sin() source (paintToX:Y:FromCrackX:Y)
   vectF_t *vFDest;            // Vector sin() dest ...
 }
+
 - (id)initWithSSView:(HeySubstrateMacView *)view;
 - (void) dealloc;
 - (void)findStartPointAndTravelAngle;
@@ -131,6 +138,7 @@ typedef union
           FromCrackX:(float)crackPosX CrackY:(float)crackPosY;
 - (void)setupSand;
 - (HeySubstrateRGB const *)randomSubstrateRGB;
+
 @end
 
 
