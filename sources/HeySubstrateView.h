@@ -1,81 +1,123 @@
-// ===========================================================================
+// =============================================================================
 /*
-    SubstrateMac
- 
-    Screensaver ported to Mac OS X from 
-    Substrate Watercolor by J. Tarbell, June 2004, Albuquerque New Mexico
-      Processing 0085 Beta syntax update, April 2005
-    http://complexification.net
- 
-    Color palette ported from xscreensaver version by dragorn Oct 10 2004
-      dragorn@kismetwireless.net
- 
-    Port made by Warren Dodge of Hey Daddio! March 2006
- 
- !!!!!!!!!!!!!!!!!!! license !!!!!!!!!
+  HeySubstrateView.h
+  SubstrateMac/SubstrateiPhone Projects
+
+  View for fancy drawing.
+
+  Copyright (c) Hey Daddio! 2009. All rights reserved.
 */
-// ===========================================================================
-// HeySubstrateView.h
-
-#import <ScreenSaver/ScreenSaver.h>
-#include <math.h>
-
-typedef struct {
-  unsigned int redValue;
-  unsigned int greenValue;
-  unsigned int blueValue;
-} HeySubstrateRGB;
+// -----------------------------------------------------------------------------
 
 
-// ---------------------------------------------------------------------------
-@interface HeySubstrateView : ScreenSaverView 
+
+
+
+// =============================================================================
+/*
+  SubstrateMac
+
+  Screensaver ported to Mac OS X by Warren Dodge of Hey Daddio!
+  <http://www.heydaddio.com/>
+
+  Original concept and code by
+  Substrate Watercolor by J. Tarbell, June 2004, Albuquerque New Mexico
+  Processing 0085 Beta syntax update, April 2005
+  <http://complexification.net/>
+
+  Curved crack drawing adapted from xscreensaver version by David Agraz Jan 2005
+  The following license applies to the curved crack drawing code:
+  xscreensaver, Copyright (c) 1997, 1998, 2002 Jamie Zawinski <jwz@jwz.org>
+  Permission to use, copy, modify, distribute, and sell this software 
+  and its documentation for any purpose is hereby granted without fee, 
+  provided that the above copyright notice appear in all copies and 
+  that both that copyright notice and this permission notice appear 
+  in supporting documentation. No representations are made about the 
+  suitability of this software for any purpose.  It is provided "as is" 
+  without express or implied warranty.
+*/
+// =============================================================================
+
+#import "HeySubstrate.h"
+
+
+// -----------------------------------------------------------------------------
+// MARK: HeySubstrateView
+
+//@interface HeySubstrateView : ScreenSaverView 
+@interface HeySubstrateView : UIView 
 {
-  IBOutlet id optionSheet;    // Option configuration sheet
+  IBOutlet id optionSheet;                // Option configuration sheet and
+  IBOutlet id numberOfCracksSlider;       //  self-explanatory control outlets
+  IBOutlet id speedOfCrackingSlider;      
+  IBOutlet id amountOfSandSlider;          
+  IBOutlet id densityOfDrawingSlider;     
+  IBOutlet id pauseBetweenDrawingsSlider; 
+  IBOutlet id drawCracksOnlyOption;  
+  IBOutlet id percentCurvedSlider;
   
-  int num;                    // Counter for ??? Index into Cracks array
-  int maxnum;                 // Maximum number of Cracks
-  NSMutableArray *cracks;     // Grid??? array??? of Cracks ???
-  BOOL bgCleared;             // Flag for clearing background
+  float optionNumberOfCracks;
+  float optionSpeedOfCracking;
+  float optionAmountOfSand;
+  float optionDensityOfDrawing;
+  float optionPauseBetweenDrawings;
+  BOOL  optionDrawCracksOnly;
+  int optionPercentCurves;
+  
+  NSMutableArray *crackArray; // Array of Cracks
+  int currNumCracks;          // Current number of Cracks in crackArray
+  int maxNumCracks;           // Maximum number of Cracks allowed in crackArray
+  BOOL bgCleared;             // Flag, has view background been cleared?
+  int iterationsDone;         // Counter for crack-drawing iterations
+  BOOL drawingPaused;         // Are we currently paused between drawings?
+  int framesToPause;          // How many animation frames to pause
+  int framesPaused;           // Counter for pause between drawings
+  
+  int viewWidth;              // Dimensions of view
+  int viewHeight;             // Dimensions of view
+  int *crackAngleGrid;        // Array/Grid of cracks, one per pixel
+#if TARGET_OS_IPHONE
+@public
+  CGImageRef ourFuckingOffscreenBitmapImage;
+#else
+#endif
 }
+
+// User Interface
+- (IBAction)okClick:(id)sender;
 - (IBAction)cancelClick:(id)sender;
 
-- (id)initWithFrame:(NSRect)frame isPreview:(BOOL)isPreview;
-- (void)makeCrack;
+// Inherited from ScreenSaverView
+//- (id)initWithFrame:(NSRect)frame isPreview:(BOOL)isPreview;
+- (id)initWithFrame:(CGRect)frame;
+- (void)dealloc;
 - (void)startAnimation;
 - (void)stopAnimation;
-- (void)drawRect:(NSRect)rect;
+//- (void)drawRect:(NSRect)rect;
+- (void)drawRect:(CGRect)rect;
 - (void)animateOneFrame;
+- (BOOL)isOpaque;
 - (BOOL)hasConfigureSheet;
-- (NSWindow*)configureSheet;
-@end
+//- (NSWindow*)configureSheet;
+- (UIView *)configureSheet;
 
-// ---------------------------------------------------------------------------
-@interface SandPainter : NSObject 
-{
-  subRGB *c;
-  float g;
-  NSColor *baseSandColor;     // Base color of the sand
-}
-- (subRGB *)somecolor;
-- (void)renderRX:(float)x RY:(float)y X:(float)ox Y:(float)oy;
-@end
+// Declare/define for iphone only
+- (void)setAnimationTimeInterval:(NSTimeInterval)timeInterval;
 
-// ---------------------------------------------------------------------------
-@interface Crack : NSObject 
-{
-  float x;                    // Current x position of crack
-  float y;                    // "       y                 "
-  float t;                    // Direction of travel in degrees
-  SubstrateView *ssView;      // Pointer to view  
-  SandPainter *sp;            // Our sand painter
-}
-- (id)initWithSSView:(SubstrateView *)view;
-- (void)findStart;
-- (void)startCrackX:(int)intX Y:(int)intY T:(int)intT;
-- (void)move;
-- (void)regionColor;
+// HeySubstrateView
+- (void)makeACrack;
+- (void)restartAnimation;
+- (void)setupAnimation;
+- (int)optionPercentCurves;
+- (float)optionAmountOfSand;
+- (BOOL)optionDrawCracksOnly;
+- (int)viewWidth;
+- (int)viewHeight;
+- (int *)crackAngleGrid;
+
+
 @end
 
 
-// End of SubstrateView.h
-// ===========================================================================
+// End of HeySubstrateView.h
+// =============================================================================
