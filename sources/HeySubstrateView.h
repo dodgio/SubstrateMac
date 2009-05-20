@@ -39,6 +39,7 @@
 // =============================================================================
 
 #import "HeySubstrate.h"
+#import "HeySubstrateAppDelegate.h"
 
 
 // -----------------------------------------------------------------------------
@@ -55,14 +56,8 @@
   IBOutlet id pauseBetweenDrawingsSlider; 
   IBOutlet id drawCracksOnlyOption;  
   IBOutlet id percentCurvedSlider;
-  
-  float optionNumberOfCracks;
-  float optionSpeedOfCracking;
-  float optionAmountOfSand;
-  float optionDensityOfDrawing;
-  float optionPauseBetweenDrawings;
-  BOOL  optionDrawCracksOnly;
-  int optionPercentCurves;
+
+  HeySubstrateOptions opts;
   
   NSMutableArray *crackArray; // Array of Cracks
   int currNumCracks;          // Current number of Cracks in crackArray
@@ -114,6 +109,8 @@
 - (int)viewWidth;
 - (int)viewHeight;
 - (int *)crackAngleGrid;
+- (void)getOptions:(HeySubstrateOptions *)options;
+- (void)setOptions:(HeySubstrateOptions *)options;
 
 
 @end

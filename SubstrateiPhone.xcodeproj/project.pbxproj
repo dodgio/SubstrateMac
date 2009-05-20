@@ -19,6 +19,8 @@
 		802123A60FC1D14100DD9A3B /* HeySubstrate.m in Sources */ = {isa = PBXBuildFile; fileRef = 802123A50FC1D14100DD9A3B /* HeySubstrate.m */; };
 		802123B10FC1D9CA00DD9A3B /* HeySubstrateCrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 802123B00FC1D9CA00DD9A3B /* HeySubstrateCrack.m */; };
 		802123C10FC1DEDE00DD9A3B /* UIColor-HeyUIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 802123BF0FC1DEDE00DD9A3B /* UIColor-HeyUIColor.m */; };
+		80D983E90FC39B170020A8F7 /* HeySettingsNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80D983E80FC39B170020A8F7 /* HeySettingsNavigationController.m */; };
+		80D983FB0FC39FD20020A8F7 /* HeySettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80D983FA0FC39FD20020A8F7 /* HeySettingsTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,10 @@
 		802123B00FC1D9CA00DD9A3B /* HeySubstrateCrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeySubstrateCrack.m; path = sources/HeySubstrateCrack.m; sourceTree = "<group>"; };
 		802123BE0FC1DEDE00DD9A3B /* UIColor-HeyUIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor-HeyUIColor.h"; path = "../HeyDaddioUtilityLibrary/sources/UIColor-HeyUIColor.h"; sourceTree = SOURCE_ROOT; };
 		802123BF0FC1DEDE00DD9A3B /* UIColor-HeyUIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor-HeyUIColor.m"; path = "../HeyDaddioUtilityLibrary/sources/UIColor-HeyUIColor.m"; sourceTree = SOURCE_ROOT; };
+		80D983E70FC39B170020A8F7 /* HeySettingsNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeySettingsNavigationController.h; path = sources/iphone/HeySettingsNavigationController.h; sourceTree = "<group>"; };
+		80D983E80FC39B170020A8F7 /* HeySettingsNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeySettingsNavigationController.m; path = sources/iphone/HeySettingsNavigationController.m; sourceTree = "<group>"; };
+		80D983F90FC39FD20020A8F7 /* HeySettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeySettingsTableViewController.h; path = sources/iphone/HeySettingsTableViewController.h; sourceTree = "<group>"; };
+		80D983FA0FC39FD20020A8F7 /* HeySettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeySettingsTableViewController.m; path = sources/iphone/HeySettingsTableViewController.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = resources/iphone/Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,6 +74,10 @@
 				28D7ACF70DDB3853001CB0EB /* HeySubstrateViewController.m */,
 				32CA4F630368D1EE00C91783 /* SubstrateiPhone_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
+				80D983E70FC39B170020A8F7 /* HeySettingsNavigationController.h */,
+				80D983E80FC39B170020A8F7 /* HeySettingsNavigationController.m */,
+				80D983F90FC39FD20020A8F7 /* HeySettingsTableViewController.h */,
+				80D983FA0FC39FD20020A8F7 /* HeySettingsTableViewController.m */,
 			);
 			name = "iPhone Sources";
 			sourceTree = "<group>";
@@ -196,6 +206,8 @@
 				802123A60FC1D14100DD9A3B /* HeySubstrate.m in Sources */,
 				802123B10FC1D9CA00DD9A3B /* HeySubstrateCrack.m in Sources */,
 				802123C10FC1DEDE00DD9A3B /* UIColor-HeyUIColor.m in Sources */,
+				80D983E90FC39B170020A8F7 /* HeySettingsNavigationController.m in Sources */,
+				80D983FB0FC39FD20020A8F7 /* HeySettingsTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

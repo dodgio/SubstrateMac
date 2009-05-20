@@ -53,6 +53,10 @@ static NSString * const optionSheetNibName = @"SubstrateMacOptions";
 static const float animationFPS = 60.0f;    // Frames per second to animate
 
 
+static const CGSize infoSize = {32.0f, 32.0f};
+
+
+
 // -----------------------------------------------------------------------------
 // MARK: Private Category Interface
 
@@ -85,13 +89,13 @@ static const float animationFPS = 60.0f;    // Frames per second to animate
       [NSNumber numberWithFloat:15.0f],      defaultsKeyPercentageOfCurvedCracks,
       nil]];
   
-  optionNumberOfCracks        = [defaults floatForKey:defaultsKeyNumberOfCracks];
-  optionSpeedOfCracking       = [defaults floatForKey:defaultsKeySpeedOfCracking];
-  optionAmountOfSand          = [defaults floatForKey:defaultsKeyAmountOfSand];
-  optionDensityOfDrawing      = [defaults floatForKey:defaultsKeyDensityOfDrawing];
-  optionPauseBetweenDrawings  = [defaults floatForKey:defaultsKeyPauseBetweenDrawings];
-  optionDrawCracksOnly        = [defaults boolForKey: defaultsKeyDrawCracksOnly];
-  optionPercentCurves         = [defaults floatForKey:defaultsKeyPercentageOfCurvedCracks];
+  opts.numberOfCracks        = [defaults floatForKey:defaultsKeyNumberOfCracks];
+  opts.speedOfCracking       = [defaults floatForKey:defaultsKeySpeedOfCracking];
+  opts.amountOfSand          = [defaults floatForKey:defaultsKeyAmountOfSand];
+  opts.densityOfDrawing      = [defaults floatForKey:defaultsKeyDensityOfDrawing];
+  opts.pauseBetweenDrawings  = [defaults floatForKey:defaultsKeyPauseBetweenDrawings];
+  opts.drawCracksOnly        = [defaults boolForKey: defaultsKeyDrawCracksOnly];
+  opts.percentCurves         = [defaults floatForKey:defaultsKeyPercentageOfCurvedCracks];
   
   [self setAnimationTimeInterval:1 / animationFPS];
   
@@ -175,7 +179,7 @@ static const float animationFPS = 60.0f;    // Frames per second to animate
 
 - (void)makeACrack 
 {
-  if (currNumCracks < optionNumberOfCracks ) 
+  if (currNumCracks < opts.numberOfCracks ) 
   {
     // make a new crack instance
     HeySubstrateCrack *newCrack;
@@ -290,19 +294,19 @@ static const float animationFPS = 60.0f;    // Frames per second to animate
   else 
   {
     // crack all cracks
-    for (spdLoops = (int)optionSpeedOfCracking; spdLoops > 0; spdLoops--) 
+    for (spdLoops = (int)opts.speedOfCracking; spdLoops > 0; spdLoops--) 
     {
       for (i = 0; i < currNumCracks; i++) 
       {
         iterationsDone++;
         [[crackArray objectAtIndex:i] move];
       }
-      if (iterationsDone >= optionDensityOfDrawing) 
+      if (iterationsDone >= opts.densityOfDrawing) 
       {
         drawingPaused = YES;
         framesPaused = 0;
         iterationsDone = 0;
-        framesToPause = (int)optionPauseBetweenDrawings * animationFPS;
+        framesToPause = (int)opts.pauseBetweenDrawings * animationFPS;
       }
     }
   }
@@ -381,13 +385,13 @@ static const float animationFPS = 60.0f;    // Frames per second to animate
   //[[UIApplication sharedApplication] endSheet:optionSheet];
   // TODO: pop the options view and go back to the display
 
-  optionNumberOfCracks        = [defaults floatForKey:defaultsKeyNumberOfCracks];
-  optionSpeedOfCracking       = [defaults floatForKey:defaultsKeySpeedOfCracking];
-  optionAmountOfSand          = [defaults floatForKey:defaultsKeyAmountOfSand];
-  optionDensityOfDrawing      = [defaults floatForKey:defaultsKeyDensityOfDrawing];
-  optionPauseBetweenDrawings  = [defaults floatForKey:defaultsKeyPauseBetweenDrawings];
-  optionDrawCracksOnly        = [defaults boolForKey: defaultsKeyDrawCracksOnly];
-  optionPercentCurves         = [defaults floatForKey:defaultsKeyPercentageOfCurvedCracks];
+  opts.numberOfCracks        = [defaults floatForKey:defaultsKeyNumberOfCracks];
+  opts.speedOfCracking       = [defaults floatForKey:defaultsKeySpeedOfCracking];
+  opts.amountOfSand          = [defaults floatForKey:defaultsKeyAmountOfSand];
+  opts.densityOfDrawing      = [defaults floatForKey:defaultsKeyDensityOfDrawing];
+  opts.pauseBetweenDrawings  = [defaults floatForKey:defaultsKeyPauseBetweenDrawings];
+  opts.drawCracksOnly        = [defaults boolForKey: defaultsKeyDrawCracksOnly];
+  opts.percentCurves         = [defaults floatForKey:defaultsKeyPercentageOfCurvedCracks];
   
   [self restartAnimation];
   return;
@@ -404,19 +408,19 @@ static const float animationFPS = 60.0f;    // Frames per second to animate
 
 - (int)optionPercentCurves 
 {
-  return optionPercentCurves;
+  return opts.percentCurves;
 }
 
 
 - (float)optionAmountOfSand 
 {
-  return optionAmountOfSand;
+  return opts.amountOfSand;
 }
 
 
 - (BOOL)optionDrawCracksOnly 
 {
-  return optionDrawCracksOnly;
+  return opts.drawCracksOnly;
 }
 
 
@@ -436,6 +440,92 @@ static const float animationFPS = 60.0f;    // Frames per second to animate
 {
   return crackAngleGrid;
 }
+
+
+- (void)getOptions:(HeySubstrateOptions *)options;
+{
+  options->numberOfCracks       = opts.numberOfCracks;
+  options->speedOfCracking      = opts.speedOfCracking;
+  options->amountOfSand         = opts.amountOfSand;
+  options->densityOfDrawing     = opts.densityOfDrawing; 
+  options->pauseBetweenDrawings = opts.pauseBetweenDrawings;
+  options->percentCurves        = opts.percentCurves;
+  options->drawCracksOnly       = opts.drawCracksOnly;
+}
+
+
+- (void)setOptions:(HeySubstrateOptions *)options
+{
+  opts.numberOfCracks       = options->numberOfCracks;
+  opts.speedOfCracking      = options->speedOfCracking;
+  opts.amountOfSand         = options->amountOfSand;
+  opts.densityOfDrawing     = options->densityOfDrawing; 
+  opts.pauseBetweenDrawings = options->pauseBetweenDrawings;
+  opts.percentCurves        = options->percentCurves;
+  opts.drawCracksOnly       = options->drawCracksOnly;
+}
+
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+// MARK: Touches and hit testing
+
+// Hit test the touches
+- (BOOL)hitTestTouches:(NSSet *)touches withEvent:(UIEvent *)event
+{
+  (void)event;
+  UITouch *touch = [touches anyObject];
+  CGPoint touchPoint = [touch locationInView:self];
+  CGRect testRect;
+  testRect = CGRectMake(self.bounds.size.width - infoSize.width, 
+                        self.bounds.size.height - infoSize.height, 
+                        infoSize.width, infoSize.height);
+  if (CGRectContainsPoint(testRect, touchPoint))
+  {
+    //[canvas showInfo:YES];
+    // !!!
+    //opts.numberOfCracks = opts.numberOfCracks * 2;
+    //[self restartAnimation];
+    //[self stopAnimation];
+    [(HeySubstrateAppDelegate *)[[UIApplication sharedApplication] delegate] showSettings];
+    return YES;
+  }
+  else
+  {
+    //[canvas showInfo:NO];
+    return NO;
+  }
+}
+
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+  [self hitTestTouches:touches withEvent:event];
+}
+
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+  [self hitTestTouches:touches withEvent:event];
+}
+
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+//  if ([self hitTestTouches:touches withEvent:event])
+//    [self switchToInfoView];
+}
+
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+  (void)touches;
+  (void)event;
+  // Do nothing.
+}
+
+
+
 
 
 @end

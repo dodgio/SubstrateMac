@@ -57,6 +57,17 @@ typedef union
   vFloat v;
 } HeyVectF_t;
 
+typedef struct
+{
+  float numberOfCracks;
+  float speedOfCracking;
+  float amountOfSand;
+  float densityOfDrawing;
+  float pauseBetweenDrawings;
+  float percentCurves;
+  BOOL  drawCracksOnly;
+} HeySubstrateOptions;
+
 
 // -----------------------------------------------------------------------------
 // MARK: Platform-Specific Project Headers
