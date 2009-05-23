@@ -48,6 +48,7 @@
 //@interface HeySubstrateView : ScreenSaverView 
 @interface HeySubstrateView : UIView 
 {
+ @private
   IBOutlet id optionSheet;                // Option configuration sheet and
   IBOutlet id numberOfCracksSlider;       //  self-explanatory control outlets
   IBOutlet id speedOfCrackingSlider;      
@@ -71,6 +72,9 @@
   int viewWidth;              // Dimensions of view
   int viewHeight;             // Dimensions of view
   int *crackAngleGrid;        // Array/Grid of cracks, one per pixel
+  
+  NSUInteger drawViewBacklog; // How much of a drawing backlog is there.
+  
 #if TARGET_OS_IPHONE
 @public
   CGImageRef ourFuckingOffscreenBitmapImage;
@@ -111,6 +115,7 @@
 - (int *)crackAngleGrid;
 - (void)getOptions:(HeySubstrateOptions *)options;
 - (void)setOptions:(HeySubstrateOptions *)options;
+- (void)writeOptions;
 
 
 @end

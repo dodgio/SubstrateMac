@@ -11,37 +11,30 @@
 
 #import "HeySettingsTableViewController.h"
 #import "HeySubstrateAppDelegate.h"
+#import "HeySubstrateView.h"
 
 
+// -----------------------------------------------------------------------------
+// MARK: HeySettingsTableViewController
 
 @implementation HeySettingsTableViewController
 
+
+// -----------------------------------------------------------------------------
+// MARK: Init and Dealloc
 
 - (id)init
 {
   if ((self = [super initWithStyle:UITableViewStyleGrouped]))
   {
     self.title = @"Settings";
-    HeySubstrateOptions *options = [(HeySubstrateAppDelegate *)[[UIApplication sharedApplication] delegate] options];
-    opts.numberOfCracks       = options->numberOfCracks;
-    opts.speedOfCracking      = options->speedOfCracking;
-    opts.amountOfSand         = options->amountOfSand;
-    opts.densityOfDrawing     = options->densityOfDrawing; 
-    opts.pauseBetweenDrawings = options->pauseBetweenDrawings;
-    opts.percentCurves        = options->percentCurves;
-    opts.drawCracksOnly       = options->drawCracksOnly;
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneAction:)];
+    self.navigationItem.rightBarButtonItem = doneButton;
+    [doneButton release];
+    
+    [((HeySubstrateAppDelegate *)[UIApplication sharedApplication].delegate) getOptions:&opts];
   }
   return self;
-}
-
-- (void)loadView
-{
-  [super loadView]; // ????
-}
-
-- (void)didReceiveMemoryWarning 
-{
-  [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
 }
 
 
@@ -52,33 +45,26 @@
 
 
 // -----------------------------------------------------------------------------
+// MARK: UITableViewController Methods
+
+//- (void)loadView
+//{
+//  [super loadView]; // ????
+//}
+
+
+//- (void)didReceiveMemoryWarning 
+//{
+//  [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
+//}
+
+
+// -----------------------------------------------------------------------------
 // MARK: UITableViewDelegate Protocol Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
   return 4;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-  switch (section) 
-  {
-    case 0:
-      return 4;
-      break;
-    case 1:
-      return 1;
-      break;
-    case 2:
-      return 2;
-      break;
-    case 3:
-      return 1;
-      break;
-    default:
-      return 0;
-      break;
-  }
 }
 
 
@@ -100,6 +86,29 @@
       break;
     default:
       return @"";
+      break;
+  }
+}
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+  switch (section) 
+  {
+    case 0:
+      return 4;
+      break;
+    case 1:
+      return 1;
+      break;
+    case 2:
+      return 2;
+      break;
+    case 3:
+      return 1;
+      break;
+    default:
+      return 0;
       break;
   }
 }
@@ -133,7 +142,7 @@
             numberSlider.continuous = YES;
             [numberSlider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
             [cell addSubview:numberSlider];
-            cell.text = @"Number of Cracks:";
+            cell.text = @"Number:";
             [numberSlider release];
           }
           break;
@@ -147,7 +156,7 @@
             speedSlider.continuous = YES;
             [speedSlider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
             [cell addSubview:speedSlider];
-            cell.text = @"Speed of Cracking:";
+            cell.text = @"Speed:";
             [speedSlider release];
           }
           break;
@@ -161,7 +170,7 @@
             curvedSlider.continuous = YES;
             [curvedSlider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
             [cell addSubview:curvedSlider];
-            cell.text = @"Percentage of Curved Cracks:";
+            cell.text = @"% Curved:";
             [curvedSlider release];
           }
           break;
@@ -193,7 +202,7 @@
             sandSlider.continuous = YES;
             [sandSlider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
             [cell addSubview:sandSlider];
-            cell.text = @"Amount of Sand:";
+            cell.text = @"Amount:";
             [sandSlider release];
           }
           break;
@@ -214,7 +223,7 @@
             densitySlider.continuous = YES;
             [densitySlider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
             [cell addSubview:densitySlider];
-            cell.text = @"Density of Drawing:";
+            cell.text = @"Density:";
             [densitySlider release];
           }
           break;
@@ -228,7 +237,7 @@
             pauseSlider.continuous = YES;
             [pauseSlider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
             [cell addSubview:pauseSlider];
-            cell.text = @"Pause Between Drawings:";
+            cell.text = @"Pause Between:";
             [pauseSlider release];
           }
           break;
@@ -286,6 +295,7 @@
   }
 }
 
+
 - (void)switchAction:(UISwitch *)sender
 {
   switch ([sender tag]) 
@@ -299,45 +309,17 @@
 }
 
 
-
-
-
-
-
-/*
-// The designated initializer. Override to perform setup that is required before the view is loaded.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        // Custom initialization
-    }
-    return self;
+- (void)doneAction:(UIBarButtonItem *)sender
+{
+  HeySubstrateAppDelegate *appDelegate;
+  appDelegate = (HeySubstrateAppDelegate *)[[UIApplication sharedApplication] delegate];
+  [appDelegate setOptions:&opts];       // Save settings to app delegate.
+  [appDelegate showSubstrate];
 }
-*/
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-}
-*/
-
-/*
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
-*/
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
 
 
 @end
+
 
 // End of HeySettingsTableViewController.m
 // =============================================================================

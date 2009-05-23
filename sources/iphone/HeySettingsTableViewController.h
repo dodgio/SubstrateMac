@@ -14,6 +14,7 @@
 
 @interface HeySettingsTableViewController : UITableViewController <UITableViewDelegate>
 {
+ @private
   HeySubstrateOptions opts;
 }
 

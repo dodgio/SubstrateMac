@@ -50,11 +50,8 @@ static NSString * const defaultsKeyPauseBetweenDrawings = @"PauseBetweenDrawings
 static NSString * const defaultsKeyDrawCracksOnly = @"DrawCracksOnly";
 static NSString * const defaultsKeyPercentageOfCurvedCracks = @"PercentageOfCurvedCracks";
 static NSString * const optionSheetNibName = @"SubstrateMacOptions";
-static const float animationFPS = 60.0f;    // Frames per second to animate
-
 
 static const CGSize infoSize = {32.0f, 32.0f};
-
 
 
 // -----------------------------------------------------------------------------
@@ -97,7 +94,7 @@ static const CGSize infoSize = {32.0f, 32.0f};
   opts.drawCracksOnly        = [defaults boolForKey: defaultsKeyDrawCracksOnly];
   opts.percentCurves         = [defaults floatForKey:defaultsKeyPercentageOfCurvedCracks];
   
-  [self setAnimationTimeInterval:1 / animationFPS];
+  [self setAnimationTimeInterval:1 / HeySubstrateAnimationFPS];
   
   //viewWidth = frame.size.width;
   //viewHeight = frame.size.height;
@@ -257,6 +254,11 @@ static const CGSize infoSize = {32.0f, 32.0f};
   //[self animateOneFrame];
   CGContextRef ctx = UIGraphicsGetCurrentContext();
   CGContextDrawImage(ctx, self.bounds, ourFuckingOffscreenBitmapImage);
+  if (drawViewBacklog > 0)
+    drawViewBacklog--;
+  if (drawViewBacklog > 0)
+    NSLog(@"drawViewBacklog: %i", drawViewBacklog);
+
 #else
   [super drawRect:rect];
 #endif
@@ -276,6 +278,7 @@ static const CGSize infoSize = {32.0f, 32.0f};
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextFillRect(ctx, CGRectMake([self frame].origin.x, [self frame].origin.y, [self frame].size.width, [self frame].size.height));
     bgCleared = YES;
+    drawViewBacklog++;
   }
   
   int i;
@@ -306,7 +309,7 @@ static const CGSize infoSize = {32.0f, 32.0f};
         drawingPaused = YES;
         framesPaused = 0;
         iterationsDone = 0;
-        framesToPause = (int)opts.pauseBetweenDrawings * animationFPS;
+        framesToPause = (int)opts.pauseBetweenDrawings * HeySubstrateAnimationFPS;
       }
     }
   }
@@ -383,7 +386,6 @@ static const CGSize infoSize = {32.0f, 32.0f};
   
   //[[NSApplication sharedApplication] endSheet:optionSheet];
   //[[UIApplication sharedApplication] endSheet:optionSheet];
-  // TODO: pop the options view and go back to the display
 
   opts.numberOfCracks        = [defaults floatForKey:defaultsKeyNumberOfCracks];
   opts.speedOfCracking       = [defaults floatForKey:defaultsKeySpeedOfCracking];
@@ -402,7 +404,6 @@ static const CGSize infoSize = {32.0f, 32.0f};
 {
   (void)sender;
   //[[NSApplication sharedApplication] endSheet:optionSheet];
-  // TODO: pop the options view and go back to the display
 }
 
 
@@ -463,9 +464,24 @@ static const CGSize infoSize = {32.0f, 32.0f};
   opts.pauseBetweenDrawings = options->pauseBetweenDrawings;
   opts.percentCurves        = options->percentCurves;
   opts.drawCracksOnly       = options->drawCracksOnly;
+  [self writeOptions];
 }
 
-// -----------------------------------------------------------------------------
+
+-(void)writeOptions
+{
+  NSUserDefaults *defaults;
+  defaults = [NSUserDefaults standardUserDefaults];
+  [defaults setFloat:opts.numberOfCracks forKey:defaultsKeyNumberOfCracks];
+  [defaults setFloat:opts.speedOfCracking forKey:defaultsKeySpeedOfCracking];
+  [defaults setFloat:opts.amountOfSand forKey:defaultsKeyAmountOfSand];
+  [defaults setFloat:opts.densityOfDrawing forKey:defaultsKeyDensityOfDrawing];
+  [defaults setFloat:opts.pauseBetweenDrawings forKey:defaultsKeyPauseBetweenDrawings];
+  [defaults setBool:opts.drawCracksOnly forKey:defaultsKeyDrawCracksOnly];
+  [defaults setFloat:opts.percentCurves forKey:defaultsKeyPercentageOfCurvedCracks];
+  [defaults synchronize];
+}
+
 
 // -----------------------------------------------------------------------------
 // MARK: Touches and hit testing
@@ -482,6 +498,7 @@ static const CGSize infoSize = {32.0f, 32.0f};
                         infoSize.width, infoSize.height);
   if (CGRectContainsPoint(testRect, touchPoint))
   {
+    NSLog(@"Touch is in the i.");
     //[canvas showInfo:YES];
     // !!!
     //opts.numberOfCracks = opts.numberOfCracks * 2;
@@ -492,6 +509,7 @@ static const CGSize infoSize = {32.0f, 32.0f};
   }
   else
   {
+    NSLog(@"Touch is NOT in the i.");
     //[canvas showInfo:NO];
     return NO;
   }
@@ -523,9 +541,6 @@ static const CGSize infoSize = {32.0f, 32.0f};
   (void)event;
   // Do nothing.
 }
-
-
-
 
 
 @end

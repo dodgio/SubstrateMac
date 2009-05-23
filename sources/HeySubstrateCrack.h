@@ -16,6 +16,7 @@
 
 @interface HeySubstrateCrack : NSObject 
 {
+ @private
   float posX;                 // Current X position of crack
   float posY;                 // "       Y                 "
   float angleOfTravel;        // Direction of travel in degrees

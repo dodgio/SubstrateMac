@@ -11,6 +11,11 @@
 
 #import "HeySubstrateViewController.h"
 #import "HeySubstrateView.h"
+#import "HeySubstrateAppDelegate.h"
+
+
+// -----------------------------------------------------------------------------
+// MARK: HeySubstrateViewController
 
 @implementation HeySubstrateViewController
 
@@ -37,8 +42,6 @@
 }
 
 
-
-
 // -----------------------------------------------------------------------------
 // MARK: Init and dealloc
 
@@ -46,44 +49,9 @@
 {
   if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
   {
-    animationInterval = 1.0f / 60.0f;
+    animationInterval = 1.0f / HeySubstrateAnimationFPS;
   }
   return self;
-}
-
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView 
-{
-}
-*/
-
-
-
-- (void)viewDidLoad 
-{
-  [super viewDidLoad];
-  self.view.backgroundColor = [UIColor clearColor];
-  [self startAnimation];
-}
-
-
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
- {
-  // Return YES for supported orientations
-  return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
-
-- (void)didReceiveMemoryWarning 
-{
-  [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-  // Release anything that's not essential, such as cached data
 }
 
 
@@ -95,18 +63,42 @@
 
 
 // -----------------------------------------------------------------------------
+// MARK: UIViewController Methods
+
+- (void)viewDidLoad 
+{
+  [super viewDidLoad];
+  self.view.backgroundColor = [UIColor clearColor];
+  [self startAnimation];
+}
+
+
+- (void)didReceiveMemoryWarning 
+{
+  [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
+}
+
+
+// -----------------------------------------------------------------------------
 // MARK: Animation Methods
 
 - (void)startAnimation
 {
   float width = [self.view bounds].size.width;
   float height = [self.view bounds].size.height;
-  CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
-  //bitContext = CGBitmapContextCreate(NULL, width, height, 8, 4 * width, space, kCGImageAlphaLast);
-  bitContext = CGBitmapContextCreate(NULL, width, height, 8, 0, space, (kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst));
-  CGColorSpaceRelease(space);
+  CGColorSpaceRef space;
+  if (!bitContext)
+  {
+    space = CGColorSpaceCreateDeviceRGB();
+    //bitContext = CGBitmapContextCreate(NULL, width, height, 8, 4 * width, space, kCGImageAlphaLast);
+    bitContext = CGBitmapContextCreate(NULL, width, height, 8, 0, space, (kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst));
+    CGColorSpaceRelease(space);
+  }
   HeySubstrateView *v = (HeySubstrateView *)self.view;
-  [v startAnimation];
+  //HeySubstrateAppDelegate *del = ((HeySubstrateAppDelegate *)([UIApplication sharedApplication].delegate));
+  //[v setOptions:[del options]];
+//  [v startAnimation];
+  [v restartAnimation];
   self.animationTimer = [NSTimer scheduledTimerWithTimeInterval:animationInterval target:self selector:@selector(drawView) userInfo:nil repeats:YES];
 }
 
@@ -116,10 +108,10 @@
   self.animationTimer = nil;
   HeySubstrateView *v = (HeySubstrateView *)self.view;
   [v stopAnimation];
-  CGContextRelease(bitContext);
-  bitContext = NULL;
-  CGImageRelease(bitImage);
-  bitImage = NULL;
+//  CGContextRelease(bitContext);
+//  bitContext = NULL;
+//  CGImageRelease(bitImage);
+//  bitImage = NULL;
 }
 
 
@@ -141,14 +133,28 @@
   bitImage = CGBitmapContextCreateImage(bitContext);
   UIGraphicsPopContext();
   v->ourFuckingOffscreenBitmapImage = bitImage;
+
+  
+  // Tell the system to process user events.
+  // TODO: move runloop time var to proper place
+  // CFTimeInterval HeySubstrateRunLoopUserInterval = 0.009;
+  //CFTimeInterval HeySubstrateRunLoopUserInterval = 0.009;
+  //while (CFRunLoopRunInMode(kCFRunLoopDefaultMode, HeySubstrateRunLoopUserInterval, FALSE) == kCFRunLoopRunHandledSource)
+  //{
+  //  // Nothing. We just want the run loop to do its thing.
+  //}
+  
+  CFTimeInterval HeySubstrateRunLoopUserInterval = 0.001;
+  SInt32 runLoopStatus;
+  while (1)
+  {
+    runLoopStatus = CFRunLoopRunInMode(kCFRunLoopDefaultMode, HeySubstrateRunLoopUserInterval, TRUE);
+    if (runLoopStatus != kCFRunLoopRunHandledSource)
+      break;
+  }
+  
   [v setNeedsDisplay];
 }
-
-
-
-
-
-
 
 
 @end

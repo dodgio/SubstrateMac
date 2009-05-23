@@ -24,6 +24,7 @@
 const int cagEmpty = 10000;             // Empty test value for crackAngleGrid.
 const int cagEmptyFlag = 10001;         // Empty flag value in crackAngleGrid.
 HEYCOLOR *HeySubstrateCrackColor;       // Color to draw all cracks.
+const float HeySubstrateAnimationFPS = 30.0f;    // Frames per second to animate
 
 
 // -----------------------------------------------------------------------------
