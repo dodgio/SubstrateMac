@@ -1,11 +1,33 @@
 // =============================================================================
 /*
-  HeySubstrateViewController.m
-  SubstrateiPhone Project
+    SubstrateMac
 
-  View controller.
+    Screensaver ported to Mac OS X by Warren Dodge of Hey Daddio!
+    <http://www.heydaddio.com/>
 
-  Copyright (c) Hey Daddio! 2009. All rights reserved.
+    Original concept and code by
+    Substrate Watercolor by J. Tarbell, June 2004, Albuquerque New Mexico
+    Processing 0085 Beta syntax update, April 2005
+    <http://complexification.net/>
+
+    Curved crack drawing adapted from xscreensaver version by David Agraz Jan 2005
+    The following license applies to the curved crack drawing code:
+    xscreensaver, Copyright (c) 1997, 1998, 2002 Jamie Zawinski <jwz@jwz.org>
+    Permission to use, copy, modify, distribute, and sell this software 
+    and its documentation for any purpose is hereby granted without fee, 
+    provided that the above copyright notice appear in all copies and 
+    that both that copyright notice and this permission notice appear 
+    in supporting documentation. No representations are made about the 
+    suitability of this software for any purpose.  It is provided "as is" 
+    without express or implied warranty.
+
+
+    HeySubstrateViewController.m
+    SubstrateiPhone Project
+
+    View controller.
+
+    Copyright (c) Hey Daddio! 2009.
 */
 // -----------------------------------------------------------------------------
 
@@ -26,19 +48,19 @@
 @synthesize animationTimer;
 - (void)setAnimationTimer:(NSTimer *)newTimer
 {
-  [animationTimer invalidate];
-  animationTimer = newTimer;
+    [animationTimer invalidate];
+    animationTimer = newTimer;
 }
 
 @synthesize animationInterval;
 - (void)setAnimationInterval:(NSTimeInterval)interval
 {
-  animationInterval = interval;
-  if (animationTimer)
-  {
-    [self stopAnimation];
-    [self startAnimation];
-  }
+    animationInterval = interval;
+    if (animationTimer)
+    {
+        [self stopAnimation];
+        [self startAnimation];
+    }
 }
 
 
@@ -47,18 +69,18 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil 
 {
-  if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
-  {
-    animationInterval = 1.0f / HeySubstrateAnimationFPS;
-  }
-  return self;
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
+    {
+        animationInterval = 1.0f / HeySubstrateAnimationFPS;
+    }
+    return self;
 }
 
 
 - (void)dealloc 
 {
-  
-  [super dealloc];
+    
+    [super dealloc];
 }
 
 
@@ -67,15 +89,15 @@
 
 - (void)viewDidLoad 
 {
-  [super viewDidLoad];
-  self.view.backgroundColor = [UIColor clearColor];
-  [self startAnimation];
+    [super viewDidLoad];
+    self.view.backgroundColor = [UIColor clearColor];
+    [self startAnimation];
 }
 
 
 - (void)didReceiveMemoryWarning 
 {
-  [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
+    //[super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
 }
 
 
@@ -84,76 +106,53 @@
 
 - (void)startAnimation
 {
-  float width = [self.view bounds].size.width;
-  float height = [self.view bounds].size.height;
-  CGColorSpaceRef space;
-  if (!bitContext)
-  {
-    space = CGColorSpaceCreateDeviceRGB();
-    //bitContext = CGBitmapContextCreate(NULL, width, height, 8, 4 * width, space, kCGImageAlphaLast);
-    bitContext = CGBitmapContextCreate(NULL, width, height, 8, 0, space, (kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst));
-    CGColorSpaceRelease(space);
-  }
-  HeySubstrateView *v = (HeySubstrateView *)self.view;
-  //HeySubstrateAppDelegate *del = ((HeySubstrateAppDelegate *)([UIApplication sharedApplication].delegate));
-  //[v setOptions:[del options]];
-//  [v startAnimation];
-  [v restartAnimation];
-  self.animationTimer = [NSTimer scheduledTimerWithTimeInterval:animationInterval target:self selector:@selector(drawView) userInfo:nil repeats:YES];
+    float width = [self.view bounds].size.width;
+    float height = [self.view bounds].size.height;
+    CGColorSpaceRef space;
+    if (!bitContext)
+    {
+        space = CGColorSpaceCreateDeviceRGB();
+        //bitContext = CGBitmapContextCreate(NULL, width, height, 8, 4 * width, space, kCGImageAlphaLast);
+        //bitContext = CGBitmapContextCreate(NULL, width, height, 8, 0, space, (kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst));
+        bitContext = CGBitmapContextCreate(NULL, width, height, 8, 0, space, (kCGBitmapByteOrderDefault | kCGImageAlphaPremultipliedLast));
+        CGColorSpaceRelease(space);
+    }
+    HeySubstrateView *v = (HeySubstrateView *)self.view;
+    [v restartAnimation];
+    self.animationTimer = [NSTimer scheduledTimerWithTimeInterval:animationInterval target:self selector:@selector(drawView) userInfo:nil repeats:YES];
 }
 
 
 - (void)stopAnimation
 {
-  self.animationTimer = nil;
-  HeySubstrateView *v = (HeySubstrateView *)self.view;
-  [v stopAnimation];
-//  CGContextRelease(bitContext);
-//  bitContext = NULL;
-//  CGImageRelease(bitImage);
-//  bitImage = NULL;
+    self.animationTimer = nil;
+    HeySubstrateView *v = (HeySubstrateView *)self.view;
+    [v stopAnimation];
 }
 
 
 - (void)drawView
 {
-  HeySubstrateView *v = (HeySubstrateView *)self.view;
-  //[v setNeedsDisplayInRect:CGRectNull];
-  //[v setNeedsDisplayInRect:CGRectZero];
-  //[v setNeedsDisplayInRect:CGRectMake(10.0f, 10.0f, 30.0f, 60.0f)];
-  //[v setNeedsDisplay];
-  //UIGraphicsBeginImageContext(v.bounds.size);
-  //[v animateOneFrame];
-  //UIGraphicsEndImageContext();
-  
-  UIGraphicsPushContext(bitContext);
-  [v animateOneFrame];
-  if (bitImage)
-    CGImageRelease(bitImage);
-  bitImage = CGBitmapContextCreateImage(bitContext);
-  UIGraphicsPopContext();
-  v->ourFuckingOffscreenBitmapImage = bitImage;
-
-  
-  // Tell the system to process user events.
-  // TODO: move runloop time var to proper place
-  // CFTimeInterval HeySubstrateRunLoopUserInterval = 0.009;
-  //CFTimeInterval HeySubstrateRunLoopUserInterval = 0.009;
-  //while (CFRunLoopRunInMode(kCFRunLoopDefaultMode, HeySubstrateRunLoopUserInterval, FALSE) == kCFRunLoopRunHandledSource)
-  //{
-  //  // Nothing. We just want the run loop to do its thing.
-  //}
-  
-  CFTimeInterval HeySubstrateRunLoopUserInterval = 0.001;
-  SInt32 runLoopStatus;
-  while (1)
-  {
-    runLoopStatus = CFRunLoopRunInMode(kCFRunLoopDefaultMode, HeySubstrateRunLoopUserInterval, TRUE);
-    if (runLoopStatus != kCFRunLoopRunHandledSource)
-      break;
-  }
-  
-  [v setNeedsDisplay];
+    HeySubstrateView *v = (HeySubstrateView *)self.view;
+    UIGraphicsPushContext(bitContext);
+    [v animateOneFrame];
+    if (bitImage)
+        CGImageRelease(bitImage);
+    bitImage = CGBitmapContextCreateImage(bitContext);
+    UIGraphicsPopContext();
+    v->offscreenBitmapImage = bitImage;
+    
+    // Tell the system to process user events.
+    CFTimeInterval HeySubstrateRunLoopUserInterval = 0.01;
+    SInt32 runLoopStatus;
+    while (1)
+    {
+        runLoopStatus = CFRunLoopRunInMode(kCFRunLoopDefaultMode, HeySubstrateRunLoopUserInterval, TRUE);
+        if (runLoopStatus != kCFRunLoopRunHandledSource)
+            break;
+    }
+    
+    [v setNeedsDisplay];
 }
 
 

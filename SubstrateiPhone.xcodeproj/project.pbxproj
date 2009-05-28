@@ -15,10 +15,16 @@
 		2899E5220DE3E06400AC0155 /* HeySubstrateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* HeySubstrateViewController.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* HeySubstrateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* HeySubstrateViewController.m */; };
+		801B0C9D0FC88B0B0022F3B3 /* infoicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 801B0C9C0FC88B0B0022F3B3 /* infoicon.png */; };
 		802123470FBF42CE00DD9A3B /* HeySubstrateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 802123460FBF42CE00DD9A3B /* HeySubstrateView.m */; };
 		802123A60FC1D14100DD9A3B /* HeySubstrate.m in Sources */ = {isa = PBXBuildFile; fileRef = 802123A50FC1D14100DD9A3B /* HeySubstrate.m */; };
 		802123B10FC1D9CA00DD9A3B /* HeySubstrateCrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 802123B00FC1D9CA00DD9A3B /* HeySubstrateCrack.m */; };
 		802123C10FC1DEDE00DD9A3B /* UIColor-HeyUIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 802123BF0FC1DEDE00DD9A3B /* UIColor-HeyUIColor.m */; };
+		80B7DC740FCB7A820062FDAB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80B7DC730FCB7A820062FDAB /* QuartzCore.framework */; };
+		80B7DCD00FCB8C350062FDAB /* Substrate.png in Resources */ = {isa = PBXBuildFile; fileRef = 80B7DCCF0FCB8C350062FDAB /* Substrate.png */; };
+		80B7DCDC0FCC5C8F0062FDAB /* Credits.png in Resources */ = {isa = PBXBuildFile; fileRef = 80B7DCDB0FCC5C8F0062FDAB /* Credits.png */; };
+		80B7DD790FCC9D9D0062FDAB /* blueButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 80B7DD770FCC9D9D0062FDAB /* blueButton.png */; };
+		80B7DD7A0FCC9D9D0062FDAB /* whiteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 80B7DD780FCC9D9D0062FDAB /* whiteButton.png */; };
 		80D983FB0FC39FD20020A8F7 /* HeySettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80D983FA0FC39FD20020A8F7 /* HeySettingsTableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -26,7 +32,7 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* HeySubstrateAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeySubstrateAppDelegate.h; path = sources/iphone/HeySubstrateAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* HeySubstrateAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeySubstrateAppDelegate.m; path = sources/iphone/HeySubstrateAppDelegate.m; sourceTree = "<group>"; };
-		1D6058910D05DD3D006BFB54 /* HeySubstrate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeySubstrate.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* Substrate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Substrate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2899E5210DE3E06400AC0155 /* HeySubstrateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HeySubstrateViewController.xib; path = resources/iphone/HeySubstrateViewController.xib; sourceTree = "<group>"; };
@@ -35,6 +41,7 @@
 		28D7ACF70DDB3853001CB0EB /* HeySubstrateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeySubstrateViewController.m; path = sources/iphone/HeySubstrateViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = sources/iphone/main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* SubstrateiPhone_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SubstrateiPhone_Prefix.pch; path = sources/iphone/SubstrateiPhone_Prefix.pch; sourceTree = "<group>"; };
+		801B0C9C0FC88B0B0022F3B3 /* infoicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = infoicon.png; path = resources/iphone/infoicon.png; sourceTree = "<group>"; };
 		802123450FBF42CE00DD9A3B /* HeySubstrateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeySubstrateView.h; path = sources/HeySubstrateView.h; sourceTree = "<group>"; };
 		802123460FBF42CE00DD9A3B /* HeySubstrateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeySubstrateView.m; path = sources/HeySubstrateView.m; sourceTree = "<group>"; };
 		802123A40FC1D14100DD9A3B /* HeySubstrate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeySubstrate.h; path = sources/HeySubstrate.h; sourceTree = "<group>"; };
@@ -43,6 +50,11 @@
 		802123B00FC1D9CA00DD9A3B /* HeySubstrateCrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeySubstrateCrack.m; path = sources/HeySubstrateCrack.m; sourceTree = "<group>"; };
 		802123BE0FC1DEDE00DD9A3B /* UIColor-HeyUIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor-HeyUIColor.h"; path = "../HeyDaddioUtilityLibrary/sources/UIColor-HeyUIColor.h"; sourceTree = SOURCE_ROOT; };
 		802123BF0FC1DEDE00DD9A3B /* UIColor-HeyUIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor-HeyUIColor.m"; path = "../HeyDaddioUtilityLibrary/sources/UIColor-HeyUIColor.m"; sourceTree = SOURCE_ROOT; };
+		80B7DC730FCB7A820062FDAB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		80B7DCCF0FCB8C350062FDAB /* Substrate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Substrate.png; path = resources/iphone/Substrate.png; sourceTree = "<group>"; };
+		80B7DCDB0FCC5C8F0062FDAB /* Credits.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Credits.png; path = resources/iphone/Credits.png; sourceTree = "<group>"; };
+		80B7DD770FCC9D9D0062FDAB /* blueButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blueButton.png; path = resources/iphone/blueButton.png; sourceTree = "<group>"; };
+		80B7DD780FCC9D9D0062FDAB /* whiteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whiteButton.png; path = resources/iphone/whiteButton.png; sourceTree = "<group>"; };
 		80D983F90FC39FD20020A8F7 /* HeySettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeySettingsTableViewController.h; path = sources/iphone/HeySettingsTableViewController.h; sourceTree = "<group>"; };
 		80D983FA0FC39FD20020A8F7 /* HeySettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeySettingsTableViewController.m; path = sources/iphone/HeySettingsTableViewController.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = resources/iphone/Info.plist; sourceTree = "<group>"; };
@@ -56,6 +68,7 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
+				80B7DC740FCB7A820062FDAB /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,7 +93,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* HeySubstrate.app */,
+				1D6058910D05DD3D006BFB54 /* Substrate.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -114,9 +127,14 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2899E5210DE3E06400AC0155 /* HeySubstrateViewController.xib */,
-				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
+				80B7DCDB0FCC5C8F0062FDAB /* Credits.png */,
+				80B7DCCF0FCB8C350062FDAB /* Substrate.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
+				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
+				2899E5210DE3E06400AC0155 /* HeySubstrateViewController.xib */,
+				801B0C9C0FC88B0B0022F3B3 /* infoicon.png */,
+				80B7DD770FCC9D9D0062FDAB /* blueButton.png */,
+				80B7DD780FCC9D9D0062FDAB /* whiteButton.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -124,6 +142,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				80B7DC730FCB7A820062FDAB /* QuartzCore.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
@@ -157,7 +176,7 @@
 			);
 			name = HeySubstrate;
 			productName = HeySubstrate;
-			productReference = 1D6058910D05DD3D006BFB54 /* HeySubstrate.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* Substrate.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -184,6 +203,11 @@
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				2899E5220DE3E06400AC0155 /* HeySubstrateViewController.xib in Resources */,
+				801B0C9D0FC88B0B0022F3B3 /* infoicon.png in Resources */,
+				80B7DCD00FCB8C350062FDAB /* Substrate.png in Resources */,
+				80B7DCDC0FCC5C8F0062FDAB /* Credits.png in Resources */,
+				80B7DD790FCC9D9D0062FDAB /* blueButton.png in Resources */,
+				80B7DD7A0FCC9D9D0062FDAB /* whiteButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,7 +243,7 @@
 				GCC_PREFIX_HEADER = sources/iphone/SubstrateiPhone_Prefix.pch;
 				GCC_THUMB_SUPPORT = YES;
 				INFOPLIST_FILE = resources/iphone/Info.plist;
-				PRODUCT_NAME = HeySubstrate;
+				PRODUCT_NAME = Substrate;
 			};
 			name = Debug;
 		};
@@ -232,7 +256,7 @@
 				GCC_PREFIX_HEADER = sources/iphone/SubstrateiPhone_Prefix.pch;
 				GCC_THUMB_SUPPORT = YES;
 				INFOPLIST_FILE = resources/iphone/Info.plist;
-				PRODUCT_NAME = HeySubstrate;
+				PRODUCT_NAME = Substrate;
 			};
 			name = Release;
 		};

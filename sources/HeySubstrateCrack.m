@@ -1,11 +1,33 @@
 // =============================================================================
 /*
-  HeySubstrateCrack.m
-  SubstrateMac/SubstrateiPhone Projects
+    SubstrateMac
 
-  "Crack" drawing abstraction class.
+    Screensaver ported to Mac OS X by Warren Dodge of Hey Daddio!
+    <http://www.heydaddio.com/>
 
-  Copyright (c) Hey Daddio! 2009. All rights reserved.
+    Original concept and code by
+    Substrate Watercolor by J. Tarbell, June 2004, Albuquerque New Mexico
+    Processing 0085 Beta syntax update, April 2005
+    <http://complexification.net/>
+
+    Curved crack drawing adapted from xscreensaver version by David Agraz Jan 2005
+    The following license applies to the curved crack drawing code:
+    xscreensaver, Copyright (c) 1997, 1998, 2002 Jamie Zawinski <jwz@jwz.org>
+    Permission to use, copy, modify, distribute, and sell this software 
+    and its documentation for any purpose is hereby granted without fee, 
+    provided that the above copyright notice appear in all copies and 
+    that both that copyright notice and this permission notice appear 
+    in supporting documentation. No representations are made about the 
+    suitability of this software for any purpose.  It is provided "as is" 
+    without express or implied warranty.
+
+
+    HeySubstrateCrack.m
+    SubstrateMac/SubstrateiPhone Projects
+
+    "Crack" drawing abstraction class.
+
+    Copyright (c) Hey Daddio! 2009.
 */
 // -----------------------------------------------------------------------------
 
@@ -104,29 +126,29 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
 // Designated initializer.
 - (id)initWithSSView:(HeySubstrateView *)view 
 {
-  self = [super init];
-  if (!self)
-    return nil;
-  
-  [view retain];
-  saverView = view;
-  
-  vFSource = (HeyVectF_t *) malloc(sizeof(HeyVectF_t) * sandGrainCnt);
-  vFDest   = (HeyVectF_t *) malloc(sizeof(HeyVectF_t) * sandGrainCnt);
-  [self findStartPointAndTravelAngle];
-  
-  return self;
+    self = [super init];
+    if (!self)
+        return nil;
+    
+    [view retain];
+    saverView = view;
+    
+    vFSource = (HeyVectF_t *) malloc(sizeof(HeyVectF_t) * sandGrainCnt);
+    vFDest   = (HeyVectF_t *) malloc(sizeof(HeyVectF_t) * sandGrainCnt);
+    [self findStartPointAndTravelAngle];
+    
+    return self;
 }
 
 
 // Destroy.
 - (void) dealloc 
 {
-  [baseSandColor release];
-  free(vFSource);
-  free(vFDest);
-  [saverView release];
-  [super dealloc];
+    [baseSandColor release];
+    free(vFSource);
+    free(vFDest);
+    [saverView release];
+    [super dealloc];
 }
 
 
@@ -136,276 +158,276 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
 // Begin a new crack.
 - (void)findStartPointAndTravelAngle 
 {
-  [self setupSand];
-  // Pick random points looking for a crack
-  int randomX = 0;
-  int randomY = 0;
-  BOOL found = NO;
-  int timeout = 0;
-  int vWidth = [saverView viewWidth];
-  int vHeight = [saverView viewHeight];
-  int *cag = [saverView crackAngleGrid];
-  while (!found && timeout++ < 10000) 
-  {
-    randomX = random() % vWidth;
-    randomY = random() % vHeight;
-    if (cag[randomY * vWidth + randomX] < cagEmpty) 
+    [self setupSand];
+    // Pick random points looking for a crack
+    int randomX = 0;
+    int randomY = 0;
+    BOOL found = NO;
+    int timeout = 0;
+    int vWidth = [saverView viewWidth];
+    int vHeight = [saverView viewHeight];
+    int *cag = [saverView crackAngleGrid];
+    while (!found && timeout++ < 10000) 
     {
-      // <10,000 means pixel has a crack through it
-      found = YES;
+        randomX = random() % vWidth;
+        randomY = random() % vHeight;
+        if (cag[randomY * vWidth + randomX] < cagEmpty) 
+        {
+            // <10,000 means pixel has a crack through it
+            found = YES;
+        }
     }
-  }
-  
-  // Start crack
-  posX = randomX;
-  posY = randomY;
-  if (found)
-    angleOfTravel = cag[randomY * vWidth + randomX];
-  else
-    angleOfTravel = random() % 360;
-  
-  if ((random() % 100) < 50) 
-  {
-    // Half of new cracks as positive angle, half negative
-    angleOfTravel -= 90 + (int)(((random() % 41000) / 10000.0) - 2.0);  
-    // original java: int(random(-2.0, 2.1)
-  } 
-  else 
-  {
-    angleOfTravel += 90 + (int)(((random() % 41000) / 10000.0) - 2.0);  
-  }
-  cosAnglePi180 = cosf(angleOfTravel * (float)M_PI / 180.0f);
-  sinAnglePi180 = sinf(angleOfTravel * (float)M_PI / 180.0f);
-  posX += 0.61f * cosAnglePi180;
-  posY += 0.61f * sinAnglePi180;
-  
-  float radius;
-  float radian_inc;
-  if (random() % 100 < [saverView optionPercentCurves]) 
-  {
-    curved = YES;
-    degrees_drawn = 0;
-    radius = 10 + (random() % ((vWidth + vHeight) / 2));
-    if (random() % 100 < 50) 
+    
+    // Start crack
+    posX = randomX;
+    posY = randomY;
+    if (found)
+        angleOfTravel = cag[randomY * vWidth + randomX];
+    else
+        angleOfTravel = random() % 360;
+    
+    if ((random() % 100) < 50) 
     {
-      radius *= -1;
+        // Half of new cracks as positive angle, half negative
+        angleOfTravel -= 90 + (int)(((random() % 41000) / 10000.0) - 2.0);  
+        // original java: int(random(-2.0, 2.1)
+    } 
+    else 
+    {
+        angleOfTravel += 90 + (int)(((random() % 41000) / 10000.0) - 2.0);  
     }
-    // arc length  = radius * theta => theta = arc length / radius
-    radian_inc = curvedCrackStep / radius;
-    t_inc = radian_inc * 360.0f / 2.0f / (float)M_PI;
-    ys = radius * sinf(radian_inc);
-    xs = radius * (1.0f - cosf(radian_inc));
-  } 
-  else 
-  {
-    curved = NO;
-    degrees_drawn = 0;
-    radius = 0;
-    t_inc = 0;
-    xs = 0;
-    ys = 0;
-  }  
+    cosAnglePi180 = cosf(angleOfTravel * (float)M_PI / 180.0f);
+    sinAnglePi180 = sinf(angleOfTravel * (float)M_PI / 180.0f);
+    posX += 0.61f * cosAnglePi180;
+    posY += 0.61f * sinAnglePi180;
+    
+    float radius;
+    float radian_inc;
+    if (random() % 100 < [saverView optionPercentCurves]) 
+    {
+        curved = YES;
+        degrees_drawn = 0;
+        radius = 10 + (random() % ((vWidth + vHeight) / 2));
+        if (random() % 100 < 50) 
+        {
+            radius *= -1;
+        }
+        // arc length  = radius * theta => theta = arc length / radius
+        radian_inc = curvedCrackStep / radius;
+        t_inc = radian_inc * 360.0f / 2.0f / (float)M_PI;
+        ys = radius * sinf(radian_inc);
+        xs = radius * (1.0f - cosf(radian_inc));
+    } 
+    else 
+    {
+        curved = NO;
+        degrees_drawn = 0;
+        radius = 0;
+        t_inc = 0;
+        xs = 0;
+        ys = 0;
+    }  
 }
 
 
 // Move the cracking of the cracks forward.
 - (void)move 
 {
-  int vWidth = [saverView viewWidth];
-  int vHeight = [saverView viewHeight];
-  int *cag = [saverView crackAngleGrid];
-  
-  // Continue cracking
-  if (!curved) 
-  {
-    posX += 0.42f * cosAnglePi180;
-    posY += 0.42f * sinAnglePi180;
-  } 
-  else 
-  {
-    float oldx, oldy;
-    oldx = posX;
-    oldy = posY;
-    posX += ys * cosAnglePi180;
-    posY += ys * sinAnglePi180;
-    posX += xs * (cosAnglePi180 - (float)M_PI / 2.0f);
-    posY += xs * (sinAnglePi180 - (float)M_PI / 2.0f);
-    angleOfTravel += t_inc;
-    degrees_drawn += abs(t_inc);
-    cosAnglePi180 = cosf(angleOfTravel * (float)M_PI / 180.0f);
-    sinAnglePi180 = sinf(angleOfTravel * (float)M_PI / 180.0f);
-  }
-  
-  // Add fuzz to line of crack and draw
-  int drawX, drawY;
-  float z = 0.33f;
-  drawX = (int)(posX + ((random() % (int)(z * 200.0f)) / 100.0f) - z); // java: random(-z,z)
-  drawY = (int)(posY + ((random() % (int)(z * 200.0f)) / 100.0f) - z);
-  
-  // Draw sand
-  if (![saverView optionDrawCracksOnly]) 
-  {
-    [self regionColor];
-  }
-  
-  // Draw black-ish crack
-  [HeySubstrateCrackColor set];
-  //[NSBezierPath fillRect:NSMakeRect(drawX, drawY, 1.0f, 1.0f)];
-  CGContextRef ctx = UIGraphicsGetCurrentContext();
-  CGContextFillRect(ctx, CGRectMake(drawX, drawY, 1.0f, 1.0f)); 
-//  CGContextFillRect(ctx, CGRectMake(drawX, drawY, 4.0f, 4.0f)); 
-//  NSLog(@"Crackpoint: %d, %d", drawX, drawY);
-  
-  // Bounds check, collision detection.
-  if (drawX >= 0 && drawX < vWidth && drawY >= 0 && drawY < vHeight) 
-  {
-    // If empty space, or angle of collision < 5 degrees, continue cracking.
-    if (cag[drawY * vWidth + drawX] > cagEmpty || abs(cag[drawY * vWidth + drawX] - angleOfTravel) < 5) 
+    int vWidth = [saverView viewWidth];
+    int vHeight = [saverView viewHeight];
+    int *cag = [saverView crackAngleGrid];
+    
+    // Continue cracking
+    if (!curved) 
     {
-      cag[drawY * vWidth + drawX] = (int)angleOfTravel;
+        posX += 0.42f * cosAnglePi180;
+        posY += 0.42f * sinAnglePi180;
     } 
-    else if (abs(cag[drawY * vWidth + drawX] - angleOfTravel) > 2) 
+    else 
     {
-      // crack encountered (not self), stop cracking this crack here,
-      //  move to another point and also make another crack.
-      [self findStartPointAndTravelAngle];
-      [saverView makeACrack];
+        float oldx, oldy;
+        oldx = posX;
+        oldy = posY;
+        posX += ys * cosAnglePi180;
+        posY += ys * sinAnglePi180;
+        posX += xs * (cosAnglePi180 - (float)M_PI / 2.0f);
+        posY += xs * (sinAnglePi180 - (float)M_PI / 2.0f);
+        angleOfTravel += t_inc;
+        degrees_drawn += abs(t_inc);
+        cosAnglePi180 = cosf(angleOfTravel * (float)M_PI / 180.0f);
+        sinAnglePi180 = sinf(angleOfTravel * (float)M_PI / 180.0f);
     }
-  } 
-  else 
-  {
-    // Out of bounds, stop cracking this crack here,
-    //  move to another point and also make another crack.
-    [self findStartPointAndTravelAngle];
-    [saverView makeACrack];
-  }
-  return;
+    
+    // Add fuzz to line of crack and draw
+    int drawX, drawY;
+    float z = 0.33f;
+    drawX = (int)(posX + ((random() % (int)(z * 200.0f)) / 100.0f) - z); // java: random(-z,z)
+    drawY = (int)(posY + ((random() % (int)(z * 200.0f)) / 100.0f) - z);
+    
+    // Draw sand
+    if (![saverView optionDrawCracksOnly]) 
+    {
+        [self regionColor];
+    }
+    
+    // Draw black-ish crack
+    [HeySubstrateCrackColor set];
+    //[NSBezierPath fillRect:NSMakeRect(drawX, drawY, 1.0f, 1.0f)];
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextFillRect(ctx, CGRectMake(drawX, drawY, 1.0f, 1.0f)); 
+    //  CGContextFillRect(ctx, CGRectMake(drawX, drawY, 4.0f, 4.0f)); 
+    //  NSLog(@"Crackpoint: %d, %d", drawX, drawY);
+    
+    // Bounds check, collision detection.
+    if (drawX >= 0 && drawX < vWidth && drawY >= 0 && drawY < vHeight) 
+    {
+        // If empty space, or angle of collision < 5 degrees, continue cracking.
+        if (cag[drawY * vWidth + drawX] > cagEmpty || abs(cag[drawY * vWidth + drawX] - angleOfTravel) < 5) 
+        {
+            cag[drawY * vWidth + drawX] = (int)angleOfTravel;
+        } 
+        else if (abs(cag[drawY * vWidth + drawX] - angleOfTravel) > 2) 
+        {
+            // crack encountered (not self), stop cracking this crack here,
+            //  move to another point and also make another crack.
+            [self findStartPointAndTravelAngle];
+            [saverView makeACrack];
+        }
+    } 
+    else 
+    {
+        // Out of bounds, stop cracking this crack here,
+        //  move to another point and also make another crack.
+        [self findStartPointAndTravelAngle];
+        [saverView makeACrack];
+    }
+    return;
 }
 
 
 // Spread the sand color into the open space.
 - (void)regionColor 
 {
-  float openRegionX = posX;
-  float openRegionY = posY;
-  int checkX, checkY;
-  BOOL openspace = YES;
-  int vWidth = [saverView viewWidth];
-  int vHeight = [saverView viewHeight];
-  int *cag = [saverView crackAngleGrid];
-  
-  // Find extents of open space, start checking one step away from crack.
-  while (openspace) 
-  {
-    // Move perpendicular to crack
-    openRegionX += 0.81f * sinf(angleOfTravel * M_PI_180_F);
-    openRegionY -= 0.81f * cosf(angleOfTravel * M_PI_180_F);
-    checkX = (int)openRegionX;
-    checkY = (int)openRegionY;
-    // Bounds check
-    if (checkX >= 0 && checkX < vWidth && checkY >= 0 && checkY < vHeight) 
+    float openRegionX = posX;
+    float openRegionY = posY;
+    int checkX, checkY;
+    BOOL openspace = YES;
+    int vWidth = [saverView viewWidth];
+    int vHeight = [saverView viewHeight];
+    int *cag = [saverView crackAngleGrid];
+    
+    // Find extents of open space, start checking one step away from crack.
+    while (openspace) 
     {
-      if (cag[checkY * vWidth + checkX] > cagEmpty) 
-      {
-        // Space is open, continue looking.
-      } 
-      else 
-      {
-        openspace = NO;
-      }
-    } 
-    else 
-    {
-      openspace = NO;
+        // Move perpendicular to crack
+        openRegionX += 0.81f * sinf(angleOfTravel * M_PI_180_F);
+        openRegionY -= 0.81f * cosf(angleOfTravel * M_PI_180_F);
+        checkX = (int)openRegionX;
+        checkY = (int)openRegionY;
+        // Bounds check
+        if (checkX >= 0 && checkX < vWidth && checkY >= 0 && checkY < vHeight) 
+        {
+            if (cag[checkY * vWidth + checkX] > cagEmpty) 
+            {
+                // Space is open, continue looking.
+            } 
+            else 
+            {
+                openspace = NO;
+            }
+        } 
+        else 
+        {
+            openspace = NO;
+        }
     }
-  }
-  // Draw sand
-  [self paintToX:openRegionX Y:openRegionY FromCrackX:posX CrackY:posY];
+    // Draw sand
+    [self paintToX:openRegionX Y:openRegionY FromCrackX:posX CrackY:posY];
 }
 
 
 // Draw the sand.
 - (void)paintToX:(float)xEnd Y:(float)yEnd FromCrackX:(float)crackPosX CrackY:(float)crackPosY 
 {
-  // modulate gain
-  sandGain += (random() % 10) / 100.0f + [saverView optionAmountOfSand];
-  float maxSandGain = 1.0f;
-  if (sandGain < 0)
-    sandGain = 0;
-  if (sandGain > maxSandGain)
-    sandGain = maxSandGain;
-  
-  // Calculate grains by distance
-  // Lay down grains of sand (translucent pixels)
-  // Vectorized version of
-  //    sinCalc = sin(sin(i * w));
-  float w = sandGain / (sandGrainCnt - 1);
-  int i, j;
-  for (i = 0; i < sandGrainVecCnt; i++) 
-  {
-    for (j = 0; j < sandGrainVecLen; j++) 
+    // modulate gain
+    sandGain += (random() % 10) / 100.0f + [saverView optionAmountOfSand];
+    float maxSandGain = 1.0f;
+    if (sandGain < 0)
+        sandGain = 0;
+    if (sandGain > maxSandGain)
+        sandGain = maxSandGain;
+    
+    // Calculate grains by distance
+    // Lay down grains of sand (translucent pixels)
+    // Vectorized version of
+    //    sinCalc = sin(sin(i * w));
+    float w = sandGain / (sandGrainCnt - 1);
+    int i, j;
+    for (i = 0; i < sandGrainVecCnt; i++) 
     {
-      vFSource[i].f[j] = (i * sandGrainVecLen + j) * w;
+        for (j = 0; j < sandGrainVecLen; j++) 
+        {
+            vFSource[i].f[j] = (i * sandGrainVecLen + j) * w;
+        }
     }
-  }
-  Heyvvsinf( (float *)vFDest,   (float *)vFSource, &sandGrainCnt);
-  Heyvvsinf( (float *)vFSource, (float *)vFDest,   &sandGrainCnt);
-  
-  
-  float sandAlpha;
-  float sandX, sandY;
-  int pixSandX, pixSandY;
-  int prevPixSandX = 0, prevPixSandY = 0;
-  
-  for (i = 0; i < sandGrainVecCnt; i++) 
-  {    
-    for (j = 0; j < sandGrainVecLen; j++) 
-    {
-      sandX = crackPosX + (xEnd - crackPosX) * vFSource[i].f[j];
-      sandY = crackPosY + (yEnd - crackPosY) * vFSource[i].f[j];
-      pixSandX = (int)sandX;
-      pixSandY = (int)sandY;
-      // Drawing optimization: don't keep drawing the same pixels over and over again
-      if ((pixSandX != prevPixSandX) || (pixSandY !=prevPixSandY)) 
-      {
-        prevPixSandX = pixSandX;
-        prevPixSandY = pixSandY;
-        // sandAlpha = 0.1 - (i * sandGrainVecLen + j) / (sandGrainCnt * 10.0); // too pale, punch up a bit
-        sandAlpha = 0.15f - (i * sandGrainVecLen + j) / (sandGrainCnt * 10.0f);
-        [[baseSandColor colorWithAlphaComponent:sandAlpha] set];
-        //[NSBezierPath fillRect:NSMakeRect(pixSandX + 0.5f, pixSandY + 0.5f, 1.0f, 1.0f)];
-        CGContextRef ctx = UIGraphicsGetCurrentContext();
-        CGContextFillRect(ctx, CGRectMake(pixSandX + 0.5f, pixSandY + 0.5f, 1.0f, 1.0f)); 
-      }
+    Heyvvsinf( (float *)vFDest,   (float *)vFSource, &sandGrainCnt);
+    Heyvvsinf( (float *)vFSource, (float *)vFDest,   &sandGrainCnt);
+    
+    
+    float sandAlpha;
+    float sandX, sandY;
+    int pixSandX, pixSandY;
+    int prevPixSandX = 0, prevPixSandY = 0;
+    
+    for (i = 0; i < sandGrainVecCnt; i++) 
+    {    
+        for (j = 0; j < sandGrainVecLen; j++) 
+        {
+            sandX = crackPosX + (xEnd - crackPosX) * vFSource[i].f[j];
+            sandY = crackPosY + (yEnd - crackPosY) * vFSource[i].f[j];
+            pixSandX = (int)sandX;
+            pixSandY = (int)sandY;
+            // Drawing optimization: don't keep drawing the same pixels over and over again
+            if ((pixSandX != prevPixSandX) || (pixSandY !=prevPixSandY)) 
+            {
+                prevPixSandX = pixSandX;
+                prevPixSandY = pixSandY;
+                // sandAlpha = 0.1 - (i * sandGrainVecLen + j) / (sandGrainCnt * 10.0); // too pale, punch up a bit
+                sandAlpha = 0.15f - (i * sandGrainVecLen + j) / (sandGrainCnt * 10.0f);
+                [[baseSandColor colorWithAlphaComponent:sandAlpha] set];
+                //[NSBezierPath fillRect:NSMakeRect(pixSandX + 0.5f, pixSandY + 0.5f, 1.0f, 1.0f)];
+                CGContextRef ctx = UIGraphicsGetCurrentContext();
+                CGContextFillRect(ctx, CGRectMake(pixSandX + 0.5f, pixSandY + 0.5f, 1.0f, 1.0f)); 
+            }
+        }
     }
-  }
 }
 
 
 - (void)setupSand 
 {
-  HeySubstrateRGB const *sandRGB = [self randomSubstrateRGB];
-  if (baseSandColor) 
-  {
-    [baseSandColor release];
-  }
-  // TODO: change colorWithDeviceRed to colorWithGenericRed
-  //baseSandColor = [NSColor colorWithDeviceRed:sandRGB->redValue/255.0f 
-  //                                      green:sandRGB->greenValue/255.0f 
-  //                                       blue:sandRGB->blueValue/255.0f 
-  //                                      alpha:1.0f];
-  baseSandColor = [UIColor colorWithRed:sandRGB->redValue/255.0f 
-                                  green:sandRGB->greenValue/255.0f 
-                                   blue:sandRGB->blueValue/255.0f 
-                                  alpha:1.0f];
-  [baseSandColor retain];
-  sandGain = (random() % 10) / 100.0f + 0.01f;
+    HeySubstrateRGB const *sandRGB = [self randomSubstrateRGB];
+    if (baseSandColor) 
+    {
+        [baseSandColor release];
+    }
+    // TODO: change colorWithDeviceRed to colorWithGenericRed
+    //baseSandColor = [NSColor colorWithDeviceRed:sandRGB->redValue/255.0f 
+    //                                      green:sandRGB->greenValue/255.0f 
+    //                                       blue:sandRGB->blueValue/255.0f 
+    //                                      alpha:1.0f];
+    baseSandColor = [UIColor colorWithRed:sandRGB->redValue/255.0f 
+                                    green:sandRGB->greenValue/255.0f 
+                                     blue:sandRGB->blueValue/255.0f 
+                                    alpha:1.0f];
+    [baseSandColor retain];
+    sandGain = (random() % 10) / 100.0f + 0.01f;
 }
 
 
 - (HeySubstrateRGB const *)randomSubstrateRGB 
 {
-  return HeySubstrateRGBPalette + (random() & (maxPaletteEntries - 1));
+    return HeySubstrateRGBPalette + (random() & (maxPaletteEntries - 1));
 }
 
 

@@ -1,40 +1,33 @@
 // =============================================================================
 /*
-  HeySubstrateView.m
-  SubstrateMac/SubstrateiPhone Projects
+    SubstrateMac
 
-  View for fancy drawing.
+    Screensaver ported to Mac OS X by Warren Dodge of Hey Daddio!
+    <http://www.heydaddio.com/>
 
-  Copyright (c) Hey Daddio! 2009. All rights reserved.
+    Original concept and code by
+    Substrate Watercolor by J. Tarbell, June 2004, Albuquerque New Mexico
+    Processing 0085 Beta syntax update, April 2005
+    <http://complexification.net/>
+
+    Curved crack drawing adapted from xscreensaver version by David Agraz Jan 2005
+    The following license applies to the curved crack drawing code:
+    xscreensaver, Copyright (c) 1997, 1998, 2002 Jamie Zawinski <jwz@jwz.org>
+    Permission to use, copy, modify, distribute, and sell this software 
+    and its documentation for any purpose is hereby granted without fee, 
+    provided that the above copyright notice appear in all copies and 
+    that both that copyright notice and this permission notice appear 
+    in supporting documentation. No representations are made about the 
+    suitability of this software for any purpose.  It is provided "as is" 
+    without express or implied warranty.
+
+
+    HeySubstrateView.m
+    SubstrateMac/SubstrateiPhone Projects
+
+    View for fancy drawing.
 */
 // -----------------------------------------------------------------------------
-
-
-
-// =============================================================================
-/*
-  SubstrateMac
-
-  Screensaver ported to Mac OS X by Warren Dodge of Hey Daddio!
-  <http://www.heydaddio.com/>
-
-  Original concept and code by
-  Substrate Watercolor by J. Tarbell, June 2004, Albuquerque New Mexico
-  Processing 0085 Beta syntax update, April 2005
-  <http://complexification.net/>
-
-  Curved crack drawing adapted from xscreensaver version by David Agraz Jan 2005
-  The following license applies to the curved crack drawing code:
-  xscreensaver, Copyright (c) 1997, 1998, 2002 Jamie Zawinski <jwz@jwz.org>
-  Permission to use, copy, modify, distribute, and sell this software 
-  and its documentation for any purpose is hereby granted without fee, 
-  provided that the above copyright notice appear in all copies and 
-  that both that copyright notice and this permission notice appear 
-  in supporting documentation. No representations are made about the 
-  suitability of this software for any purpose.  It is provided "as is" 
-  without express or implied warranty.
-*/
-// =============================================================================
 
 #import "HeySubstrateView.h"
 #import "HeySubstrateCrack.h"
@@ -42,6 +35,8 @@
 
 // -----------------------------------------------------------------------------
 // MARK: Constants
+
+// Key strings for defaults.
 static NSString * const defaultsKeyNumberOfCracks = @"NumberOfCracks";
 static NSString * const defaultsKeySpeedOfCracking = @"SpeedOfCracking";
 static NSString * const defaultsKeyAmountOfSand = @"AmountOfSand";
@@ -51,7 +46,8 @@ static NSString * const defaultsKeyDrawCracksOnly = @"DrawCracksOnly";
 static NSString * const defaultsKeyPercentageOfCurvedCracks = @"PercentageOfCurvedCracks";
 static NSString * const optionSheetNibName = @"SubstrateMacOptions";
 
-static const CGSize infoSize = {32.0f, 32.0f};
+static const CGSize infoSize = {32.0f, 32.0f};      // Size of info icon/button.
+static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 
 
 // -----------------------------------------------------------------------------
@@ -60,6 +56,8 @@ static const CGSize infoSize = {32.0f, 32.0f};
 @interface HeySubstrateView (Private)
 
 - (void)internalInitializer;
+- (CGFloat)alphaForInfo;
+- (void)showInfo:(BOOL)immediate;
 
 @end
 
@@ -69,53 +67,158 @@ static const CGSize infoSize = {32.0f, 32.0f};
 
 @implementation HeySubstrateView (Private)
 
+// Initializer called from all inits.
 - (void)internalInitializer
 {
-  //ScreenSaverDefaults *defaults;
-  NSUserDefaults *defaults;
-  //defaults = [ScreenSaverDefaults defaultsForModuleWithName:SubstrateMacModuleName];
-  defaults = [NSUserDefaults standardUserDefaults];
-  [defaults registerDefaults:
+    // Register/load defaults.
+    //ScreenSaverDefaults *defaults;
+    NSUserDefaults *defaults;
+    //defaults = [ScreenSaverDefaults defaultsForModuleWithName:SubstrateMacModuleName];
+    defaults = [NSUserDefaults standardUserDefaults];
+    [defaults registerDefaults:
     [NSDictionary dictionaryWithObjectsAndKeys:
-      [NSNumber numberWithFloat:11.0f],      defaultsKeyNumberOfCracks,
-      [NSNumber numberWithFloat:1.0f],       defaultsKeySpeedOfCracking,
-      [NSNumber numberWithFloat:-0.05f],     defaultsKeyAmountOfSand,
-      [NSNumber numberWithFloat:100000.0f],  defaultsKeyDensityOfDrawing,
-      [NSNumber numberWithFloat:15.0f],      defaultsKeyPauseBetweenDrawings,
-      @"NO",                                 defaultsKeyDrawCracksOnly,
-      [NSNumber numberWithFloat:15.0f],      defaultsKeyPercentageOfCurvedCracks,
-      nil]];
-  
-  opts.numberOfCracks        = [defaults floatForKey:defaultsKeyNumberOfCracks];
-  opts.speedOfCracking       = [defaults floatForKey:defaultsKeySpeedOfCracking];
-  opts.amountOfSand          = [defaults floatForKey:defaultsKeyAmountOfSand];
-  opts.densityOfDrawing      = [defaults floatForKey:defaultsKeyDensityOfDrawing];
-  opts.pauseBetweenDrawings  = [defaults floatForKey:defaultsKeyPauseBetweenDrawings];
-  opts.drawCracksOnly        = [defaults boolForKey: defaultsKeyDrawCracksOnly];
-  opts.percentCurves         = [defaults floatForKey:defaultsKeyPercentageOfCurvedCracks];
-  
-  [self setAnimationTimeInterval:1 / HeySubstrateAnimationFPS];
-  
-  //viewWidth = frame.size.width;
-  //viewHeight = frame.size.height;
-  viewWidth = [self frame].size.width;
-  viewHeight = [self frame].size.height;
-  maxNumCracks = 100;
-  iterationsDone = 0;
-  drawingPaused = NO;
-  framesPaused = 0;
-  
-  // crackAngleGrid contains the (single, latest) angle of travel of any 
-  //  cracks that pass through the corresponding pixel.
-  crackAngleGrid = (int*)malloc(sizeof(int) * viewWidth * viewHeight);
-  crackArray = [NSMutableArray arrayWithCapacity:maxNumCracks];
-  [crackArray retain];
-  // TODO: handle memory error here!
-  
-  if (!HeySubstrateCrackColor)
-    //crackColor = [NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.5f];
-    HeySubstrateCrackColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.5f];
-  [HeySubstrateCrackColor retain];
+            //[NSNumber numberWithFloat:11.0f],     defaultsKeyNumberOfCracks,
+            [NSNumber numberWithFloat:3.0f],        defaultsKeyNumberOfCracks,
+            [NSNumber numberWithFloat:1.0f],        defaultsKeySpeedOfCracking,
+            [NSNumber numberWithFloat:-0.046f],     defaultsKeyAmountOfSand,
+            //[NSNumber numberWithFloat:100000.0f], defaultsKeyDensityOfDrawing,
+            [NSNumber numberWithFloat:50000.0f],    defaultsKeyDensityOfDrawing,
+            [NSNumber numberWithFloat:10.0f],       defaultsKeyPauseBetweenDrawings,
+            @"NO",                                  defaultsKeyDrawCracksOnly,
+            [NSNumber numberWithFloat:15.0f],       defaultsKeyPercentageOfCurvedCracks,
+            nil]];
+    
+    opts.numberOfCracks        = [defaults floatForKey:defaultsKeyNumberOfCracks];
+    opts.speedOfCracking       = [defaults floatForKey:defaultsKeySpeedOfCracking];
+    opts.amountOfSand          = [defaults floatForKey:defaultsKeyAmountOfSand];
+    opts.densityOfDrawing      = [defaults floatForKey:defaultsKeyDensityOfDrawing];
+    opts.pauseBetweenDrawings  = [defaults floatForKey:defaultsKeyPauseBetweenDrawings];
+    opts.drawCracksOnly        = [defaults boolForKey: defaultsKeyDrawCracksOnly];
+    opts.percentCurves         = [defaults floatForKey:defaultsKeyPercentageOfCurvedCracks];
+    
+    [self setAnimationTimeInterval:1 / HeySubstrateAnimationFPS];
+    
+    //viewWidth = frame.size.width;
+    //viewHeight = frame.size.height;
+    viewWidth = [self frame].size.width;
+    viewHeight = [self frame].size.height;
+    maxNumCracks = 100;
+    iterationsDone = 0;
+    drawingPaused = NO;
+    framesPaused = 0;
+    
+    // crackAngleGrid contains the (single, latest) angle of travel of any 
+    //  cracks that pass through the corresponding pixel.
+    BOOL allOK = YES;
+    crackAngleGrid = (int*)malloc(sizeof(int) * viewWidth * viewHeight);
+    if (!crackAngleGrid)
+        allOK = NO;
+
+    // Array of crack objects.
+    crackArray = [NSMutableArray arrayWithCapacity:maxNumCracks];
+    [crackArray retain];
+    if (!crackArray)
+        allOK = NO;
+    
+    // Color of cracks.
+    if (!HeySubstrateCrackColor)
+    {
+        //crackColor = [NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.5f];
+        HeySubstrateCrackColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.5f];
+        if (!HeySubstrateCrackColor)
+            allOK = NO;
+    }
+    [HeySubstrateCrackColor retain];
+
+    // Load the info icon.
+    infoIcon = [UIImage imageNamed:@"infoicon.png"];
+    if (!infoIcon)
+        allOK = NO;
+    
+    infoRect = CGRectMake(self.bounds.size.width - infoSize.width, 
+                          self.bounds.size.height - infoSize.height, 
+                          infoSize.width, infoSize.height);
+    infoFadeState = kHeySubstrateFadeOff;
+    
+    // Bail out if errors.
+    if (allOK == NO)
+    {
+        [HeySubstrateCrackColor release];
+        [crackArray release];
+        if (crackAngleGrid)
+            free(crackAngleGrid);
+
+        [self release];
+    }
+}
+
+
+// Return the correct alpha value for the Info icon/button.
+- (CGFloat)alphaForInfo
+{
+    // Maximum alpha for the info icon for esthetics.
+    static const CGFloat maxInfoAlpha = 0.75f;    
+    
+    CGFloat infoAlpha;
+    switch (infoFadeState) 
+    {
+      case kHeySubstrateFadeOff:
+          infoAlpha = 0.0f;
+          break;
+      case kHeySubstrateFadeIn:
+          infoAlpha = maxInfoAlpha - (maxInfoAlpha * (CGFloat)infoFadeCountdown / (CGFloat)infoFadeFrames);
+          break;
+      case kHeySubstrateFadeOn:
+          infoAlpha = maxInfoAlpha;
+          break;
+      case kHeySubstrateFadeOut:
+          infoAlpha = (maxInfoAlpha * (CGFloat)infoFadeCountdown / (CGFloat)infoFadeFrames);
+          break;
+      default:
+          infoAlpha = 0.0f;
+          break;
+    }
+    return infoAlpha;
+}
+
+
+// Handle showing the Info icon/button with fade in and out.
+- (void)showInfo:(BOOL)immediate
+{
+    switch (infoFadeState) 
+    {
+      case kHeySubstrateFadeOff:
+          if (immediate)
+              infoFadeState = kHeySubstrateFadeOn;
+          else
+              infoFadeState = kHeySubstrateFadeIn;
+          infoFadeCountdown = infoFadeFrames;
+          break;
+      case kHeySubstrateFadeIn:
+          if (immediate)
+          {
+              infoFadeState = kHeySubstrateFadeOn;
+              infoFadeCountdown = infoFadeFrames;
+          }
+          break;
+      case kHeySubstrateFadeOn:
+          infoFadeCountdown = infoFadeFrames;
+          break;
+      case kHeySubstrateFadeOut:
+          if (immediate)
+          {
+              infoFadeState = kHeySubstrateFadeOn;
+              infoFadeCountdown = infoFadeFrames;
+          }
+          else
+          {
+              infoFadeState = kHeySubstrateFadeIn;
+              infoFadeCountdown = infoFadeFrames - infoFadeCountdown;
+          }
+          break;
+      default:
+          break;
+    }
 }
 
 
@@ -138,16 +241,16 @@ static const CGSize infoSize = {32.0f, 32.0f};
 #if TARGET_OS_IPHONE
 - (id)initWithFrame:(CGRect)frame
 {
-  if ((self = [super initWithFrame:frame]))
-    [self internalInitializer];
-  return self;
+    if ((self = [super initWithFrame:frame]))
+        [self internalInitializer];
+    return self;
 }
 #else
 - (id)initWithFrame:(NSRect)frame isPreview:(BOOL)isPreview
 {
-  if ((self = [super initWithFrame:frame isPreview:isPreview]))
-    [self internalInitializer];
-  return self;
+    if ((self = [super initWithFrame:frame isPreview:isPreview]))
+        [self internalInitializer];
+    return self;
 }
 #endif
 
@@ -155,95 +258,101 @@ static const CGSize infoSize = {32.0f, 32.0f};
 // NSCoding initializer
 - (id)initWithCoder:(NSCoder *)coder
 {
-  if ((self = [super initWithCoder:coder]))
-    [self internalInitializer];
-  return self;
+    if ((self = [super initWithCoder:coder]))
+        [self internalInitializer];
+    return self;
 }
 
 
 // Destroy the view.
 - (void) dealloc 
 {
-  [HeySubstrateCrackColor release];
-  [crackArray release], crackArray = nil;
-  free(crackAngleGrid), crackAngleGrid = NULL;
-  [super dealloc];
+    [HeySubstrateCrackColor release];
+    [crackArray release];
+    crackArray = nil;
+    if (crackAngleGrid)
+        free(crackAngleGrid);
+    crackAngleGrid = NULL;
+    [super dealloc];
 }
 
 
 // -----------------------------------------------------------------------------
 // MARK: Drawing and animation methods
 
+// Make a new crack if not at maximum number already.
 - (void)makeACrack 
 {
-  if (currNumCracks < opts.numberOfCracks ) 
-  {
-    // make a new crack instance
-    HeySubstrateCrack *newCrack;
-    newCrack = [[HeySubstrateCrack alloc] initWithSSView:self];
-    [crackArray insertObject:newCrack atIndex:currNumCracks++];
-    [newCrack release];
-  }
+    if (currNumCracks < opts.numberOfCracks ) 
+    {
+        HeySubstrateCrack *newCrack;
+        newCrack = [[HeySubstrateCrack alloc] initWithSSView:self];
+        [crackArray insertObject:newCrack atIndex:currNumCracks++];
+        [newCrack release];
+    }
 }
 
 
 - (void)startAnimation 
 {
-  //[super startAnimation];
-  [self setupAnimation];
-  return;
+    //[super startAnimation];
+    [self setupAnimation];
+    return;
 }
 
 
 - (void)stopAnimation 
 {
-  //[super stopAnimation];
+    //[super stopAnimation];
 }
 
 
 - (void)restartAnimation 
 {
-  [crackArray removeAllObjects];
-  bgCleared = NO;
-  [self setupAnimation];
+    [crackArray removeAllObjects];
+    bgCleared = NO;
+    drawingPaused = NO;
+    framesPaused = 0;
+    iterationsDone = 0;
+    [self setupAnimation];
 }
 
 
 - (void)setupAnimation 
 {
-  // Erase crackAngleGrid
-  int x, y;
-  for (y = 0; y < viewHeight; y++) 
-  {
-    for (x = 0; x < viewWidth; x++) 
+    // Erase crackAngleGrid
+    int x, y;
+    for (y = 0; y < viewHeight; y++) 
     {
-      crackAngleGrid[y * viewWidth + x] = cagEmptyFlag;     
+        for (x = 0; x < viewWidth; x++) 
+        {
+            crackAngleGrid[y * viewWidth + x] = cagEmptyFlag;     
+        }
     }
-  }
-  
-  // Make random crack seeds
-  int i, k;
-  srandom(time(0));
-  for (k = 0; k < 16; k++) 
-  {
-    i = random() % (viewWidth * viewHeight);
-    crackAngleGrid[i] = random() % 360;
-  }
-  
-  // Make just three cracks to start with
-  int c;
-  currNumCracks = 0;
-  for (c = 0; c < 3; c++) 
-  {
-    [self makeACrack];
-  }
-  return;
+    
+    // Make random crack seeds
+    int i, k;
+    srandom(time(0));
+    for (k = 0; k < 16; k++) 
+    {
+        i = random() % (viewWidth * viewHeight);
+        crackAngleGrid[i] = random() % 360;
+    }
+    
+    // Make just three cracks to start with
+    int c;
+    currNumCracks = 0;
+    for (c = 0; c < 3; c++) 
+    {
+        [self makeACrack];
+    }
+    return;
 }
 
 
 - (void)setAnimationTimeInterval:(NSTimeInterval)timeInterval
 {
-  // TODO: finish function
+    // TODO: finish function for mac
 }
 
 
@@ -251,81 +360,106 @@ static const CGSize infoSize = {32.0f, 32.0f};
 - (void)drawRect:(CGRect)rect 
 {
 #if TARGET_OS_IPHONE
-  //[self animateOneFrame];
-  CGContextRef ctx = UIGraphicsGetCurrentContext();
-  CGContextDrawImage(ctx, self.bounds, ourFuckingOffscreenBitmapImage);
-  if (drawViewBacklog > 0)
-    drawViewBacklog--;
-  if (drawViewBacklog > 0)
-    NSLog(@"drawViewBacklog: %i", drawViewBacklog);
-
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextDrawImage(ctx, self.bounds, offscreenBitmapImage);
+    if (infoFadeState != kHeySubstrateFadeOff)
+        [infoIcon drawInRect:infoRect blendMode:kCGBlendModeNormal alpha:[self alphaForInfo]];
 #else
-  [super drawRect:rect];
+    [super drawRect:rect];
 #endif
 }
 
 
 - (void)animateOneFrame 
 {
-  // Clear background
-  if (bgCleared == NO) 
-  {
-    //[[NSColor whiteColor] set];
-    // Warm up the canvas a bit: RGB:255/251/239
-    //[[NSColor colorWithDeviceRed:1.0f green:0.9843f blue:0.9373f alpha:1.0f] set];
-    [[UIColor colorWithRed:1.0f green:0.9843f blue:0.9373f alpha:1.0f] set];
-    //[NSBezierPath fillRect:[self frame]];
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextFillRect(ctx, CGRectMake([self frame].origin.x, [self frame].origin.y, [self frame].size.width, [self frame].size.height));
-    bgCleared = YES;
-    drawViewBacklog++;
-  }
-  
-  int i;
-  int spdLoops;
-
-  if (drawingPaused) 
-  {
-    if (framesPaused++ >= framesToPause) 
+    // Clear background
+    if (bgCleared == NO) 
     {
-      drawingPaused = NO;
-      framesPaused = 0;
-      iterationsDone = 0;
-      [self restartAnimation];
+        //[[NSColor whiteColor] set];
+        // Warm up the canvas a bit: RGB:255/251/239
+        //[[NSColor colorWithDeviceRed:1.0f green:0.9843f blue:0.9373f alpha:1.0f] set];
+        [[UIColor colorWithRed:1.0f green:0.9843f blue:0.9373f alpha:1.0f] set];
+        //[NSBezierPath fillRect:[self frame]];
+        CGContextRef ctx = UIGraphicsGetCurrentContext();
+        CGContextFillRect(ctx, CGRectMake([self frame].origin.x, [self frame].origin.y, [self frame].size.width, [self frame].size.height));
+        bgCleared = YES;
     }
-  } 
-  else 
-  {
-    // crack all cracks
-    for (spdLoops = (int)opts.speedOfCracking; spdLoops > 0; spdLoops--) 
+    
+    int i;
+    int spdLoops;
+    
+    if (drawingPaused) 
     {
-      for (i = 0; i < currNumCracks; i++) 
-      {
-        iterationsDone++;
-        [[crackArray objectAtIndex:i] move];
-      }
-      if (iterationsDone >= opts.densityOfDrawing) 
-      {
-        drawingPaused = YES;
-        framesPaused = 0;
-        iterationsDone = 0;
-        framesToPause = (int)opts.pauseBetweenDrawings * HeySubstrateAnimationFPS;
-      }
+        if (framesPaused++ >= framesToPause) 
+        {
+            drawingPaused = NO;
+            framesPaused = 0;
+            iterationsDone = 0;
+            [self restartAnimation];
+        }
+    } 
+    else 
+    {
+        // crack all cracks
+        for (spdLoops = (int)opts.speedOfCracking; spdLoops > 0; spdLoops--) 
+        {
+            for (i = 0; i < currNumCracks; i++) 
+            {
+                iterationsDone++;
+                [[crackArray objectAtIndex:i] move];
+            }
+            if (iterationsDone >= opts.densityOfDrawing) 
+            {
+                drawingPaused = YES;
+                framesPaused = 0;
+                iterationsDone = 0;
+                framesToPause = (int)opts.pauseBetweenDrawings * HeySubstrateAnimationFPS;
+            }
+        }
     }
-  }
-  return;
+    // Update alpha fading for info icon.
+    infoFadeCountdown--;
+    switch (infoFadeState) 
+    {
+      case kHeySubstrateFadeOff:
+          infoFadeCountdown = infoFadeFrames;
+          break;
+      case kHeySubstrateFadeIn:
+          if (infoFadeCountdown <= 0)
+          {
+              infoFadeState = kHeySubstrateFadeOn;
+              infoFadeCountdown = infoFadeFrames;
+          }
+          break;
+      case kHeySubstrateFadeOn:
+          if (infoFadeCountdown <= 0)
+          {
+              infoFadeState = kHeySubstrateFadeOut;
+              infoFadeCountdown = infoFadeFrames;
+          }
+          break;
+      case kHeySubstrateFadeOut:
+          if (infoFadeCountdown <= 0)
+          {
+              infoFadeState = kHeySubstrateFadeOff;
+              infoFadeCountdown = infoFadeFrames;
+          }
+          break;
+      default:
+          break;
+    }
 }
 
 
 - (BOOL)isOpaque 
 {
-  return YES;
+    return YES;
 }
 
 
 - (BOOL)hasConfigureSheet 
 {
-  return YES;
+    return YES;
 }
 
 
@@ -333,153 +467,153 @@ static const CGSize infoSize = {32.0f, 32.0f};
 //- (NSWindow*)configureSheet 
 - (UIView*)configureSheet 
 {
-  //ScreenSaverDefaults *defaults;
-  NSUserDefaults *defaults;
-  //defaults = [ScreenSaverDefaults defaultsForModuleWithName:SubstrateMacModuleName];
-  defaults = [NSUserDefaults standardUserDefaults];
-  
-  if (!optionSheet) 
-  {
-    //if (![NSBundle loadNibNamed:optionSheetNibName owner:self]) 
-    if (![[NSBundle mainBundle] loadNibNamed:optionSheetNibName owner:self options:nil]) 
+    //ScreenSaverDefaults *defaults;
+    NSUserDefaults *defaults;
+    //defaults = [ScreenSaverDefaults defaultsForModuleWithName:SubstrateMacModuleName];
+    defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (!optionSheet) 
     {
-      NSLog(@"Unable to load options configuration sheet.");
-      //NSBeep();
+        //if (![NSBundle loadNibNamed:optionSheetNibName owner:self]) 
+        if (![[NSBundle mainBundle] loadNibNamed:optionSheetNibName owner:self options:nil]) 
+        {
+            NSLog(@"Unable to load options configuration sheet.");
+            //NSBeep();
+        }
     }
-  }
-  //[numberOfCracksSlider       setFloatValue:[defaults floatForKey:defaultsKeyNumberOfCracks]];
-  [numberOfCracksSlider setValue:[defaults floatForKey:defaultsKeyNumberOfCracks] animated:NO];
-  
-  //[speedOfCrackingSlider      setFloatValue:[defaults floatForKey:defaultsKeySpeedOfCracking]];
-  [speedOfCrackingSlider setValue:[defaults floatForKey:defaultsKeySpeedOfCracking] animated:NO];
-  //[amountOfSandSlider         setFloatValue:[defaults floatForKey:defaultsKeyAmountOfSand]];
-  [amountOfSandSlider setValue:[defaults floatForKey:defaultsKeyAmountOfSand] animated:NO];
-  //[densityOfDrawingSlider     setFloatValue:[defaults floatForKey:defaultsKeyDensityOfDrawing]];
-  [densityOfDrawingSlider setValue:[defaults floatForKey:defaultsKeyDensityOfDrawing] animated:NO];
-  //[pauseBetweenDrawingsSlider setFloatValue:[defaults floatForKey:defaultsKeyPauseBetweenDrawings]];
-  [pauseBetweenDrawingsSlider setValue:[defaults floatForKey:defaultsKeyPauseBetweenDrawings] animated:NO];
-  //[drawCracksOnlyOption       setState:     [defaults boolForKey: defaultsKeyDrawCracksOnly]];
-  [drawCracksOnlyOption setOn:[defaults boolForKey: defaultsKeyDrawCracksOnly]animated:NO];
-  //[percentCurvedSlider        setFloatValue:[defaults floatForKey:defaultsKeyPercentageOfCurvedCracks]];
-  [percentCurvedSlider setValue:[defaults floatForKey:defaultsKeyPercentageOfCurvedCracks] animated:NO];
-  
-  return optionSheet;
+    //[numberOfCracksSlider       setFloatValue:[defaults floatForKey:defaultsKeyNumberOfCracks]];
+    [numberOfCracksSlider setValue:[defaults floatForKey:defaultsKeyNumberOfCracks] animated:NO];
+    
+    //[speedOfCrackingSlider      setFloatValue:[defaults floatForKey:defaultsKeySpeedOfCracking]];
+    [speedOfCrackingSlider setValue:[defaults floatForKey:defaultsKeySpeedOfCracking] animated:NO];
+    //[amountOfSandSlider         setFloatValue:[defaults floatForKey:defaultsKeyAmountOfSand]];
+    [amountOfSandSlider setValue:[defaults floatForKey:defaultsKeyAmountOfSand] animated:NO];
+    //[densityOfDrawingSlider     setFloatValue:[defaults floatForKey:defaultsKeyDensityOfDrawing]];
+    [densityOfDrawingSlider setValue:[defaults floatForKey:defaultsKeyDensityOfDrawing] animated:NO];
+    //[pauseBetweenDrawingsSlider setFloatValue:[defaults floatForKey:defaultsKeyPauseBetweenDrawings]];
+    [pauseBetweenDrawingsSlider setValue:[defaults floatForKey:defaultsKeyPauseBetweenDrawings] animated:NO];
+    //[drawCracksOnlyOption       setState:     [defaults boolForKey: defaultsKeyDrawCracksOnly]];
+    [drawCracksOnlyOption setOn:[defaults boolForKey: defaultsKeyDrawCracksOnly]animated:NO];
+    //[percentCurvedSlider        setFloatValue:[defaults floatForKey:defaultsKeyPercentageOfCurvedCracks]];
+    [percentCurvedSlider setValue:[defaults floatForKey:defaultsKeyPercentageOfCurvedCracks] animated:NO];
+    
+    return optionSheet;
 }
 
 
 // Save the options.
 - (IBAction)okClick:(id)sender 
 {
-  (void)sender;
-  //ScreenSaverDefaults *defaults;
-  NSUserDefaults *defaults;
-  //defaults = [ScreenSaverDefaults defaultsForModuleWithName:SubstrateMacModuleName];
-  defaults = [NSUserDefaults standardUserDefaults];
-  [defaults setFloat:[numberOfCracksSlider        floatValue] forKey:defaultsKeyNumberOfCracks];
-  [defaults setFloat:[speedOfCrackingSlider       floatValue] forKey:defaultsKeySpeedOfCracking];
-  [defaults setFloat:[amountOfSandSlider          floatValue] forKey:defaultsKeyAmountOfSand];
-  [defaults setFloat:[densityOfDrawingSlider      floatValue] forKey:defaultsKeyDensityOfDrawing];
-  [defaults setFloat:[pauseBetweenDrawingsSlider  floatValue] forKey:defaultsKeyPauseBetweenDrawings];
-  [defaults setBool: [drawCracksOnlyOption        state]      forKey:defaultsKeyDrawCracksOnly];
-  [defaults setFloat:[percentCurvedSlider         floatValue] forKey:defaultsKeyPercentageOfCurvedCracks];
-  [defaults synchronize];
-  
-  //[[NSApplication sharedApplication] endSheet:optionSheet];
-  //[[UIApplication sharedApplication] endSheet:optionSheet];
-
-  opts.numberOfCracks        = [defaults floatForKey:defaultsKeyNumberOfCracks];
-  opts.speedOfCracking       = [defaults floatForKey:defaultsKeySpeedOfCracking];
-  opts.amountOfSand          = [defaults floatForKey:defaultsKeyAmountOfSand];
-  opts.densityOfDrawing      = [defaults floatForKey:defaultsKeyDensityOfDrawing];
-  opts.pauseBetweenDrawings  = [defaults floatForKey:defaultsKeyPauseBetweenDrawings];
-  opts.drawCracksOnly        = [defaults boolForKey: defaultsKeyDrawCracksOnly];
-  opts.percentCurves         = [defaults floatForKey:defaultsKeyPercentageOfCurvedCracks];
-  
-  [self restartAnimation];
-  return;
+    (void)sender;
+    //ScreenSaverDefaults *defaults;
+    NSUserDefaults *defaults;
+    //defaults = [ScreenSaverDefaults defaultsForModuleWithName:SubstrateMacModuleName];
+    defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setFloat:[numberOfCracksSlider        floatValue] forKey:defaultsKeyNumberOfCracks];
+    [defaults setFloat:[speedOfCrackingSlider       floatValue] forKey:defaultsKeySpeedOfCracking];
+    [defaults setFloat:[amountOfSandSlider          floatValue] forKey:defaultsKeyAmountOfSand];
+    [defaults setFloat:[densityOfDrawingSlider      floatValue] forKey:defaultsKeyDensityOfDrawing];
+    [defaults setFloat:[pauseBetweenDrawingsSlider  floatValue] forKey:defaultsKeyPauseBetweenDrawings];
+    [defaults setBool: [drawCracksOnlyOption        state]      forKey:defaultsKeyDrawCracksOnly];
+    [defaults setFloat:[percentCurvedSlider         floatValue] forKey:defaultsKeyPercentageOfCurvedCracks];
+    [defaults synchronize];
+    
+    //[[NSApplication sharedApplication] endSheet:optionSheet];
+    //[[UIApplication sharedApplication] endSheet:optionSheet];
+    
+    opts.numberOfCracks        = [defaults floatForKey:defaultsKeyNumberOfCracks];
+    opts.speedOfCracking       = [defaults floatForKey:defaultsKeySpeedOfCracking];
+    opts.amountOfSand          = [defaults floatForKey:defaultsKeyAmountOfSand];
+    opts.densityOfDrawing      = [defaults floatForKey:defaultsKeyDensityOfDrawing];
+    opts.pauseBetweenDrawings  = [defaults floatForKey:defaultsKeyPauseBetweenDrawings];
+    opts.drawCracksOnly        = [defaults boolForKey: defaultsKeyDrawCracksOnly];
+    opts.percentCurves         = [defaults floatForKey:defaultsKeyPercentageOfCurvedCracks];
+    
+    [self restartAnimation];
+    return;
 }
 
 
 - (IBAction)cancelClick:(id)sender 
 {
-  (void)sender;
-  //[[NSApplication sharedApplication] endSheet:optionSheet];
+    (void)sender;
+    //[[NSApplication sharedApplication] endSheet:optionSheet];
 }
 
 
 - (int)optionPercentCurves 
 {
-  return opts.percentCurves;
+    return opts.percentCurves;
 }
 
 
 - (float)optionAmountOfSand 
 {
-  return opts.amountOfSand;
+    return opts.amountOfSand;
 }
 
 
 - (BOOL)optionDrawCracksOnly 
 {
-  return opts.drawCracksOnly;
+    return opts.drawCracksOnly;
 }
 
 
 - (int)viewWidth 
 {
-  return viewWidth;
+    return viewWidth;
 }
 
 
 - (int)viewHeight 
 {
-  return viewHeight;
+    return viewHeight;
 }
 
 
 - (int *)crackAngleGrid 
 {
-  return crackAngleGrid;
+    return crackAngleGrid;
 }
 
 
 - (void)getOptions:(HeySubstrateOptions *)options;
 {
-  options->numberOfCracks       = opts.numberOfCracks;
-  options->speedOfCracking      = opts.speedOfCracking;
-  options->amountOfSand         = opts.amountOfSand;
-  options->densityOfDrawing     = opts.densityOfDrawing; 
-  options->pauseBetweenDrawings = opts.pauseBetweenDrawings;
-  options->percentCurves        = opts.percentCurves;
-  options->drawCracksOnly       = opts.drawCracksOnly;
+    options->numberOfCracks       = opts.numberOfCracks;
+    options->speedOfCracking      = opts.speedOfCracking;
+    options->amountOfSand         = opts.amountOfSand;
+    options->densityOfDrawing     = opts.densityOfDrawing; 
+    options->pauseBetweenDrawings = opts.pauseBetweenDrawings;
+    options->percentCurves        = opts.percentCurves;
+    options->drawCracksOnly       = opts.drawCracksOnly;
 }
 
 
 - (void)setOptions:(HeySubstrateOptions *)options
 {
-  opts.numberOfCracks       = options->numberOfCracks;
-  opts.speedOfCracking      = options->speedOfCracking;
-  opts.amountOfSand         = options->amountOfSand;
-  opts.densityOfDrawing     = options->densityOfDrawing; 
-  opts.pauseBetweenDrawings = options->pauseBetweenDrawings;
-  opts.percentCurves        = options->percentCurves;
-  opts.drawCracksOnly       = options->drawCracksOnly;
-  [self writeOptions];
+    opts.numberOfCracks       = options->numberOfCracks;
+    opts.speedOfCracking      = options->speedOfCracking;
+    opts.amountOfSand         = options->amountOfSand;
+    opts.densityOfDrawing     = options->densityOfDrawing; 
+    opts.pauseBetweenDrawings = options->pauseBetweenDrawings;
+    opts.percentCurves        = options->percentCurves;
+    opts.drawCracksOnly       = options->drawCracksOnly;
+    [self writeOptions];
 }
 
 
 -(void)writeOptions
 {
-  NSUserDefaults *defaults;
-  defaults = [NSUserDefaults standardUserDefaults];
-  [defaults setFloat:opts.numberOfCracks forKey:defaultsKeyNumberOfCracks];
-  [defaults setFloat:opts.speedOfCracking forKey:defaultsKeySpeedOfCracking];
-  [defaults setFloat:opts.amountOfSand forKey:defaultsKeyAmountOfSand];
-  [defaults setFloat:opts.densityOfDrawing forKey:defaultsKeyDensityOfDrawing];
-  [defaults setFloat:opts.pauseBetweenDrawings forKey:defaultsKeyPauseBetweenDrawings];
-  [defaults setBool:opts.drawCracksOnly forKey:defaultsKeyDrawCracksOnly];
-  [defaults setFloat:opts.percentCurves forKey:defaultsKeyPercentageOfCurvedCracks];
-  [defaults synchronize];
+    NSUserDefaults *defaults;
+    defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setFloat:opts.numberOfCracks forKey:defaultsKeyNumberOfCracks];
+    [defaults setFloat:opts.speedOfCracking forKey:defaultsKeySpeedOfCracking];
+    [defaults setFloat:opts.amountOfSand forKey:defaultsKeyAmountOfSand];
+    [defaults setFloat:opts.densityOfDrawing forKey:defaultsKeyDensityOfDrawing];
+    [defaults setFloat:opts.pauseBetweenDrawings forKey:defaultsKeyPauseBetweenDrawings];
+    [defaults setBool:opts.drawCracksOnly forKey:defaultsKeyDrawCracksOnly];
+    [defaults setFloat:opts.percentCurves forKey:defaultsKeyPercentageOfCurvedCracks];
+    [defaults synchronize];
 }
 
 
@@ -489,57 +623,46 @@ static const CGSize infoSize = {32.0f, 32.0f};
 // Hit test the touches
 - (BOOL)hitTestTouches:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  (void)event;
-  UITouch *touch = [touches anyObject];
-  CGPoint touchPoint = [touch locationInView:self];
-  CGRect testRect;
-  testRect = CGRectMake(self.bounds.size.width - infoSize.width, 
-                        self.bounds.size.height - infoSize.height, 
-                        infoSize.width, infoSize.height);
-  if (CGRectContainsPoint(testRect, touchPoint))
-  {
-    NSLog(@"Touch is in the i.");
-    //[canvas showInfo:YES];
-    // !!!
-    //opts.numberOfCracks = opts.numberOfCracks * 2;
-    //[self restartAnimation];
-    //[self stopAnimation];
-    [(HeySubstrateAppDelegate *)[[UIApplication sharedApplication] delegate] showSettings];
-    return YES;
-  }
-  else
-  {
-    NSLog(@"Touch is NOT in the i.");
-    //[canvas showInfo:NO];
-    return NO;
-  }
+    (void)event;
+    UITouch *touch = [touches anyObject];
+    CGPoint touchPoint = [touch locationInView:self];
+    if (CGRectContainsPoint(infoRect, touchPoint))
+    {
+        [self showInfo:YES];
+        [(HeySubstrateAppDelegate *)[[UIApplication sharedApplication] delegate] showSettings];
+        return YES;
+    }
+    else
+    {
+        [self showInfo:NO];
+        return NO;
+    }
 }
 
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  [self hitTestTouches:touches withEvent:event];
+    [self hitTestTouches:touches withEvent:event];
 }
 
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  [self hitTestTouches:touches withEvent:event];
+    [self hitTestTouches:touches withEvent:event];
 }
 
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-//  if ([self hitTestTouches:touches withEvent:event])
-//    [self switchToInfoView];
+    [self hitTestTouches:touches withEvent:event];
 }
 
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  (void)touches;
-  (void)event;
-  // Do nothing.
+    (void)touches;
+    (void)event;
+    // Do nothing.
 }
 
 
