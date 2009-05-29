@@ -53,9 +53,11 @@
  typedef UIColor HEYCOLOR;
  typedef UIView HEYVIEW;
  typedef float vFloat;
+ typedef CGRect HEYRECT;
 #else
  typedef NSColor HEYCOLOR;
  typedef NSView HEYVIEW;
+ typedef NSRect HEYRECT;
 #endif
 
 

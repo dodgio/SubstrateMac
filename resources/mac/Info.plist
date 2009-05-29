@@ -23,6 +23,6 @@
 	<key>CFBundleVersion</key>
 	<string>1.0b1</string>
 	<key>NSPrincipalClass</key>
-	<string>HeySubstrateMacView</string>
+	<string>HeySubstrateView</string>
 </dict>
 </plist>

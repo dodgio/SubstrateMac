@@ -46,8 +46,10 @@ static NSString * const defaultsKeyDrawCracksOnly = @"DrawCracksOnly";
 static NSString * const defaultsKeyPercentageOfCurvedCracks = @"PercentageOfCurvedCracks";
 static NSString * const optionSheetNibName = @"SubstrateMacOptions";
 
+#if TARGET_OS_IPHONE
 static const CGSize infoSize = {32.0f, 32.0f};      // Size of info icon/button.
 static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
+#endif
 
 
 // -----------------------------------------------------------------------------
@@ -56,8 +58,10 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 @interface HeySubstrateView (Private)
 
 - (void)internalInitializer;
+#if TARGET_OS_IPHONE
 - (CGFloat)alphaForInfo;
 - (void)showInfo:(BOOL)immediate;
+#endif
 
 @end
 
@@ -71,10 +75,13 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 - (void)internalInitializer
 {
     // Register/load defaults.
-    //ScreenSaverDefaults *defaults;
+#if TARGET_OS_IPHONE
     NSUserDefaults *defaults;
-    //defaults = [ScreenSaverDefaults defaultsForModuleWithName:SubstrateMacModuleName];
     defaults = [NSUserDefaults standardUserDefaults];
+#else
+    ScreenSaverDefaults *defaults;
+    defaults = [ScreenSaverDefaults defaultsForModuleWithName:HeySubstrateMacModuleName];
+#endif
     [defaults registerDefaults:
     [NSDictionary dictionaryWithObjectsAndKeys:
             //[NSNumber numberWithFloat:11.0f],     defaultsKeyNumberOfCracks,
@@ -97,7 +104,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     opts.percentCurves         = [defaults floatForKey:defaultsKeyPercentageOfCurvedCracks];
     
     [self setAnimationTimeInterval:1 / HeySubstrateAnimationFPS];
-    
+
     //viewWidth = frame.size.width;
     //viewHeight = frame.size.height;
     viewWidth = [self frame].size.width;
@@ -124,12 +131,13 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     if (!HeySubstrateCrackColor)
     {
         //crackColor = [NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.5f];
-        HeySubstrateCrackColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.5f];
+        HeySubstrateCrackColor = [HEYCOLOR HeyColorWithRed:0.0f green:0.0f blue:0.0f alpha:0.5f];
         if (!HeySubstrateCrackColor)
             allOK = NO;
     }
     [HeySubstrateCrackColor retain];
 
+#if TARGET_OS_IPHONE    
     // Load the info icon.
     infoIcon = [UIImage imageNamed:@"infoicon.png"];
     if (!infoIcon)
@@ -139,7 +147,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
                           self.bounds.size.height - infoSize.height, 
                           infoSize.width, infoSize.height);
     infoFadeState = kHeySubstrateFadeOff;
-    
+#endif    
     // Bail out if errors.
     if (allOK == NO)
     {
@@ -152,7 +160,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     }
 }
 
-
+#if TARGET_OS_IPHONE
 // Return the correct alpha value for the Info icon/button.
 - (CGFloat)alphaForInfo
 {
@@ -220,7 +228,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
           break;
     }
 }
-
+#endif
 
 @end
 
@@ -295,15 +303,20 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 
 - (void)startAnimation 
 {
-    //[super startAnimation];
     [self setupAnimation];
-    return;
+#if TARGET_OS_IPHONE
+#else
+    [super startAnimation];
+#endif
 }
 
 
 - (void)stopAnimation 
 {
-    //[super stopAnimation];
+#if TARGET_OS_IPHONE
+#else
+    [super stopAnimation];
+#endif
 }
 
 
@@ -352,12 +365,12 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 
 - (void)setAnimationTimeInterval:(NSTimeInterval)timeInterval
 {
+    (void)timeInterval;
     // TODO: finish function for mac
 }
 
 
-//- (void)drawRect:(NSRect)rect 
-- (void)drawRect:(CGRect)rect 
+- (void)drawRect:(HEYRECT)rect 
 {
 #if TARGET_OS_IPHONE
     CGContextRef ctx = UIGraphicsGetCurrentContext();
@@ -375,13 +388,14 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     // Clear background
     if (bgCleared == NO) 
     {
-        //[[NSColor whiteColor] set];
         // Warm up the canvas a bit: RGB:255/251/239
-        //[[NSColor colorWithDeviceRed:1.0f green:0.9843f blue:0.9373f alpha:1.0f] set];
-        [[UIColor colorWithRed:1.0f green:0.9843f blue:0.9373f alpha:1.0f] set];
-        //[NSBezierPath fillRect:[self frame]];
+        [[HEYCOLOR HeyColorWithRed:1.0f green:0.9843f blue:0.9373f alpha:1.0f] set];
+#if TARGET_OS_IPHONE
         CGContextRef ctx = UIGraphicsGetCurrentContext();
         CGContextFillRect(ctx, CGRectMake([self frame].origin.x, [self frame].origin.y, [self frame].size.width, [self frame].size.height));
+#else
+        [NSBezierPath fillRect:[self frame]];
+#endif
         bgCleared = YES;
     }
     
@@ -417,6 +431,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
             }
         }
     }
+#if TARGET_OS_IPHONE
     // Update alpha fading for info icon.
     infoFadeCountdown--;
     switch (infoFadeState) 
@@ -448,6 +463,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
       default:
           break;
     }
+#endif
 }
 
 
@@ -463,9 +479,11 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 }
 
 
+#if TARGET_OS_IPHONE
+
+#else
 // Set up the option sheet.
-//- (NSWindow*)configureSheet 
-- (UIView*)configureSheet 
+- (NSWindow*)configureSheet 
 {
     //ScreenSaverDefaults *defaults;
     NSUserDefaults *defaults;
@@ -474,28 +492,28 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     
     if (!optionSheet) 
     {
-        //if (![NSBundle loadNibNamed:optionSheetNibName owner:self]) 
-        if (![[NSBundle mainBundle] loadNibNamed:optionSheetNibName owner:self options:nil]) 
+        if (![NSBundle loadNibNamed:optionSheetNibName owner:self]) 
         {
             NSLog(@"Unable to load options configuration sheet.");
-            //NSBeep();
         }
     }
-    //[numberOfCracksSlider       setFloatValue:[defaults floatForKey:defaultsKeyNumberOfCracks]];
+#if TARGET_OS_IPHONE
     [numberOfCracksSlider setValue:[defaults floatForKey:defaultsKeyNumberOfCracks] animated:NO];
-    
-    //[speedOfCrackingSlider      setFloatValue:[defaults floatForKey:defaultsKeySpeedOfCracking]];
     [speedOfCrackingSlider setValue:[defaults floatForKey:defaultsKeySpeedOfCracking] animated:NO];
-    //[amountOfSandSlider         setFloatValue:[defaults floatForKey:defaultsKeyAmountOfSand]];
     [amountOfSandSlider setValue:[defaults floatForKey:defaultsKeyAmountOfSand] animated:NO];
-    //[densityOfDrawingSlider     setFloatValue:[defaults floatForKey:defaultsKeyDensityOfDrawing]];
     [densityOfDrawingSlider setValue:[defaults floatForKey:defaultsKeyDensityOfDrawing] animated:NO];
-    //[pauseBetweenDrawingsSlider setFloatValue:[defaults floatForKey:defaultsKeyPauseBetweenDrawings]];
     [pauseBetweenDrawingsSlider setValue:[defaults floatForKey:defaultsKeyPauseBetweenDrawings] animated:NO];
-    //[drawCracksOnlyOption       setState:     [defaults boolForKey: defaultsKeyDrawCracksOnly]];
     [drawCracksOnlyOption setOn:[defaults boolForKey: defaultsKeyDrawCracksOnly]animated:NO];
-    //[percentCurvedSlider        setFloatValue:[defaults floatForKey:defaultsKeyPercentageOfCurvedCracks]];
     [percentCurvedSlider setValue:[defaults floatForKey:defaultsKeyPercentageOfCurvedCracks] animated:NO];
+#else
+    [numberOfCracksSlider       setFloatValue:[defaults floatForKey:defaultsKeyNumberOfCracks]];
+    [speedOfCrackingSlider      setFloatValue:[defaults floatForKey:defaultsKeySpeedOfCracking]];
+    [amountOfSandSlider         setFloatValue:[defaults floatForKey:defaultsKeyAmountOfSand]];
+    [densityOfDrawingSlider     setFloatValue:[defaults floatForKey:defaultsKeyDensityOfDrawing]];
+    [pauseBetweenDrawingsSlider setFloatValue:[defaults floatForKey:defaultsKeyPauseBetweenDrawings]];
+    [drawCracksOnlyOption       setState:     [defaults boolForKey: defaultsKeyDrawCracksOnly]];
+    [percentCurvedSlider        setFloatValue:[defaults floatForKey:defaultsKeyPercentageOfCurvedCracks]];
+#endif
     
     return optionSheet;
 }
@@ -517,9 +535,8 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     [defaults setBool: [drawCracksOnlyOption        state]      forKey:defaultsKeyDrawCracksOnly];
     [defaults setFloat:[percentCurvedSlider         floatValue] forKey:defaultsKeyPercentageOfCurvedCracks];
     [defaults synchronize];
-    
-    //[[NSApplication sharedApplication] endSheet:optionSheet];
-    //[[UIApplication sharedApplication] endSheet:optionSheet];
+
+    [[NSApplication sharedApplication] endSheet:optionSheet];
     
     opts.numberOfCracks        = [defaults floatForKey:defaultsKeyNumberOfCracks];
     opts.speedOfCracking       = [defaults floatForKey:defaultsKeySpeedOfCracking];
@@ -537,9 +554,9 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 - (IBAction)cancelClick:(id)sender 
 {
     (void)sender;
-    //[[NSApplication sharedApplication] endSheet:optionSheet];
+    [[NSApplication sharedApplication] endSheet:optionSheet];
 }
-
+#endif
 
 - (int)optionPercentCurves 
 {
@@ -619,7 +636,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 
 // -----------------------------------------------------------------------------
 // MARK: Touches and hit testing
-
+#if TARGET_OS_IPHONE
 // Hit test the touches
 - (BOOL)hitTestTouches:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -664,7 +681,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     (void)event;
     // Do nothing.
 }
-
+#endif
 
 @end
 

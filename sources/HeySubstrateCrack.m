@@ -272,11 +272,12 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
     
     // Draw black-ish crack
     [HeySubstrateCrackColor set];
-    //[NSBezierPath fillRect:NSMakeRect(drawX, drawY, 1.0f, 1.0f)];
+#if TARGET_OS_IPHONE
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextFillRect(ctx, CGRectMake(drawX, drawY, 1.0f, 1.0f)); 
-    //  CGContextFillRect(ctx, CGRectMake(drawX, drawY, 4.0f, 4.0f)); 
-    //  NSLog(@"Crackpoint: %d, %d", drawX, drawY);
+#else
+    [NSBezierPath fillRect:NSMakeRect(drawX, drawY, 1.0f, 1.0f)];
+#endif
     
     // Bounds check, collision detection.
     if (drawX >= 0 && drawX < vWidth && drawY >= 0 && drawY < vHeight) 
@@ -395,9 +396,12 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
                 // sandAlpha = 0.1 - (i * sandGrainVecLen + j) / (sandGrainCnt * 10.0); // too pale, punch up a bit
                 sandAlpha = 0.15f - (i * sandGrainVecLen + j) / (sandGrainCnt * 10.0f);
                 [[baseSandColor colorWithAlphaComponent:sandAlpha] set];
-                //[NSBezierPath fillRect:NSMakeRect(pixSandX + 0.5f, pixSandY + 0.5f, 1.0f, 1.0f)];
+#if TARGET_OS_IPHONE
                 CGContextRef ctx = UIGraphicsGetCurrentContext();
                 CGContextFillRect(ctx, CGRectMake(pixSandX + 0.5f, pixSandY + 0.5f, 1.0f, 1.0f)); 
+#else
+                [NSBezierPath fillRect:NSMakeRect(pixSandX + 0.5f, pixSandY + 0.5f, 1.0f, 1.0f)];
+#endif
             }
         }
     }
@@ -411,12 +415,7 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
     {
         [baseSandColor release];
     }
-    // TODO: change colorWithDeviceRed to colorWithGenericRed
-    //baseSandColor = [NSColor colorWithDeviceRed:sandRGB->redValue/255.0f 
-    //                                      green:sandRGB->greenValue/255.0f 
-    //                                       blue:sandRGB->blueValue/255.0f 
-    //                                      alpha:1.0f];
-    baseSandColor = [UIColor colorWithRed:sandRGB->redValue/255.0f 
+    baseSandColor = [HEYCOLOR HeyColorWithRed:sandRGB->redValue/255.0f 
                                     green:sandRGB->greenValue/255.0f 
                                      blue:sandRGB->blueValue/255.0f 
                                     alpha:1.0f];

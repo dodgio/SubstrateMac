@@ -8,6 +8,9 @@
 			8D255AC50486D3F9007BF209 /* SubstrateMac */,
 		);
 		breakpoints = (
+			80B7DE7B0FCF8DD70062FDAB /* HeySubstrateView.m:259 */,
+			80B7DE950FCF91460062FDAB /* HeySubstrateCrack.m:236 */,
+			80B7DE970FCF914E0062FDAB /* HeySubstrateView.m:389 */,
 		);
 		codeSenseManager = 804CB3D509E205CB0014DE78 /* Code sense */;
 		executables = (
@@ -108,8 +111,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 264202433;
-			PBXWorkspaceStateSaveDate = 264202433;
+			PBXPerProjectTemplateStateSaveDate = 265228340;
+			PBXWorkspaceStateSaveDate = 265228340;
 		};
 		sourceControlManager = 804CB3D409E205CB0014DE78 /* Source Control */;
 		userBuildSettings = {
@@ -127,23 +130,23 @@
 		isa = PBXFileReference;
 		explicitFileType = "compiled.mach-o.executable";
 		name = SaverLab;
-		path = /Applications/DevTools/SaverLab.app/Contents/MacOS/SaverLab;
-		sourceTree = "<absolute>";
+		path = ../Applications/_DevTools/SaverLab.app;
+		sourceTree = DEVELOPER_DIR;
 	};
-	802122580FBE233900DD9A3B /* HeySubstrateMacView.h */ = {
+	802122580FBE233900DD9A3B /* HeySubstrateView.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {752, 1764}}";
-			sepNavSelRange = "{2821, 0}";
-			sepNavVisRange = "{2485, 2414}";
+			sepNavIntBoundsRect = "{{0, 0}, {626, 1419}}";
+			sepNavSelRange = "{3225, 0}";
+			sepNavVisRange = "{308, 2682}";
 			sepNavWindowFrame = "{{83, 304}, {685, 848}}";
 		};
 	};
-	802122590FBE233900DD9A3B /* HeySubstrateMacView.m */ = {
+	802122590FBE233900DD9A3B /* HeySubstrateView.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {752, 8220}}";
-			sepNavSelRange = "{9790, 0}";
-			sepNavVisRange = "{8288, 2776}";
-			sepNavWindowFrame = "{{668, 182}, {811, 996}}";
+			sepNavIntBoundsRect = "{{0, 0}, {675, 8217}}";
+			sepNavSelRange = "{8608, 0}";
+			sepNavVisRange = "{8373, 600}";
+			sepNavWindowFrame = "{{588, 133}, {685, 848}}";
 		};
 	};
 	804CB3D409E205CB0014DE78 /* Source Control */ = {
@@ -157,6 +160,104 @@
 	804CB3D509E205CB0014DE78 /* Code sense */ = {
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
+	};
+	80B7DDFB0FCF7FCE0062FDAB /* NSColor-HeyNSColor.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {611, 852}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1050}";
+			sepNavWindowFrame = "{{152, 124}, {670, 965}}";
+		};
+	};
+	80B7DDFC0FCF7FCE0062FDAB /* NSColor-HeyNSColor.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {675, 737}}";
+			sepNavSelRange = "{845, 0}";
+			sepNavVisRange = "{539, 664}";
+		};
+	};
+	80B7DE080FCF81B70062FDAB /* HeySubstrate.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {611, 924}}";
+			sepNavSelRange = "{1332, 0}";
+			sepNavVisRange = "{0, 2428}";
+			sepNavWindowFrame = "{{640, 213}, {670, 965}}";
+		};
+	};
+	80B7DE0B0FCF81F50062FDAB /* HeySubstrate.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {611, 1419}}";
+			sepNavSelRange = "{2113, 0}";
+			sepNavVisRange = "{1981, 1876}";
+			sepNavWindowFrame = "{{640, 213}, {670, 965}}";
+		};
+	};
+	80B7DE400FCF8A080062FDAB /* HeySubstrateCrack.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {611, 852}}";
+			sepNavSelRange = "{2034, 0}";
+			sepNavVisRange = "{0, 2766}";
+			sepNavWindowFrame = "{{129, 145}, {670, 965}}";
+		};
+	};
+	80B7DE410FCF8A080062FDAB /* HeySubstrateCrack.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {675, 5115}}";
+			sepNavSelRange = "{10312, 0}";
+			sepNavVisRange = "{10142, 476}";
+			sepNavWindowFrame = "{{198, 82}, {670, 965}}";
+		};
+	};
+	80B7DE7B0FCF8DD70062FDAB /* HeySubstrateView.m:259 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 802122590FBE233900DD9A3B /* HeySubstrateView.m */;
+		functionName = "-initWithFrame:isPreview:";
+		hitCount = 1;
+		ignoreCount = 0;
+		lineNumber = 259;
+		location = SubstrateMac;
+		modificationTime = 265262471.976986;
+		state = 1;
+	};
+	80B7DE950FCF91460062FDAB /* HeySubstrateCrack.m:236 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 80B7DE410FCF8A080062FDAB /* HeySubstrateCrack.m */;
+		functionName = "-move";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 236;
+		location = SubstrateMac;
+		modificationTime = 265262465.826769;
+		state = 2;
+	};
+	80B7DE970FCF914E0062FDAB /* HeySubstrateView.m:389 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 802122590FBE233900DD9A3B /* HeySubstrateView.m */;
+		functionName = "-animateOneFrame";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 389;
+		location = SubstrateMac;
+		modificationTime = 265262465.826781;
+		state = 2;
 	};
 	80EA610609F72DAB00AF42C1 /* Executable */ = {
 		isa = PBXExecutable;
@@ -173,7 +274,11 @@
 				PBXLSLaunchStdioStyle = 2;
 				PBXLSLaunchStyle = 0;
 				class = PBXLSRunLaunchConfig;
+				commandLineArgs = (
+				);
 				displayName = "Executable Runner";
+				environment = {
+				};
 				identifier = com.apple.Xcode.launch.runConfig;
 				remoteHostInfo = "";
 				startActionInfo = "";

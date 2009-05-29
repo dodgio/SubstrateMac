@@ -25,7 +25,7 @@
 // -----------------------------------------------------------------------------
 // MARK: Private Category Interface
 
-@interface HeySubstrateCanvas : (Private)
+@interface HeySubstrateCanvas (Private)
 
 @end
 

@@ -49,8 +49,7 @@
     float t_inc;                // ??? curve
     HeySubstrateView *saverView; // Pointer to view  
     float sandGain;             // Random factor to modulate number of sand grains
-    //NSColor *baseSandColor;     // Base color of the sand
-    UIColor *baseSandColor;     // Base color of the sand
+    HEYCOLOR *baseSandColor;     // Base color of the sand
     float cosAnglePi180;        // Save cosine results
     float sinAnglePi180;        // Save sine results
     HeyVectF_t *vFSource;          // Vector sin() source (paintToX:Y:FromCrackX:Y)

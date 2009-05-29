@@ -7,9 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8021225C0FBE233900DD9A3B /* HeySubstrateMacView.h in Headers */ = {isa = PBXBuildFile; fileRef = 802122580FBE233900DD9A3B /* HeySubstrateMacView.h */; };
-		8021225D0FBE233900DD9A3B /* HeySubstrateMacView.m in Sources */ = {isa = PBXBuildFile; fileRef = 802122590FBE233900DD9A3B /* HeySubstrateMacView.m */; };
+		8021225C0FBE233900DD9A3B /* HeySubstrateView.h in Headers */ = {isa = PBXBuildFile; fileRef = 802122580FBE233900DD9A3B /* HeySubstrateView.h */; };
+		8021225D0FBE233900DD9A3B /* HeySubstrateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 802122590FBE233900DD9A3B /* HeySubstrateView.m */; };
 		80964F8E09E2D65900BD7727 /* SubstrateMacOptions.nib in Resources */ = {isa = PBXBuildFile; fileRef = 80964F8D09E2D65900BD7727 /* SubstrateMacOptions.nib */; };
+		80B7DDFD0FCF7FCE0062FDAB /* NSColor-HeyNSColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 80B7DDFB0FCF7FCE0062FDAB /* NSColor-HeyNSColor.h */; };
+		80B7DDFE0FCF7FCE0062FDAB /* NSColor-HeyNSColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 80B7DDFC0FCF7FCE0062FDAB /* NSColor-HeyNSColor.m */; };
+		80B7DE090FCF81B70062FDAB /* HeySubstrate.m in Sources */ = {isa = PBXBuildFile; fileRef = 80B7DE080FCF81B70062FDAB /* HeySubstrate.m */; };
+		80B7DE0C0FCF81F50062FDAB /* HeySubstrate.h in Headers */ = {isa = PBXBuildFile; fileRef = 80B7DE0B0FCF81F50062FDAB /* HeySubstrate.h */; };
+		80B7DE440FCF8A080062FDAB /* HeySubstrateCrack.h in Headers */ = {isa = PBXBuildFile; fileRef = 80B7DE400FCF8A080062FDAB /* HeySubstrateCrack.h */; };
+		80B7DE450FCF8A080062FDAB /* HeySubstrateCrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 80B7DE410FCF8A080062FDAB /* HeySubstrateCrack.m */; };
 		80EA60EC09F7295400AF42C1 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EA601509F6B93C00AF42C1 /* Accelerate.framework */; };
 		8D255AC70486D3F9007BF209 /* SubstrateMac_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 32DBCFA80370C50100C91783 /* SubstrateMac_Prefix.pch */; };
 		8D255ACA0486D3F9007BF209 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
@@ -24,9 +30,15 @@
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		32DBCFA80370C50100C91783 /* SubstrateMac_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SubstrateMac_Prefix.pch; path = sources/mac/SubstrateMac_Prefix.pch; sourceTree = "<group>"; };
-		802122580FBE233900DD9A3B /* HeySubstrateMacView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeySubstrateMacView.h; path = sources/HeySubstrateMacView.h; sourceTree = "<group>"; };
-		802122590FBE233900DD9A3B /* HeySubstrateMacView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeySubstrateMacView.m; path = sources/HeySubstrateMacView.m; sourceTree = "<group>"; };
+		802122580FBE233900DD9A3B /* HeySubstrateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeySubstrateView.h; path = sources/HeySubstrateView.h; sourceTree = "<group>"; };
+		802122590FBE233900DD9A3B /* HeySubstrateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeySubstrateView.m; path = sources/HeySubstrateView.m; sourceTree = "<group>"; };
 		80964F8D09E2D65900BD7727 /* SubstrateMacOptions.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = SubstrateMacOptions.nib; path = resources/mac/SubstrateMacOptions.nib; sourceTree = "<group>"; };
+		80B7DDFB0FCF7FCE0062FDAB /* NSColor-HeyNSColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSColor-HeyNSColor.h"; path = "../HeyDaddioUtilityLibrary/sources/NSColor-HeyNSColor.h"; sourceTree = SOURCE_ROOT; };
+		80B7DDFC0FCF7FCE0062FDAB /* NSColor-HeyNSColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSColor-HeyNSColor.m"; path = "../HeyDaddioUtilityLibrary/sources/NSColor-HeyNSColor.m"; sourceTree = SOURCE_ROOT; };
+		80B7DE080FCF81B70062FDAB /* HeySubstrate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeySubstrate.m; path = sources/HeySubstrate.m; sourceTree = "<group>"; };
+		80B7DE0B0FCF81F50062FDAB /* HeySubstrate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeySubstrate.h; path = sources/HeySubstrate.h; sourceTree = "<group>"; };
+		80B7DE400FCF8A080062FDAB /* HeySubstrateCrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeySubstrateCrack.h; path = sources/HeySubstrateCrack.h; sourceTree = "<group>"; };
+		80B7DE410FCF8A080062FDAB /* HeySubstrateCrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeySubstrateCrack.m; path = sources/HeySubstrateCrack.m; sourceTree = "<group>"; };
 		80EA601509F6B93C00AF42C1 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = /System/Library/Frameworks/Accelerate.framework; sourceTree = "<absolute>"; };
 		8D255AD20486D3F9007BF209 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = resources/mac/Info.plist; sourceTree = "<group>"; };
 		8D255AD30486D3F9007BF209 /* SubstrateMac.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SubstrateMac.saver; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,6 +61,7 @@
 		089C166AFE841209C02AAC07 /* SubstrateMac */ = {
 			isa = PBXGroup;
 			children = (
+				80B7DDFA0FCF7FA90062FDAB /* Hey Daddio Utility */,
 				08FB77AFFE84173DC02AAC07 /* Common Sources */,
 				32DBCFA70370C4F300C91783 /* Other Sources */,
 				089C167CFE841241C02AAC07 /* Resources */,
@@ -80,8 +93,12 @@
 		08FB77AFFE84173DC02AAC07 /* Common Sources */ = {
 			isa = PBXGroup;
 			children = (
-				802122580FBE233900DD9A3B /* HeySubstrateMacView.h */,
-				802122590FBE233900DD9A3B /* HeySubstrateMacView.m */,
+				80B7DE400FCF8A080062FDAB /* HeySubstrateCrack.h */,
+				80B7DE410FCF8A080062FDAB /* HeySubstrateCrack.m */,
+				80B7DE0B0FCF81F50062FDAB /* HeySubstrate.h */,
+				80B7DE080FCF81B70062FDAB /* HeySubstrate.m */,
+				802122580FBE233900DD9A3B /* HeySubstrateView.h */,
+				802122590FBE233900DD9A3B /* HeySubstrateView.m */,
 			);
 			name = "Common Sources";
 			sourceTree = "<group>";
@@ -121,6 +138,15 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
+		80B7DDFA0FCF7FA90062FDAB /* Hey Daddio Utility */ = {
+			isa = PBXGroup;
+			children = (
+				80B7DDFB0FCF7FCE0062FDAB /* NSColor-HeyNSColor.h */,
+				80B7DDFC0FCF7FCE0062FDAB /* NSColor-HeyNSColor.m */,
+			);
+			name = "Hey Daddio Utility";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -129,7 +155,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D255AC70486D3F9007BF209 /* SubstrateMac_Prefix.pch in Headers */,
-				8021225C0FBE233900DD9A3B /* HeySubstrateMacView.h in Headers */,
+				8021225C0FBE233900DD9A3B /* HeySubstrateView.h in Headers */,
+				80B7DDFD0FCF7FCE0062FDAB /* NSColor-HeyNSColor.h in Headers */,
+				80B7DE0C0FCF81F50062FDAB /* HeySubstrate.h in Headers */,
+				80B7DE440FCF8A080062FDAB /* HeySubstrateCrack.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,7 +249,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8021225D0FBE233900DD9A3B /* HeySubstrateMacView.m in Sources */,
+				8021225D0FBE233900DD9A3B /* HeySubstrateView.m in Sources */,
+				80B7DDFE0FCF7FCE0062FDAB /* NSColor-HeyNSColor.m in Sources */,
+				80B7DE090FCF81B70062FDAB /* HeySubstrate.m in Sources */,
+				80B7DE450FCF8A080062FDAB /* HeySubstrateCrack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

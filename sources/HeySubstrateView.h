@@ -30,14 +30,18 @@
 // -----------------------------------------------------------------------------
 
 #import "HeySubstrate.h"
-#import "HeySubstrateAppDelegate.h"
+#if TARGET_OS_IPHONE
+ #import "HeySubstrateAppDelegate.h"
+#endif
 
 
 // -----------------------------------------------------------------------------
 // MARK: HeySubstrateView
-
-//@interface HeySubstrateView : ScreenSaverView 
+#if TARGET_OS_IPHONE
 @interface HeySubstrateView : UIView 
+#else
+@interface HeySubstrateView : ScreenSaverView 
+#endif
 {
 @private
     IBOutlet id optionSheet;                // Option configuration sheet and
@@ -77,22 +81,27 @@
 }
 
 // User Interface
-- (IBAction)okClick:(id)sender;
-- (IBAction)cancelClick:(id)sender;
 
 // Inherited from ScreenSaverView
-//- (id)initWithFrame:(NSRect)frame isPreview:(BOOL)isPreview;
+#if TARGET_OS_IPHONE
 - (id)initWithFrame:(CGRect)frame;
+#else
+- (id)initWithFrame:(NSRect)frame isPreview:(BOOL)isPreview;
+#endif
 - (void)dealloc;
 - (void)startAnimation;
 - (void)stopAnimation;
-//- (void)drawRect:(NSRect)rect;
-- (void)drawRect:(CGRect)rect;
+- (void)drawRect:(HEYRECT)rect;
 - (void)animateOneFrame;
 - (BOOL)isOpaque;
+#if TARGET_OS_IPHONE
+
+#else
 - (BOOL)hasConfigureSheet;
-//- (NSWindow*)configureSheet;
-- (UIView *)configureSheet;
+- (NSWindow*)configureSheet;            // Mac only
+- (IBAction)okClick:(id)sender;
+- (IBAction)cancelClick:(id)sender;
+#endif
 
 // Declare/define for iphone only
 - (void)setAnimationTimeInterval:(NSTimeInterval)timeInterval;
