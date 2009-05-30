@@ -75,21 +75,25 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 - (void)internalInitializer
 {
     // Register/load defaults.
+    CGFloat start;
+    CGFloat density;
 #if TARGET_OS_IPHONE
     NSUserDefaults *defaults;
     defaults = [NSUserDefaults standardUserDefaults];
+    start = 3.0f;
+    density = 50000.0f;
 #else
     ScreenSaverDefaults *defaults;
     defaults = [ScreenSaverDefaults defaultsForModuleWithName:HeySubstrateMacModuleName];
+    start = 11.0f;
+    density = 100000.0f;
 #endif
     [defaults registerDefaults:
     [NSDictionary dictionaryWithObjectsAndKeys:
-            //[NSNumber numberWithFloat:11.0f],     defaultsKeyNumberOfCracks,
-            [NSNumber numberWithFloat:3.0f],        defaultsKeyNumberOfCracks,
+            [NSNumber numberWithFloat:start],       defaultsKeyNumberOfCracks,
             [NSNumber numberWithFloat:1.0f],        defaultsKeySpeedOfCracking,
             [NSNumber numberWithFloat:-0.046f],     defaultsKeyAmountOfSand,
-            //[NSNumber numberWithFloat:100000.0f], defaultsKeyDensityOfDrawing,
-            [NSNumber numberWithFloat:50000.0f],    defaultsKeyDensityOfDrawing,
+            [NSNumber numberWithFloat:density],     defaultsKeyDensityOfDrawing,
             [NSNumber numberWithFloat:10.0f],       defaultsKeyPauseBetweenDrawings,
             @"NO",                                  defaultsKeyDrawCracksOnly,
             [NSNumber numberWithFloat:15.0f],       defaultsKeyPercentageOfCurvedCracks,
@@ -103,10 +107,6 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     opts.drawCracksOnly        = [defaults boolForKey: defaultsKeyDrawCracksOnly];
     opts.percentCurves         = [defaults floatForKey:defaultsKeyPercentageOfCurvedCracks];
     
-    [self setAnimationTimeInterval:1 / HeySubstrateAnimationFPS];
-
-    //viewWidth = frame.size.width;
-    //viewHeight = frame.size.height;
     viewWidth = [self frame].size.width;
     viewHeight = [self frame].size.height;
     maxNumCracks = 100;
@@ -363,11 +363,11 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 }
 
 
-- (void)setAnimationTimeInterval:(NSTimeInterval)timeInterval
-{
-    (void)timeInterval;
-    // TODO: finish function for mac
-}
+//- (void)setAnimationTimeInterval:(NSTimeInterval)timeInterval
+//{
+//    (void)timeInterval;
+//    // TODO: finish function for mac
+//}
 
 
 - (void)drawRect:(HEYRECT)rect 
@@ -473,22 +473,20 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 }
 
 
+#if TARGET_OS_IPHONE
+#else
+
 - (BOOL)hasConfigureSheet 
 {
     return YES;
 }
 
 
-#if TARGET_OS_IPHONE
-
-#else
 // Set up the option sheet.
 - (NSWindow*)configureSheet 
 {
-    //ScreenSaverDefaults *defaults;
-    NSUserDefaults *defaults;
-    //defaults = [ScreenSaverDefaults defaultsForModuleWithName:SubstrateMacModuleName];
-    defaults = [NSUserDefaults standardUserDefaults];
+    ScreenSaverDefaults *defaults;
+    defaults = [ScreenSaverDefaults defaultsForModuleWithName:HeySubstrateMacModuleName];
     
     if (!optionSheet) 
     {
@@ -497,15 +495,6 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
             NSLog(@"Unable to load options configuration sheet.");
         }
     }
-#if TARGET_OS_IPHONE
-    [numberOfCracksSlider setValue:[defaults floatForKey:defaultsKeyNumberOfCracks] animated:NO];
-    [speedOfCrackingSlider setValue:[defaults floatForKey:defaultsKeySpeedOfCracking] animated:NO];
-    [amountOfSandSlider setValue:[defaults floatForKey:defaultsKeyAmountOfSand] animated:NO];
-    [densityOfDrawingSlider setValue:[defaults floatForKey:defaultsKeyDensityOfDrawing] animated:NO];
-    [pauseBetweenDrawingsSlider setValue:[defaults floatForKey:defaultsKeyPauseBetweenDrawings] animated:NO];
-    [drawCracksOnlyOption setOn:[defaults boolForKey: defaultsKeyDrawCracksOnly]animated:NO];
-    [percentCurvedSlider setValue:[defaults floatForKey:defaultsKeyPercentageOfCurvedCracks] animated:NO];
-#else
     [numberOfCracksSlider       setFloatValue:[defaults floatForKey:defaultsKeyNumberOfCracks]];
     [speedOfCrackingSlider      setFloatValue:[defaults floatForKey:defaultsKeySpeedOfCracking]];
     [amountOfSandSlider         setFloatValue:[defaults floatForKey:defaultsKeyAmountOfSand]];
@@ -513,8 +502,6 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     [pauseBetweenDrawingsSlider setFloatValue:[defaults floatForKey:defaultsKeyPauseBetweenDrawings]];
     [drawCracksOnlyOption       setState:     [defaults boolForKey: defaultsKeyDrawCracksOnly]];
     [percentCurvedSlider        setFloatValue:[defaults floatForKey:defaultsKeyPercentageOfCurvedCracks]];
-#endif
-    
     return optionSheet;
 }
 
@@ -523,10 +510,8 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 - (IBAction)okClick:(id)sender 
 {
     (void)sender;
-    //ScreenSaverDefaults *defaults;
-    NSUserDefaults *defaults;
-    //defaults = [ScreenSaverDefaults defaultsForModuleWithName:SubstrateMacModuleName];
-    defaults = [NSUserDefaults standardUserDefaults];
+    ScreenSaverDefaults *defaults;
+    defaults = [ScreenSaverDefaults defaultsForModuleWithName:HeySubstrateMacModuleName];
     [defaults setFloat:[numberOfCracksSlider        floatValue] forKey:defaultsKeyNumberOfCracks];
     [defaults setFloat:[speedOfCrackingSlider       floatValue] forKey:defaultsKeySpeedOfCracking];
     [defaults setFloat:[amountOfSandSlider          floatValue] forKey:defaultsKeyAmountOfSand];
@@ -557,6 +542,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     [[NSApplication sharedApplication] endSheet:optionSheet];
 }
 #endif
+
 
 - (int)optionPercentCurves 
 {
@@ -682,6 +668,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     // Do nothing.
 }
 #endif
+
 
 @end
 

@@ -74,19 +74,19 @@
     NSInteger infoFadeCountdown;
     CGRect infoRect;            // Rect of info icon/button
     UIImage *infoIcon;          // Info icon/button.
-@public
+  @public
     CGImageRef offscreenBitmapImage;
-#else
 #endif
 }
 
-// User Interface
-
-// Inherited from ScreenSaverView
 #if TARGET_OS_IPHONE
 - (id)initWithFrame:(CGRect)frame;
 #else
 - (id)initWithFrame:(NSRect)frame isPreview:(BOOL)isPreview;
+- (BOOL)hasConfigureSheet;
+- (NSWindow*)configureSheet;
+- (IBAction)okClick:(id)sender;
+- (IBAction)cancelClick:(id)sender;
 #endif
 - (void)dealloc;
 - (void)startAnimation;
@@ -94,19 +94,7 @@
 - (void)drawRect:(HEYRECT)rect;
 - (void)animateOneFrame;
 - (BOOL)isOpaque;
-#if TARGET_OS_IPHONE
 
-#else
-- (BOOL)hasConfigureSheet;
-- (NSWindow*)configureSheet;            // Mac only
-- (IBAction)okClick:(id)sender;
-- (IBAction)cancelClick:(id)sender;
-#endif
-
-// Declare/define for iphone only
-- (void)setAnimationTimeInterval:(NSTimeInterval)timeInterval;
-
-// HeySubstrateView
 - (void)makeACrack;
 - (void)restartAnimation;
 - (void)setupAnimation;

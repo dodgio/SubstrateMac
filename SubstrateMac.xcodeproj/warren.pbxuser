@@ -1,15 +1,13 @@
 // !$*UTF8*$!
 {
 	089C1669FE841209C02AAC07 /* Project object */ = {
-		activeBuildConfigurationName = Debug;
+		activeBuildConfigurationName = Release;
 		activeExecutable = 80EA610609F72DAB00AF42C1 /* Executable */;
 		activeTarget = 8D255AC50486D3F9007BF209 /* SubstrateMac */;
 		addToTargets = (
 			8D255AC50486D3F9007BF209 /* SubstrateMac */,
 		);
 		breakpoints = (
-			80B7DE7B0FCF8DD70062FDAB /* HeySubstrateView.m:259 */,
-			80B7DE950FCF91460062FDAB /* HeySubstrateCrack.m:236 */,
 			80B7DE970FCF914E0062FDAB /* HeySubstrateView.m:389 */,
 		);
 		codeSenseManager = 804CB3D509E205CB0014DE78 /* Code sense */;
@@ -111,8 +109,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 265228340;
-			PBXWorkspaceStateSaveDate = 265228340;
+			PBXPerProjectTemplateStateSaveDate = 265354001;
+			PBXWorkspaceStateSaveDate = 265354001;
 		};
 		sourceControlManager = 804CB3D409E205CB0014DE78 /* Source Control */;
 		userBuildSettings = {
@@ -120,8 +118,9 @@
 	};
 	32DBCFA80370C50100C91783 /* SubstrateMac_Prefix.pch */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {720, 569}}";
-			sepNavSelRange = "{121, 38}";
+			sepNavIntBoundsRect = "{{0, 0}, {706, 564}}";
+			sepNavSelRange = "{196, 0}";
+			sepNavVisRange = "{0, 196}";
 			sepNavVisRect = "{{0, 0}, {720, 569}}";
 			sepNavWindowFrame = "{{107, 112}, {765, 677}}";
 		};
@@ -135,18 +134,18 @@
 	};
 	802122580FBE233900DD9A3B /* HeySubstrateView.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {626, 1419}}";
-			sepNavSelRange = "{3225, 0}";
-			sepNavVisRange = "{308, 2682}";
-			sepNavWindowFrame = "{{83, 304}, {685, 848}}";
+			sepNavIntBoundsRect = "{{0, 0}, {626, 1287}}";
+			sepNavSelRange = "{3250, 0}";
+			sepNavVisRange = "{1815, 2141}";
+			sepNavWindowFrame = "{{576, 330}, {685, 848}}";
 		};
 	};
 	802122590FBE233900DD9A3B /* HeySubstrateView.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {675, 8217}}";
-			sepNavSelRange = "{8608, 0}";
-			sepNavVisRange = "{8373, 600}";
-			sepNavWindowFrame = "{{588, 133}, {685, 848}}";
+			sepNavIntBoundsRect = "{{0, 0}, {626, 7447}}";
+			sepNavSelRange = "{14760, 0}";
+			sepNavVisRange = "{13701, 2795}";
+			sepNavWindowFrame = "{{83, 304}, {685, 848}}";
 		};
 	};
 	804CB3D409E205CB0014DE78 /* Source Control */ = {
@@ -164,23 +163,24 @@
 	80B7DDFB0FCF7FCE0062FDAB /* NSColor-HeyNSColor.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {611, 852}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 1050}";
+			sepNavSelRange = "{236, 0}";
+			sepNavVisRange = "{0, 1029}";
 			sepNavWindowFrame = "{{152, 124}, {670, 965}}";
 		};
 	};
 	80B7DDFC0FCF7FCE0062FDAB /* NSColor-HeyNSColor.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {675, 737}}";
-			sepNavSelRange = "{845, 0}";
-			sepNavVisRange = "{539, 664}";
+			sepNavIntBoundsRect = "{{0, 0}, {611, 852}}";
+			sepNavSelRange = "{1761, 0}";
+			sepNavVisRange = "{0, 1761}";
+			sepNavWindowFrame = "{{152, 124}, {670, 965}}";
 		};
 	};
 	80B7DE080FCF81B70062FDAB /* HeySubstrate.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {611, 924}}";
-			sepNavSelRange = "{1332, 0}";
-			sepNavVisRange = "{0, 2428}";
+			sepNavIntBoundsRect = "{{0, 0}, {611, 902}}";
+			sepNavSelRange = "{1333, 0}";
+			sepNavVisRange = "{101, 2439}";
 			sepNavWindowFrame = "{{640, 213}, {670, 965}}";
 		};
 	};
@@ -188,59 +188,25 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {611, 1419}}";
 			sepNavSelRange = "{2113, 0}";
-			sepNavVisRange = "{1981, 1876}";
+			sepNavVisRange = "{0, 2438}";
 			sepNavWindowFrame = "{{640, 213}, {670, 965}}";
 		};
 	};
 	80B7DE400FCF8A080062FDAB /* HeySubstrateCrack.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {611, 852}}";
-			sepNavSelRange = "{2034, 0}";
+			sepNavSelRange = "{0, 0}";
 			sepNavVisRange = "{0, 2766}";
 			sepNavWindowFrame = "{{129, 145}, {670, 965}}";
 		};
 	};
 	80B7DE410FCF8A080062FDAB /* HeySubstrateCrack.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {675, 5115}}";
-			sepNavSelRange = "{10312, 0}";
-			sepNavVisRange = "{10142, 476}";
-			sepNavWindowFrame = "{{198, 82}, {670, 965}}";
+			sepNavIntBoundsRect = "{{0, 0}, {611, 4840}}";
+			sepNavSelRange = "{16006, 0}";
+			sepNavVisRange = "{14224, 2563}";
+			sepNavWindowFrame = "{{129, 145}, {670, 965}}";
 		};
-	};
-	80B7DE7B0FCF8DD70062FDAB /* HeySubstrateView.m:259 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		countType = 0;
-		delayBeforeContinue = 0;
-		fileReference = 802122590FBE233900DD9A3B /* HeySubstrateView.m */;
-		functionName = "-initWithFrame:isPreview:";
-		hitCount = 1;
-		ignoreCount = 0;
-		lineNumber = 259;
-		location = SubstrateMac;
-		modificationTime = 265262471.976986;
-		state = 1;
-	};
-	80B7DE950FCF91460062FDAB /* HeySubstrateCrack.m:236 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		countType = 0;
-		delayBeforeContinue = 0;
-		fileReference = 80B7DE410FCF8A080062FDAB /* HeySubstrateCrack.m */;
-		functionName = "-move";
-		hitCount = 0;
-		ignoreCount = 0;
-		lineNumber = 236;
-		location = SubstrateMac;
-		modificationTime = 265262465.826769;
-		state = 2;
 	};
 	80B7DE970FCF914E0062FDAB /* HeySubstrateView.m:389 */ = {
 		isa = PBXFileBreakpoint;
@@ -256,7 +222,7 @@
 		ignoreCount = 0;
 		lineNumber = 389;
 		location = SubstrateMac;
-		modificationTime = 265262465.826781;
+		modificationTime = 265352144.5419219;
 		state = 2;
 	};
 	80EA610609F72DAB00AF42C1 /* Executable */ = {
