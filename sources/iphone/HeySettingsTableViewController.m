@@ -79,12 +79,14 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    (void)tableView;
     return 4;
 }
 
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
+    (void)tableView;
     switch (section) 
     {
       case HeySubstrateSettingsSectionCracks:
@@ -108,6 +110,7 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    (void)tableView;
     switch (section) 
     {
       case HeySubstrateSettingsSectionCracks:
@@ -131,6 +134,7 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    (void)tableView;
     CGFloat height = uitvcHeightDefault;
     
     switch ([indexPath indexAtPosition:0]) 
@@ -321,8 +325,8 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
                         CGRect rWork = cell.bounds;
                         rWork.size.height = uitvcHeightAboutVisit;
                         [button setFrame:CGRectInset(rWork, 20.0f, 10.0f)];
-                        UIImage *normal = [UIImage imageNamed:@"whiteButton.png"];
-                        UIImage *stretchNormal = [normal stretchableImageWithLeftCapWidth:12 topCapHeight:12];
+                        UIImage *bNormal = [UIImage imageNamed:@"whiteButton.png"];
+                        UIImage *stretchNormal = [bNormal stretchableImageWithLeftCapWidth:12 topCapHeight:12];
                         [button setBackgroundImage:stretchNormal forState:UIControlStateNormal];
                         UIImage *highlighted = [UIImage imageNamed:@"blueButton.png"];
                         UIImage *stretchHighlighted = [highlighted stretchableImageWithLeftCapWidth:12 topCapHeight:12];
@@ -387,12 +391,14 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
 
 - (void)heydaddioAction:(UIButton *)sender
 {
+    (void)sender;
     [[UIApplication sharedApplication] performSelector:@selector(openURL:) withObject:[NSURL URLWithString:@"http://www.heydaddio.com/"] afterDelay:0.25f];
 }
 
 
 - (void)doneAction:(UIBarButtonItem *)sender
 {
+    (void)sender;
     HeySubstrateAppDelegate *appDelegate;
     appDelegate = (HeySubstrateAppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate setOptions:&opts];       // Save settings to app delegate.

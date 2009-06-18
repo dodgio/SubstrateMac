@@ -1,6 +1,7 @@
 // !$*UTF8*$!
 {
 	089C1669FE841209C02AAC07 /* Project object */ = {
+		activeArchitecturePreference = i386;
 		activeBuildConfigurationName = Release;
 		activeExecutable = 80EA610609F72DAB00AF42C1 /* Executable */;
 		activeTarget = 8D255AC50486D3F9007BF209 /* SubstrateMac */;
@@ -8,7 +9,7 @@
 			8D255AC50486D3F9007BF209 /* SubstrateMac */,
 		);
 		breakpoints = (
-			80B7DE970FCF914E0062FDAB /* HeySubstrateView.m:389 */,
+			80B7DE970FCF914E0062FDAB /* HeySubstrateView.m:411 */,
 		);
 		codeSenseManager = 804CB3D509E205CB0014DE78 /* Code sense */;
 		executables = (
@@ -70,7 +71,7 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					341,
+					280,
 					20,
 					48,
 					43,
@@ -87,13 +88,41 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFindDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFindDataSource_LocationID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					200,
+					294,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFindDataSource_MessageID,
+					PBXFindDataSource_LocationID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXSymbolsDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXSymbolsDataSource_SymbolNameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					16,
+					200,
+					50,
+					220,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXSymbolsDataSource_SymbolTypeIconID,
+					PBXSymbolsDataSource_SymbolNameID,
+					PBXSymbolsDataSource_SymbolTypeID,
+					PBXSymbolsDataSource_ReferenceNameID,
+				);
+			};
 			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
 				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					200,
-					161,
+					240,
+					60,
 					20,
 					48,
 					43,
@@ -109,8 +138,18 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 265354001;
-			PBXWorkspaceStateSaveDate = 265354001;
+			PBXPerProjectTemplateStateSaveDate = 267046371;
+			PBXWorkspaceStateSaveDate = 267046371;
+		};
+		perUserProjectItems = {
+			80154F3D0FE9A34A0093695D /* PBXTextBookmark */ = 80154F3D0FE9A34A0093695D /* PBXTextBookmark */;
+			80154FFD0FE9D63B0093695D /* PBXTextBookmark */ = 80154FFD0FE9D63B0093695D /* PBXTextBookmark */;
+			801550560FEAC87F0093695D /* PBXTextBookmark */ = 801550560FEAC87F0093695D /* PBXTextBookmark */;
+			801550570FEAC87F0093695D /* PBXTextBookmark */ = 801550570FEAC87F0093695D /* PBXTextBookmark */;
+			801550580FEAC87F0093695D /* PBXTextBookmark */ = 801550580FEAC87F0093695D /* PBXTextBookmark */;
+			801550590FEAC87F0093695D /* PBXTextBookmark */ = 801550590FEAC87F0093695D /* PBXTextBookmark */;
+			805D57980FEACF7A0000F05D /* PBXTextBookmark */ = 805D57980FEACF7A0000F05D /* PBXTextBookmark */;
+			805D57990FEACF7A0000F05D /* PBXTextBookmark */ = 805D57990FEACF7A0000F05D /* PBXTextBookmark */;
 		};
 		sourceControlManager = 804CB3D409E205CB0014DE78 /* Source Control */;
 		userBuildSettings = {
@@ -118,8 +157,8 @@
 	};
 	32DBCFA80370C50100C91783 /* SubstrateMac_Prefix.pch */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {706, 564}}";
-			sepNavSelRange = "{196, 0}";
+			sepNavIntBoundsRect = "{{0, 0}, {871, 216}}";
+			sepNavSelRange = "{0, 0}";
 			sepNavVisRange = "{0, 196}";
 			sepNavVisRect = "{{0, 0}, {720, 569}}";
 			sepNavWindowFrame = "{{107, 112}, {765, 677}}";
@@ -132,20 +171,101 @@
 		path = ../Applications/_DevTools/SaverLab.app;
 		sourceTree = DEVELOPER_DIR;
 	};
+	80154ECF0FE971BD0093695D /* NSMatrix.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = NSMatrix.h;
+		path = /Developer/SDKs/MacOSX10.5.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSMatrix.h;
+		sourceTree = "<absolute>";
+	};
+	80154F3D0FE9A34A0093695D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 80154ECF0FE971BD0093695D /* NSMatrix.h */;
+		name = "NSMatrix.h: 154";
+		rLen = 0;
+		rLoc = 5545;
+		rType = 0;
+		vrLen = 382;
+		vrLoc = 5193;
+	};
+	80154F810FE9B8D90093695D /* HeySubstrateAppDelegate.m */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.objc;
+		name = HeySubstrateAppDelegate.m;
+		path = /Users/warren/source/prj/SubstrateMac/sources/iphone/HeySubstrateAppDelegate.m;
+		sourceTree = "<absolute>";
+	};
+	80154FFD0FE9D63B0093695D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 80154F810FE9B8D90093695D /* HeySubstrateAppDelegate.m */;
+		name = "HeySubstrateAppDelegate.m: 126";
+		rLen = 19;
+		rLoc = 4040;
+		rType = 0;
+		vrLen = 234;
+		vrLoc = 0;
+	};
+	8015502C0FEAC4C80093695D /* HeySubstrateView.m */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.objc;
+		name = HeySubstrateView.m;
+		path = /Users/warren/source/prj/SubstrateMac/sources/HeySubstrateView.m;
+		sourceTree = "<absolute>";
+	};
+	801550560FEAC87F0093695D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 80B7DE400FCF8A080062FDAB /* HeySubstrateCrack.h */;
+		name = "HeySubstrateCrack.h: 51";
+		rLen = 83;
+		rLoc = 1951;
+		rType = 0;
+		vrLen = 497;
+		vrLoc = 1762;
+	};
+	801550570FEAC87F0093695D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 80B7DE0B0FCF81F50062FDAB /* HeySubstrate.h */;
+		name = "HeySubstrate.h: 79";
+		rLen = 0;
+		rLoc = 2439;
+		rType = 0;
+		vrLen = 234;
+		vrLoc = 0;
+	};
+	801550580FEAC87F0093695D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 802122580FBE233900DD9A3B /* HeySubstrateView.h */;
+		name = "HeySubstrateView.h: 87";
+		rLen = 0;
+		rLoc = 3252;
+		rType = 0;
+		vrLen = 271;
+		vrLoc = 3102;
+	};
+	801550590FEAC87F0093695D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8015502C0FEAC4C80093695D /* HeySubstrateView.m */;
+		name = "HeySubstrateView.m: 76";
+		rLen = 0;
+		rLoc = 2780;
+		rType = 0;
+		vrLen = 233;
+		vrLoc = 2628;
+	};
 	802122580FBE233900DD9A3B /* HeySubstrateView.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {626, 1287}}";
-			sepNavSelRange = "{3250, 0}";
-			sepNavVisRange = "{1815, 2141}";
-			sepNavWindowFrame = "{{576, 330}, {685, 848}}";
+			sepNavIntBoundsRect = "{{0, 0}, {458, 1651}}";
+			sepNavSelRange = "{3252, 0}";
+			sepNavVisRange = "{3102, 254}";
+			sepNavWindowFrame = "{{120, 302}, {685, 848}}";
 		};
 	};
 	802122590FBE233900DD9A3B /* HeySubstrateView.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {626, 7447}}";
-			sepNavSelRange = "{14760, 0}";
-			sepNavVisRange = "{13701, 2795}";
-			sepNavWindowFrame = "{{83, 304}, {685, 848}}";
+			sepNavIntBoundsRect = "{{0, 0}, {871, 8827}}";
+			sepNavSelRange = "{2780, 0}";
+			sepNavVisRange = "{2545, 460}";
+			sepNavWindowFrame = "{{121, 296}, {720, 855}}";
 		};
 	};
 	804CB3D409E205CB0014DE78 /* Source Control */ = {
@@ -153,6 +273,9 @@
 		fallbackIsa = XCSourceControlManager;
 		isSCMEnabled = 0;
 		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
 		};
 		scmType = "";
 	};
@@ -160,55 +283,75 @@
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
 	};
+	805D57980FEACF7A0000F05D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 80B7DDFB0FCF7FCE0062FDAB /* NSColor-HeyNSColor.h */;
+		name = "NSColor-HeyNSColor.h: 8";
+		rLen = 0;
+		rLoc = 236;
+		rType = 0;
+		vrLen = 177;
+		vrLoc = 63;
+	};
+	805D57990FEACF7A0000F05D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 802122580FBE233900DD9A3B /* HeySubstrateView.h */;
+		name = "HeySubstrateView.h: 87";
+		rLen = 0;
+		rLoc = 3252;
+		rType = 0;
+		vrLen = 254;
+		vrLoc = 3102;
+	};
 	80B7DDFB0FCF7FCE0062FDAB /* NSColor-HeyNSColor.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {611, 852}}";
+			sepNavIntBoundsRect = "{{0, 0}, {458, 442}}";
 			sepNavSelRange = "{236, 0}";
-			sepNavVisRange = "{0, 1029}";
+			sepNavVisRange = "{63, 177}";
 			sepNavWindowFrame = "{{152, 124}, {670, 965}}";
 		};
 	};
 	80B7DDFC0FCF7FCE0062FDAB /* NSColor-HeyNSColor.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {611, 852}}";
+			sepNavIntBoundsRect = "{{0, 0}, {722, 936}}";
 			sepNavSelRange = "{1761, 0}";
-			sepNavVisRange = "{0, 1761}";
-			sepNavWindowFrame = "{{152, 124}, {670, 965}}";
+			sepNavVisRange = "{1233, 528}";
+			sepNavWindowFrame = "{{152, 115}, {718, 974}}";
 		};
 	};
 	80B7DE080FCF81B70062FDAB /* HeySubstrate.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {611, 902}}";
-			sepNavSelRange = "{1333, 0}";
-			sepNavVisRange = "{101, 2439}";
-			sepNavWindowFrame = "{{640, 213}, {670, 965}}";
+			sepNavIntBoundsRect = "{{0, 0}, {611, 1066}}";
+			sepNavSelRange = "{2540, 0}";
+			sepNavVisRange = "{697, 1843}";
+			sepNavWindowFrame = "{{452, 164}, {670, 965}}";
 		};
 	};
 	80B7DE0B0FCF81F50062FDAB /* HeySubstrate.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {611, 1419}}";
-			sepNavSelRange = "{2113, 0}";
-			sepNavVisRange = "{0, 2438}";
-			sepNavWindowFrame = "{{640, 213}, {670, 965}}";
+			sepNavIntBoundsRect = "{{0, 0}, {458, 1742}}";
+			sepNavSelRange = "{2439, 0}";
+			sepNavVisRange = "{0, 234}";
+			sepNavWindowFrame = "{{452, 164}, {670, 965}}";
 		};
 	};
 	80B7DE400FCF8A080062FDAB /* HeySubstrateCrack.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {611, 852}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 2766}";
+			sepNavIntBoundsRect = "{{0, 0}, {661, 962}}";
+			sepNavSelRange = "{2412, 0}";
+			sepNavVisRange = "{101, 2349}";
 			sepNavWindowFrame = "{{129, 145}, {670, 965}}";
 		};
 	};
 	80B7DE410FCF8A080062FDAB /* HeySubstrateCrack.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {611, 4840}}";
-			sepNavSelRange = "{16006, 0}";
-			sepNavVisRange = "{14224, 2563}";
-			sepNavWindowFrame = "{{129, 145}, {670, 965}}";
+			sepNavIntBoundsRect = "{{0, 0}, {685, 6331}}";
+			sepNavSelRange = "{17224, 0}";
+			sepNavVisRange = "{15153, 2071}";
+			sepNavWindowFrame = "{{341, 156}, {744, 966}}";
 		};
 	};
-	80B7DE970FCF914E0062FDAB /* HeySubstrateView.m:389 */ = {
+	80B7DE970FCF914E0062FDAB /* HeySubstrateView.m:411 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -220,9 +363,10 @@
 		functionName = "-animateOneFrame";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 389;
+		lineNumber = 411;
 		location = SubstrateMac;
 		modificationTime = 265352144.5419219;
+		originalNumberOfMultipleMatches = 0;
 		state = 2;
 	};
 	80EA610609F72DAB00AF42C1 /* Executable */ = {
@@ -232,7 +376,7 @@
 		argumentStrings = (
 		);
 		autoAttachOnCrash = 1;
-		breakpointsEnabled = 1;
+		breakpointsEnabled = 0;
 		configStateDict = {
 			"PBXLSLaunchAction-0" = {
 				PBXLSLaunchAction = 0;
@@ -251,6 +395,9 @@
 			};
 		};
 		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
 		debuggerPlugin = GDBDebugging;
 		disassemblyDisplayState = 0;
 		dylibVariantSuffix = "";
@@ -264,6 +411,7 @@
 		name = Executable;
 		savedGlobals = {
 		};
+		showTypeColumn = 0;
 		sourceDirectories = (
 		);
 		variableFormatDictionary = {
@@ -277,7 +425,7 @@
 			sepNavIntBoundsRect = "{{0, 0}, {797, 569}}";
 			sepNavSelRange = "{667, 0}";
 			sepNavVisRect = "{{0, 0}, {720, 569}}";
-			sepNavWindowFrame = "{{130, 91}, {765, 677}}";
+			sepNavWindowFrame = "{{373, 77}, {765, 677}}";
 		};
 	};
 }

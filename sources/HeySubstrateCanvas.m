@@ -79,10 +79,8 @@
 
 - (void)dealloc
 {
-  free(crackAngleGrid);
-  crackAngleGrid = NULL;
-  [crackArray release];
-  crackArray = nil;
+  free(crackAngleGrid), crackAngleGrid = NULL;
+  [crackArray release], crackArray = nil;
   [super dealloc];
 }
 

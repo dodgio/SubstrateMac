@@ -126,17 +126,31 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
 // Designated initializer.
 - (id)initWithSSView:(HeySubstrateView *)view 
 {
-    self = [super init];
-    if (!self)
-        return nil;
+    BOOL success = YES;
     
-    [view retain];
-    saverView = view;
-    
-    vFSource = (HeyVectF_t *) malloc(sizeof(HeyVectF_t) * sandGrainCnt);
-    vFDest   = (HeyVectF_t *) malloc(sizeof(HeyVectF_t) * sandGrainCnt);
-    [self findStartPointAndTravelAngle];
-    
+    if ((self = [super init])) 
+    {
+        vFSource = (HeyVectF_t *) malloc(sizeof(HeyVectF_t) * sandGrainCnt);
+        success = vFSource ? YES : NO;
+        if (success)
+            vFDest   = (HeyVectF_t *) malloc(sizeof(HeyVectF_t) * sandGrainCnt);
+        success = vFDest ? YES : NO;
+        if (success) 
+        {
+            [view retain];
+            saverView = view;
+            [self findStartPointAndTravelAngle];
+        } 
+        else 
+        {
+            free(vFSource);
+            vFSource = NULL;
+            free(vFDest);
+            vFDest = NULL;
+            [self release];
+            return nil;
+        }
+    }
     return self;
 }
 
@@ -144,10 +158,11 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
 // Destroy.
 - (void) dealloc 
 {
-    [baseSandColor release];
-    free(vFSource);
-    free(vFDest);
-    [saverView release];
+    [baseSandColor release], baseSandColor = nil;
+    free(vFSource), vFSource = NULL;
+    free(vFDest), vFDest = NULL;
+    [saverView release], saverView = nil;
+    
     [super dealloc];
 }
 
@@ -169,8 +184,8 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
     int *cag = [saverView crackAngleGrid];
     while (!found && timeout++ < 10000) 
     {
-        randomX = random() % vWidth;
-        randomY = random() % vHeight;
+        randomX = (int)random() % vWidth;
+        randomY = (int)random() % vHeight;
         if (cag[randomY * vWidth + randomX] < cagEmpty) 
         {
             // <10,000 means pixel has a crack through it
@@ -182,19 +197,19 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
     posX = randomX;
     posY = randomY;
     if (found)
-        angleOfTravel = cag[randomY * vWidth + randomX];
+        angleOfTravel = (float)cag[randomY * vWidth + randomX];
     else
-        angleOfTravel = random() % 360;
+        angleOfTravel = (float)(random() % 360);
     
     if ((random() % 100) < 50) 
     {
         // Half of new cracks as positive angle, half negative
-        angleOfTravel -= 90 + (int)(((random() % 41000) / 10000.0) - 2.0);  
+        angleOfTravel -= 90 + (float)(((random() % 41000) / 10000.0) - 2.0);  
         // original java: int(random(-2.0, 2.1)
     } 
     else 
     {
-        angleOfTravel += 90 + (int)(((random() % 41000) / 10000.0) - 2.0);  
+        angleOfTravel += 90 + (float)(((random() % 41000) / 10000.0) - 2.0);  
     }
     cosAnglePi180 = cosf(angleOfTravel * (float)M_PI / 180.0f);
     sinAnglePi180 = sinf(angleOfTravel * (float)M_PI / 180.0f);
@@ -207,7 +222,7 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
     {
         curved = YES;
         degrees_drawn = 0;
-        radius = 10 + (random() % ((vWidth + vHeight) / 2));
+        radius = (float)(10 + (random() % ((vWidth + vHeight) / 2)));
         if (random() % 100 < 50) 
         {
             radius *= -1;
@@ -222,7 +237,7 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
     {
         curved = NO;
         degrees_drawn = 0;
-        radius = 0;
+        //radius = 0;
         t_inc = 0;
         xs = 0;
         ys = 0;
@@ -245,9 +260,9 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
     } 
     else 
     {
-        float oldx, oldy;
-        oldx = posX;
-        oldy = posY;
+        //float oldx, oldy;
+        //oldx = posX;
+        //oldy = posY;
         posX += ys * cosAnglePi180;
         posY += ys * sinAnglePi180;
         posX += xs * (cosAnglePi180 - (float)M_PI / 2.0f);
@@ -261,8 +276,8 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
     // Add fuzz to line of crack and draw
     int drawX, drawY;
     float z = 0.33f;
-    drawX = (int)(posX + ((random() % (int)(z * 200.0f)) / 100.0f) - z); // java: random(-z,z)
-    drawY = (int)(posY + ((random() % (int)(z * 200.0f)) / 100.0f) - z);
+    drawX = (int)(posX + ((((int)random()) % (int)(z * 200.0f)) / 100.0f) - z); // java: random(-z,z)
+    drawY = (int)(posY + (((int)(random()) % (int)(z * 200.0f)) / 100.0f) - z);
     
     // Draw sand
     if (![saverView optionDrawCracksOnly]) 
@@ -351,7 +366,7 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
 - (void)paintToX:(float)xEnd Y:(float)yEnd FromCrackX:(float)crackPosX CrackY:(float)crackPosY 
 {
     // modulate gain
-    sandGain += (random() % 10) / 100.0f + [saverView optionAmountOfSand];
+    sandGain += (float)(random() % 10) / 100.0f + [saverView optionAmountOfSand];
     float maxSandGain = 1.0f;
     if (sandGain < 0)
         sandGain = 0;
@@ -420,7 +435,7 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
                                      blue:sandRGB->blueValue/255.0f 
                                     alpha:1.0f];
     [baseSandColor retain];
-    sandGain = (random() % 10) / 100.0f + 0.01f;
+    sandGain = (float)(random() % 10) / 100.0f + 0.01f;
 }
 
 

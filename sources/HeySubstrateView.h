@@ -43,7 +43,7 @@
 @interface HeySubstrateView : ScreenSaverView 
 #endif
 {
-@private
+  @private
     IBOutlet id optionSheet;                // Option configuration sheet and
     IBOutlet id numberOfCracksSlider;       //  self-explanatory control outlets
     IBOutlet id speedOfCrackingSlider;      

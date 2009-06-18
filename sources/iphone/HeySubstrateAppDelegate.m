@@ -98,10 +98,11 @@ static const NSTimeInterval HeySubstrateViewTransitionTime = 0.5f;
 
 - (void)dealloc 
 {
-    [settingsNC release];
-    [settingsTVC release];
-    [substrateVC release];
-    [window release];
+    [settingsNC release], settingsNC = nil;
+    [settingsTVC release], settingsTVC = nil;
+    [substrateVC release], substrateVC = nil;
+    [window release], window = nil;
+    
     [super dealloc];
 }
 
@@ -111,6 +112,7 @@ static const NSTimeInterval HeySubstrateViewTransitionTime = 0.5f;
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {
+    (void)application;
     [window addSubview:substrateVC.view];
     [window makeKeyAndVisible];
 }

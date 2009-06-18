@@ -57,7 +57,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 
 @interface HeySubstrateView (Private)
 
-- (void)internalInitializer;
+- (BOOL)internalInitializer;
 #if TARGET_OS_IPHONE
 - (CGFloat)alphaForInfo;
 - (void)showInfo:(BOOL)immediate;
@@ -72,8 +72,10 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 @implementation HeySubstrateView (Private)
 
 // Initializer called from all inits.
-- (void)internalInitializer
+- (BOOL)internalInitializer
 {
+    BOOL success = YES;
+    
     // Register/load defaults.
     CGFloat start;
     CGFloat density;
@@ -90,10 +92,10 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 #endif
     [defaults registerDefaults:
     [NSDictionary dictionaryWithObjectsAndKeys:
-            [NSNumber numberWithFloat:start],       defaultsKeyNumberOfCracks,
+            [NSNumber numberWithFloat:(float)start],       defaultsKeyNumberOfCracks,
             [NSNumber numberWithFloat:1.0f],        defaultsKeySpeedOfCracking,
             [NSNumber numberWithFloat:-0.046f],     defaultsKeyAmountOfSand,
-            [NSNumber numberWithFloat:density],     defaultsKeyDensityOfDrawing,
+            [NSNumber numberWithFloat:(float)density],     defaultsKeyDensityOfDrawing,
             [NSNumber numberWithFloat:10.0f],       defaultsKeyPauseBetweenDrawings,
             @"NO",                                  defaultsKeyDrawCracksOnly,
             [NSNumber numberWithFloat:15.0f],       defaultsKeyPercentageOfCurvedCracks,
@@ -107,8 +109,8 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     opts.drawCracksOnly        = [defaults boolForKey: defaultsKeyDrawCracksOnly];
     opts.percentCurves         = [defaults floatForKey:defaultsKeyPercentageOfCurvedCracks];
     
-    viewWidth = [self frame].size.width;
-    viewHeight = [self frame].size.height;
+    viewWidth = (float)[self frame].size.width;
+    viewHeight = (float)[self frame].size.height;
     maxNumCracks = 100;
     iterationsDone = 0;
     drawingPaused = NO;
@@ -116,16 +118,15 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     
     // crackAngleGrid contains the (single, latest) angle of travel of any 
     //  cracks that pass through the corresponding pixel.
-    BOOL allOK = YES;
     crackAngleGrid = (int*)malloc(sizeof(int) * viewWidth * viewHeight);
     if (!crackAngleGrid)
-        allOK = NO;
+        success = NO;
 
     // Array of crack objects.
     crackArray = [NSMutableArray arrayWithCapacity:maxNumCracks];
     [crackArray retain];
     if (!crackArray)
-        allOK = NO;
+        success = NO;
     
     // Color of cracks.
     if (!HeySubstrateCrackColor)
@@ -133,7 +134,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
         //crackColor = [NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.5f];
         HeySubstrateCrackColor = [HEYCOLOR HeyColorWithRed:0.0f green:0.0f blue:0.0f alpha:0.5f];
         if (!HeySubstrateCrackColor)
-            allOK = NO;
+            success = NO;
     }
     [HeySubstrateCrackColor retain];
 
@@ -141,7 +142,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     // Load the info icon.
     infoIcon = [UIImage imageNamed:@"infoicon.png"];
     if (!infoIcon)
-        allOK = NO;
+        success = NO;
     
     infoRect = CGRectMake(self.bounds.size.width - infoSize.width, 
                           self.bounds.size.height - infoSize.height, 
@@ -149,15 +150,14 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     infoFadeState = kHeySubstrateFadeOff;
 #endif    
     // Bail out if errors.
-    if (allOK == NO)
+    if (success == NO)
     {
-        [HeySubstrateCrackColor release];
-        [crackArray release];
-        if (crackAngleGrid)
-            free(crackAngleGrid);
-
-        [self release];
+        [HeySubstrateCrackColor release], HeySubstrateCrackColor = nil;
+        [crackArray release], crackArray = nil;
+        free(crackAngleGrid), crackAngleGrid = NULL;
+        //[self release];
     }
+    return success;
 }
 
 #if TARGET_OS_IPHONE
@@ -249,15 +249,27 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 #if TARGET_OS_IPHONE
 - (id)initWithFrame:(CGRect)frame
 {
+    BOOL success = NO;
     if ((self = [super initWithFrame:frame]))
-        [self internalInitializer];
+        success = [self internalInitializer];
+    if (!success)
+    {
+        [self release];
+        return nil;
+    }
     return self;
 }
 #else
 - (id)initWithFrame:(NSRect)frame isPreview:(BOOL)isPreview
 {
+    BOOL success = NO;
     if ((self = [super initWithFrame:frame isPreview:isPreview]))
-        [self internalInitializer];
+        success = [self internalInitializer];
+    if (!success)
+    {
+        [self release];
+        return nil;
+    }
     return self;
 }
 #endif
@@ -266,8 +278,14 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 // NSCoding initializer
 - (id)initWithCoder:(NSCoder *)coder
 {
+    BOOL success = NO;
     if ((self = [super initWithCoder:coder]))
-        [self internalInitializer];
+        success = [self internalInitializer];
+    if (!success)
+    {
+        [self release];
+        return nil;
+    }
     return self;
 }
 
@@ -275,12 +293,16 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 // Destroy the view.
 - (void) dealloc 
 {
-    [HeySubstrateCrackColor release];
-    [crackArray release];
-    crackArray = nil;
-    if (crackAngleGrid)
-        free(crackAngleGrid);
-    crackAngleGrid = NULL;
+    // not sure if these need to be released
+    [optionSheet release], optionSheet = nil;
+    // end of not sure
+    
+    // This view should be the last thing to be deallocated, so should probably
+    //  take the singleton HeySubstrateCrackColor with it.
+    [HeySubstrateCrackColor release], HeySubstrateCrackColor = nil;   
+    [crackArray release], crackArray = nil;
+    free(crackAngleGrid), crackAngleGrid = NULL;
+
     [super dealloc];
 }
 
@@ -345,11 +367,11 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     
     // Make random crack seeds
     int i, k;
-    srandom(time(0));
+    srandom((float)time(0));
     for (k = 0; k < 16; k++) 
     {
-        i = random() % (viewWidth * viewHeight);
-        crackAngleGrid[i] = random() % 360;
+        i = (int)random() % (int)(viewWidth * viewHeight);
+        crackAngleGrid[i] = (int)random() % 360;
     }
     
     // Make just three cracks to start with
@@ -373,6 +395,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 - (void)drawRect:(HEYRECT)rect 
 {
 #if TARGET_OS_IPHONE
+    (void)rect;
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextDrawImage(ctx, self.bounds, offscreenBitmapImage);
     if (infoFadeState != kHeySubstrateFadeOff)

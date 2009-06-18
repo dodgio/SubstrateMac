@@ -60,7 +60,7 @@ void Heyvvsinf(float *y, float *x, const int *i)
     if (*i <= 0)
         return;
     
-    for (int j = 0; j++; j < *i)
+    for (int j = 0; j < *i; j++) 
     {
         y[j] = sinf(x[j]);
     }

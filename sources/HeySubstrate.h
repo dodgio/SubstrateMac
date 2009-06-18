@@ -71,6 +71,7 @@ typedef struct
     unsigned int blueValue;
 } HeySubstrateRGB;
 
+// Our vector.
 typedef union
 {
     uint32_t u[4];
@@ -78,6 +79,7 @@ typedef union
     vFloat v;
 } HeyVectF_t;
 
+// For passing options around.
 typedef struct
 {
     float numberOfCracks;
@@ -89,6 +91,7 @@ typedef struct
     BOOL  drawCracksOnly;
 } HeySubstrateOptions;
 
+// Fade in/out states.
 typedef enum 
 {
     kHeySubstrateFadeOff,
@@ -111,7 +114,7 @@ typedef enum
 // MARK: Globals
 
 extern NSString * const HeySubstrateMacModuleName;
-extern HEYCOLOR *HeySubstrateCrackColor;                 // Color to draw _all_ cracks
+extern HEYCOLOR *HeySubstrateCrackColor;    // Color to draw _all_ cracks
 extern const int cagEmpty;          // Empty test value for crackAngleGrid
 extern const int cagEmptyFlag;      // Empty flag value in crackAngleGrid
 extern const float HeySubstrateAnimationFPS;    // Frames per second to animate
