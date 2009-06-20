@@ -79,6 +79,20 @@
 
 - (void)dealloc 
 {
+    // TODO: verify that this works and stops leaks
+    if (bitContext)
+    {
+        CGContextRelease(bitContext), bitContext = NULL;
+    }
+    if (bitImage)
+    {
+        CGImageRelease(bitImage), bitImage = NULL;
+        if (self.view)
+        {
+            HeySubstrateView *v = (HeySubstrateView *)self.view;
+            v->offscreenBitmapImage = NULL;
+        }
+    }
     
     [super dealloc];
 }
@@ -128,6 +142,10 @@
     self.animationTimer = nil;
     HeySubstrateView *v = (HeySubstrateView *)self.view;
     [v stopAnimation];
+    // TODO: verify that this works and fixes leak
+    CGContextRelease(bitContext), bitContext = NULL;
+    //if (bitImage)
+    //    CGImageRelease(bitImage);
 }
 
 
@@ -140,6 +158,7 @@
         CGImageRelease(bitImage);
     bitImage = CGBitmapContextCreateImage(bitContext);
     UIGraphicsPopContext();
+    // TODO: change this temp hack!!! 
     v->offscreenBitmapImage = bitImage;
     
     // Tell the system to process user events.

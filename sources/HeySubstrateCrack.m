@@ -143,10 +143,8 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
         } 
         else 
         {
-            free(vFSource);
-            vFSource = NULL;
-            free(vFDest);
-            vFDest = NULL;
+            free(vFSource), vFSource = NULL;
+            free(vFDest), vFDest = NULL;
             [self release];
             return nil;
         }
@@ -184,8 +182,8 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
     int *cag = [saverView crackAngleGrid];
     while (!found && timeout++ < 10000) 
     {
-        randomX = (int)random() % vWidth;
-        randomY = (int)random() % vHeight;
+        randomX = (int)(arc4random() % vWidth);
+        randomY = (int)(arc4random() % vHeight);
         if (cag[randomY * vWidth + randomX] < cagEmpty) 
         {
             // <10,000 means pixel has a crack through it
@@ -197,19 +195,19 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
     posX = randomX;
     posY = randomY;
     if (found)
-        angleOfTravel = (float)cag[randomY * vWidth + randomX];
+        angleOfTravel = (float)(cag[randomY * vWidth + randomX]);
     else
-        angleOfTravel = (float)(random() % 360);
+        angleOfTravel = (float)(arc4random() % 360);
     
-    if ((random() % 100) < 50) 
+    if ((arc4random() % 100) < 50) 
     {
         // Half of new cracks as positive angle, half negative
-        angleOfTravel -= 90 + (float)(((random() % 41000) / 10000.0) - 2.0);  
+        angleOfTravel -= 90 + (float)(((arc4random() % 41000) / 10000.0) - 2.0);  
         // original java: int(random(-2.0, 2.1)
     } 
     else 
     {
-        angleOfTravel += 90 + (float)(((random() % 41000) / 10000.0) - 2.0);  
+        angleOfTravel += 90 + (float)(((arc4random() % 41000) / 10000.0) - 2.0);  
     }
     cosAnglePi180 = cosf(angleOfTravel * (float)M_PI / 180.0f);
     sinAnglePi180 = sinf(angleOfTravel * (float)M_PI / 180.0f);
@@ -218,12 +216,12 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
     
     float radius;
     float radian_inc;
-    if (random() % 100 < [saverView optionPercentCurves]) 
+    if (arc4random() % 100 < (unsigned int)[saverView optionPercentCurves]) 
     {
         curved = YES;
         degrees_drawn = 0;
-        radius = (float)(10 + (random() % ((vWidth + vHeight) / 2)));
-        if (random() % 100 < 50) 
+        radius = (float)(10 + (arc4random() % ((vWidth + vHeight) / 2)));
+        if (arc4random() % 100 < 50) 
         {
             radius *= -1;
         }
@@ -276,8 +274,10 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
     // Add fuzz to line of crack and draw
     int drawX, drawY;
     float z = 0.33f;
-    drawX = (int)(posX + ((((int)random()) % (int)(z * 200.0f)) / 100.0f) - z); // java: random(-z,z)
-    drawY = (int)(posY + (((int)(random()) % (int)(z * 200.0f)) / 100.0f) - z);
+    //drawX = (int)(posX + ((((int)random()) % (int)(z * 200.0f)) / 100.0f) - z); // java: random(-z,z)
+    //drawY = (int)(posY + ((((int)random()) % (int)(z * 200.0f)) / 100.0f) - z);
+    drawX = (int)(posX + ((arc4random() % (int)(z * 200.0f)) / 100.0f) - z); // java: random(-z,z)
+    drawY = (int)(posY + ((arc4random() % (int)(z * 200.0f)) / 100.0f) - z);
     
     // Draw sand
     if (![saverView optionDrawCracksOnly]) 
@@ -366,7 +366,7 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
 - (void)paintToX:(float)xEnd Y:(float)yEnd FromCrackX:(float)crackPosX CrackY:(float)crackPosY 
 {
     // modulate gain
-    sandGain += (float)(random() % 10) / 100.0f + [saverView optionAmountOfSand];
+    sandGain += (float)(arc4random() % 10) / 100.0f + [saverView optionAmountOfSand];
     float maxSandGain = 1.0f;
     if (sandGain < 0)
         sandGain = 0;
@@ -413,7 +413,7 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
                 [[baseSandColor colorWithAlphaComponent:sandAlpha] set];
 #if TARGET_OS_IPHONE
                 CGContextRef ctx = UIGraphicsGetCurrentContext();
-                CGContextFillRect(ctx, CGRectMake(pixSandX + 0.5f, pixSandY + 0.5f, 1.0f, 1.0f)); 
+                CGContextFillRect(ctx, CGRectMake(pixSandX, pixSandY, 1.0f, 1.0f)); 
 #else
                 [NSBezierPath fillRect:NSMakeRect(pixSandX + 0.5f, pixSandY + 0.5f, 1.0f, 1.0f)];
 #endif
@@ -435,13 +435,13 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
                                      blue:sandRGB->blueValue/255.0f 
                                     alpha:1.0f];
     [baseSandColor retain];
-    sandGain = (float)(random() % 10) / 100.0f + 0.01f;
+    sandGain = (float)(arc4random() % 10) / 100.0f + 0.01f;
 }
 
 
 - (HeySubstrateRGB const *)randomSubstrateRGB 
 {
-    return HeySubstrateRGBPalette + (random() & (maxPaletteEntries - 1));
+    return HeySubstrateRGBPalette + (arc4random() & (maxPaletteEntries - 1));
 }
 
 

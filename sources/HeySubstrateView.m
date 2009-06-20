@@ -294,8 +294,15 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 - (void) dealloc 
 {
     // not sure if these need to be released
-    [optionSheet release], optionSheet = nil;
+    [numberOfCracksSlider release], numberOfCracksSlider = nil;
+    [speedOfCrackingSlider release], speedOfCrackingSlider = nil;
+    [amountOfSandSlider release], amountOfSandSlider = nil;
+    [densityOfDrawingSlider release], densityOfDrawingSlider = nil;
+    [pauseBetweenDrawingsSlider release], pauseBetweenDrawingsSlider = nil;
+    [drawCracksOnlyOption release], drawCracksOnlyOption = nil;
+    [percentCurvedSlider release], percentCurvedSlider = nil;
     // end of not sure
+    [optionSheet release], optionSheet = nil;
     
     // This view should be the last thing to be deallocated, so should probably
     //  take the singleton HeySubstrateCrackColor with it.
@@ -367,11 +374,10 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     
     // Make random crack seeds
     int i, k;
-    srandom((float)time(0));
     for (k = 0; k < 16; k++) 
     {
-        i = (int)random() % (int)(viewWidth * viewHeight);
-        crackAngleGrid[i] = (int)random() % 360;
+        i = (int)(arc4random() % (viewWidth * viewHeight));
+        crackAngleGrid[i] = (int)(arc4random() % 360);
     }
     
     // Make just three cracks to start with

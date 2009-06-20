@@ -40,7 +40,7 @@
 // -----------------------------------------------------------------------------
 // MARK: Constants
 
-static const NSTimeInterval HeySubstrateViewTransitionTime = 0.5f;
+static const NSTimeInterval HeySubstrateViewTransitionTime = 0.3f;
 
 
 // -----------------------------------------------------------------------------
@@ -139,10 +139,14 @@ static const NSTimeInterval HeySubstrateViewTransitionTime = 0.5f;
     
     // Stop the substrate animation.
     [substrateVC stopAnimation];
-    
+
+    // Make the status bar visible.
+    [[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
+
     // Make the settings visible.
+    [substrateVC.view removeFromSuperview];
     [window addSubview:settingsNC.view];
-    [window makeKeyAndVisible];
+    //[window makeKeyAndVisible];
     
     // Use explicit animation.
     CATransition *animation = [CATransition animation];
@@ -150,7 +154,7 @@ static const NSTimeInterval HeySubstrateViewTransitionTime = 0.5f;
     [animation setSubtype:kCATransitionFromTop];
     [animation setDuration:HeySubstrateViewTransitionTime];
     [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
-    [[window layer] addAnimation:animation forKey:kCATransition];
+    [[window layer] addAnimation:animation forKey:@"SwitchToSettingsView"];
 }
 
 
@@ -170,12 +174,12 @@ static const NSTimeInterval HeySubstrateViewTransitionTime = 0.5f;
 {
     (void)obj;
     [self.settingsNC.view removeFromSuperview];
-    self.settingsNC = nil;
-    self.settingsTVC = nil;
+    //self.settingsNC = nil;
+    //self.settingsTVC = nil;
     
     // Make the pretty view visible again.
     [window addSubview:substrateVC.view];
-    [window makeKeyAndVisible];
+    //[window makeKeyAndVisible];
     CATransition *animation = [CATransition animation];
     [animation setType:kCATransitionReveal];
     [animation setSubtype:kCATransitionFromBottom];
@@ -185,6 +189,8 @@ static const NSTimeInterval HeySubstrateViewTransitionTime = 0.5f;
     
     // Start the display animation again.
     [substrateVC startAnimation];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
 }
 
 
