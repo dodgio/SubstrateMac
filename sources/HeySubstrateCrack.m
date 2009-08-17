@@ -108,7 +108,7 @@ HeySubstrateRGB const HeySubstrateRGBPalette[] =
 {0xFF, 0xFF, 0xCC}, {0xFF, 0xFF, 0xDD}, {0xFF, 0xFF, 0xEE}, {0xFF, 0xFF, 0xFF}, 
 };
 // Number of colors in palette.
-static const int maxPaletteEntries = sizeof(HeySubstrateRGBPalette) / sizeof(HeySubstrateRGB);  
+static const int maxPaletteEntries = (int)(sizeof(HeySubstrateRGBPalette) / sizeof(HeySubstrateRGB));  
 static const int sandGrainCnt = 64;     // Number of grains of sand
 static const int sandGrainVecLen = 4;   // Number of floats in vector (vectF_t)
 static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen

@@ -1,10 +1,10 @@
 // !$*UTF8*$!
 {
 	089C1669FE841209C02AAC07 /* Project object */ = {
-		activeArchitecturePreference = x86_64;
+		activeArchitecturePreference = i386;
 		activeBuildConfigurationName = Release;
 		activeExecutable = 80EA610609F72DAB00AF42C1 /* Executable */;
-		activeSDKPreference = macosx10.6;
+		activeSDKPreference = macosx10.5;
 		activeTarget = 8D255AC50486D3F9007BF209 /* SubstrateMac */;
 		addToTargets = (
 			8D255AC50486D3F9007BF209 /* SubstrateMac */,
@@ -139,8 +139,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 267150000;
-			PBXWorkspaceStateSaveDate = 267150000;
+			PBXPerProjectTemplateStateSaveDate = 272235347;
+			PBXWorkspaceStateSaveDate = 272235347;
 		};
 		sourceControlManager = 804CB3D409E205CB0014DE78 /* Source Control */;
 		userBuildSettings = {
@@ -164,9 +164,9 @@
 	};
 	802122580FBE233900DD9A3B /* HeySubstrateView.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {458, 1586}}";
+			sepNavIntBoundsRect = "{{0, 0}, {626, 1755}}";
 			sepNavSelRange = "{3252, 0}";
-			sepNavVisRange = "{3164, 192}";
+			sepNavVisRange = "{1168, 1877}";
 			sepNavWindowFrame = "{{120, 302}, {685, 848}}";
 		};
 	};
@@ -235,9 +235,9 @@
 	};
 	80B7DE410FCF8A080062FDAB /* HeySubstrateCrack.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {685, 5022}}";
-			sepNavSelRange = "{6964, 97}";
-			sepNavVisRange = "{5471, 3057}";
+			sepNavIntBoundsRect = "{{0, 0}, {685, 5938}}";
+			sepNavSelRange = "{6964, 104}";
+			sepNavVisRange = "{5876, 2388}";
 			sepNavWindowFrame = "{{341, 156}, {744, 966}}";
 		};
 	};
@@ -256,7 +256,6 @@
 		lineNumber = 411;
 		location = SubstrateMac;
 		modificationTime = 265352144.5419219;
-		originalNumberOfMultipleMatches = 0;
 		state = 2;
 	};
 	80EA610609F72DAB00AF42C1 /* Executable */ = {
@@ -285,9 +284,6 @@
 			};
 		};
 		customDataFormattersEnabled = 1;
-		dataTipCustomDataFormattersEnabled = 1;
-		dataTipShowTypeColumn = 1;
-		dataTipSortType = 0;
 		debuggerPlugin = GDBDebugging;
 		disassemblyDisplayState = 0;
 		dylibVariantSuffix = "";
@@ -301,7 +297,6 @@
 		name = Executable;
 		savedGlobals = {
 		};
-		showTypeColumn = 0;
 		sourceDirectories = (
 		);
 		variableFormatDictionary = {

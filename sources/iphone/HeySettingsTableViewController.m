@@ -188,7 +188,7 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
                         numberSlider.continuous = YES;
                         [numberSlider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
                         [cell addSubview:numberSlider];
-                        cell.text = @"Number:";
+                        [cell.textLabel setText:@"Number:"];
                         [numberSlider release];
                         break;
                     }
@@ -203,7 +203,7 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
                         speedSlider.continuous = YES;
                         [speedSlider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
                         [cell addSubview:speedSlider];
-                        cell.text = @"Speed:";
+                        [cell.textLabel setText:@"Speed:"];
                         [speedSlider release];
                         break;
                     }
@@ -217,7 +217,7 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
                         curvedSlider.continuous = YES;
                         [curvedSlider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
                         [cell addSubview:curvedSlider];
-                        cell.text = @"% Curved:";
+                        [cell.textLabel setText:@"Curved:"];
                         [curvedSlider release];
                         break;
                     }
@@ -228,7 +228,7 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
                         onlySwitch.tag = 3;
                         [onlySwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
                         [cell addSubview:onlySwitch];
-                        cell.text = @"Cracks Only:";
+                        [cell.textLabel setText:@"Cracks Only:"];
                         [onlySwitch release];
                         break;
                     }
@@ -249,7 +249,7 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
                         sandSlider.continuous = YES;
                         [sandSlider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
                         [cell addSubview:sandSlider];
-                        cell.text = @"Amount:";
+                        [cell.textLabel setText:@"Amount:"];
                         [sandSlider release];
                         break;
                     }
@@ -272,7 +272,7 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
                         densitySlider.continuous = YES;
                         [densitySlider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
                         [cell addSubview:densitySlider];
-                        cell.text = @"Density:";
+                        [cell.textLabel setText:@"Density:"];
                         [densitySlider release];
                         break;
                     }
@@ -287,7 +287,7 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
                         pauseSlider.continuous = YES;
                         [pauseSlider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
                         [cell addSubview:pauseSlider];
-                        cell.text = @"Pause:";
+                        [cell.textLabel setText:@"Pause:"];
                         [pauseSlider release];
                         break;
                     }
@@ -305,7 +305,7 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
                         //[cell addSubview:tempLabel];
                         //[tempLabel release];
                         UIImage *image = [UIImage imageNamed:@"Credits.png"];
-                        cell.image = image;
+                        [cell.imageView setImage:image];
                         break;
                     }
                     case HeySubstrateSettingsRowAboutVisit:
