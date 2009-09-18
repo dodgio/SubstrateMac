@@ -1,10 +1,10 @@
 // !$*UTF8*$!
 {
 	089C1669FE841209C02AAC07 /* Project object */ = {
-		activeArchitecturePreference = i386;
+		activeArchitecturePreference = x86_64;
 		activeBuildConfigurationName = Release;
 		activeExecutable = 80EA610609F72DAB00AF42C1 /* Executable */;
-		activeSDKPreference = macosx10.5;
+		activeSDKPreference = macosx10.6;
 		activeTarget = 8D255AC50486D3F9007BF209 /* SubstrateMac */;
 		addToTargets = (
 			8D255AC50486D3F9007BF209 /* SubstrateMac */,
@@ -139,8 +139,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 272235347;
-			PBXWorkspaceStateSaveDate = 272235347;
+			PBXPerProjectTemplateStateSaveDate = 274993819;
+			PBXWorkspaceStateSaveDate = 274993819;
 		};
 		sourceControlManager = 804CB3D409E205CB0014DE78 /* Source Control */;
 		userBuildSettings = {
@@ -256,6 +256,7 @@
 		lineNumber = 411;
 		location = SubstrateMac;
 		modificationTime = 265352144.5419219;
+		originalNumberOfMultipleMatches = 0;
 		state = 2;
 	};
 	80EA610609F72DAB00AF42C1 /* Executable */ = {
@@ -284,6 +285,9 @@
 			};
 		};
 		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
 		debuggerPlugin = GDBDebugging;
 		disassemblyDisplayState = 0;
 		dylibVariantSuffix = "";
@@ -297,6 +301,7 @@
 		name = Executable;
 		savedGlobals = {
 		};
+		showTypeColumn = 0;
 		sourceDirectories = (
 		);
 		variableFormatDictionary = {
