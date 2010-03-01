@@ -319,7 +319,7 @@
 									<real>43</real>
 								</array>
 								<key>RubberWindowFrame</key>
-								<string>1087 321 349 557 0 0 1440 878 </string>
+								<string>1086 321 349 557 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXSmartGroupTreeModule</string>
@@ -481,7 +481,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>289113720.68873203</real>
+	<real>289113919.81568098</real>
 	<key>ToolbarDisplayMode</key>
 	<integer>2</integer>
 	<key>ToolbarIsVisible</key>
@@ -496,17 +496,15 @@
 	<integer>0</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>80840781113B867800DAC442</string>
-		<string>80840782113B867800DAC442</string>
 		<string>80840783113B867800DAC442</string>
 		<string>80840784113B867800DAC442</string>
 		<string>1C530D54069F1CE1000CFCEE</string>
 		<string>1C530D52069F1CE1000CFCEE</string>
-		<string>/Volumes/UserMobile/Users/warren/source/prj/SubstrateMac/SubstrateiPhone.xcodeproj</string>
 		<string>1C530D5B069F1CE1000CFCEE</string>
+		<string>/Volumes/UserMobile/Users/warren/source/prj/SubstrateMac/SubstrateiPhone.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>1087 321 349 557 0 0 1440 878 </string>
+	<string>1086 321 349 557 0 0 1440 878 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
