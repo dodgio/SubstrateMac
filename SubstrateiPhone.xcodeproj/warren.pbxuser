@@ -10,10 +10,10 @@
 	};
 	1D3623250D0F684500981E51 /* HeySubstrateAppDelegate.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {752, 2626}}";
-			sepNavSelRange = "{2831, 0}";
-			sepNavVisRange = "{2084, 2159}";
-			sepNavWindowFrame = "{{264, 119}, {811, 996}}";
+			sepNavIntBoundsRect = "{{0, 0}, {752, 2847}}";
+			sepNavSelRange = "{4083, 0}";
+			sepNavVisRange = "{2767, 1667}";
+			sepNavWindowFrame = "{{145, 0}, {811, 878}}";
 		};
 	};
 	1D6058900D05DD3D006BFB54 /* HeySubstrate */ = {
@@ -24,24 +24,24 @@
 	};
 	28D7ACF60DDB3853001CB0EB /* HeySubstrateViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {704, 885}}";
-			sepNavSelRange = "{1186, 0}";
-			sepNavVisRange = "{0, 1843}";
+			sepNavIntBoundsRect = "{{0, 0}, {699, 780}}";
+			sepNavSelRange = "{1396, 0}";
+			sepNavVisRange = "{0, 1893}";
 			sepNavWindowFrame = "{{55, 53}, {763, 998}}";
 		};
 	};
 	28D7ACF70DDB3853001CB0EB /* HeySubstrateViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {434, 2522}}";
-			sepNavSelRange = "{5214, 0}";
-			sepNavVisRange = "{4874, 379}";
-			sepNavWindowFrame = "{{541, 54}, {763, 998}}";
+			sepNavIntBoundsRect = "{{0, 0}, {699, 2795}}";
+			sepNavSelRange = "{5400, 0}";
+			sepNavVisRange = "{3910, 1621}";
+			sepNavWindowFrame = "{{77, 2}, {758, 864}}";
 		};
 	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
 		activeBuildConfigurationName = Release;
 		activeExecutable = 802122B90FBE37F700DD9A3B /* HeySubstrate */;
-		activeSDKPreference = iphonesimulator3.0;
+		activeSDKPreference = iphoneos3.0;
 		activeTarget = 1D6058900D05DD3D006BFB54 /* HeySubstrate */;
 		addToTargets = (
 			1D6058900D05DD3D006BFB54 /* HeySubstrate */,
@@ -99,12 +99,8 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 270766802;
-			PBXWorkspaceStateSaveDate = 270766802;
-		};
-		perUserProjectItems = {
-			807650D510228C7200050EAA /* PBXTextBookmark */ = 807650D510228C7200050EAA /* PBXTextBookmark */;
-			808DF6AA102392D800DAD4C7 /* PBXTextBookmark */ = 808DF6AA102392D800DAD4C7 /* PBXTextBookmark */;
+			PBXPerProjectTemplateStateSaveDate = 289111119;
+			PBXWorkspaceStateSaveDate = 289111119;
 		};
 		sourceControlManager = 802122C10FBE380400DD9A3B /* Source Control */;
 		userBookmarkGroup = 800834B20FEAF96800802F87 /* PBXBookmarkGroup */;
@@ -200,10 +196,10 @@
 	};
 	802123460FBF42CE00DD9A3B /* HeySubstrateView.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {712, 9165}}";
-			sepNavSelRange = "{5472, 6}";
-			sepNavVisRange = "{5181, 447}";
-			sepNavWindowFrame = "{{313, 124}, {721, 994}}";
+			sepNavIntBoundsRect = "{{0, 0}, {662, 9347}}";
+			sepNavSelRange = "{10793, 0}";
+			sepNavVisRange = "{10808, 1069}";
+			sepNavWindowFrame = "{{514, -86}, {721, 878}}";
 		};
 	};
 	802123A40FC1D14100DD9A3B /* HeySubstrate.h */ = {
@@ -252,26 +248,6 @@
 			sepNavVisRange = "{1388, 1549}";
 			sepNavWindowFrame = "{{326, 213}, {670, 965}}";
 		};
-	};
-	807650D510228C7200050EAA /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 28D7ACF70DDB3853001CB0EB /* HeySubstrateViewController.m */;
-		name = "HeySubstrateViewController.m: 173";
-		rLen = 0;
-		rLoc = 5214;
-		rType = 0;
-		vrLen = 380;
-		vrLoc = 4874;
-	};
-	808DF6AA102392D800DAD4C7 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 28D7ACF70DDB3853001CB0EB /* HeySubstrateViewController.m */;
-		name = "HeySubstrateViewController.m: 173";
-		rLen = 0;
-		rLoc = 5214;
-		rType = 0;
-		vrLen = 379;
-		vrLoc = 4874;
 	};
 	80D983F90FC39FD20020A8F7 /* HeySettingsTableViewController.h */ = {
 		uiCtxt = {

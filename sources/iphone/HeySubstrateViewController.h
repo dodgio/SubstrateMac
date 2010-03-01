@@ -49,6 +49,8 @@
 
 - (void)startAnimation;
 - (void)stopAnimation;
+- (void)pauseAnimation;
+- (void)unpauseAnimation;
 - (void)drawView;
 
 @end

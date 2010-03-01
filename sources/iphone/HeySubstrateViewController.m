@@ -118,6 +118,21 @@
 // -----------------------------------------------------------------------------
 // MARK: Animation Methods
 
+- (void)pauseAnimation
+{
+    self.animationTimer = nil;
+}
+
+
+- (void)unpauseAnimation
+{
+    if (bitContext)
+    {
+        self.animationTimer = [NSTimer scheduledTimerWithTimeInterval:animationInterval target:self selector:@selector(drawView) userInfo:nil repeats:YES];
+    }
+}
+
+
 - (void)startAnimation
 {
     float width = [self.view bounds].size.width;
@@ -133,7 +148,7 @@
     }
     HeySubstrateView *v = (HeySubstrateView *)self.view;
     [v restartAnimation];
-    self.animationTimer = [NSTimer scheduledTimerWithTimeInterval:animationInterval target:self selector:@selector(drawView) userInfo:nil repeats:YES];
+    [self unpauseAnimation];
 }
 
 

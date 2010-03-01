@@ -118,6 +118,20 @@ static const NSTimeInterval HeySubstrateViewTransitionTime = 0.3f;
 }
 
 
+- (void)applicationWillResignActive:(UIApplication *)application
+{
+    (void)application;
+    [substrateVC pauseAnimation];
+}
+
+
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    (void)application;
+    [substrateVC unpauseAnimation];
+}
+
+
 // -----------------------------------------------------------------------------
 // MARK: View Switching
 
