@@ -99,8 +99,8 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 289111119;
-			PBXWorkspaceStateSaveDate = 289111119;
+			PBXPerProjectTemplateStateSaveDate = 289273700;
+			PBXWorkspaceStateSaveDate = 289273700;
 		};
 		sourceControlManager = 802122C10FBE380400DD9A3B /* Source Control */;
 		userBookmarkGroup = 800834B20FEAF96800802F87 /* PBXBookmarkGroup */;
@@ -247,6 +247,11 @@
 			sepNavSelRange = "{1804, 0}";
 			sepNavVisRange = "{1388, 1549}";
 			sepNavWindowFrame = "{{326, 213}, {670, 965}}";
+		};
+	};
+	80C76B61113DF7880021C249 /* Entitlements.plist */ = {
+		uiCtxt = {
+			sepNavWindowFrame = "{{15, 9}, {758, 864}}";
 		};
 	};
 	80D983F90FC39FD20020A8F7 /* HeySettingsTableViewController.h */ = {

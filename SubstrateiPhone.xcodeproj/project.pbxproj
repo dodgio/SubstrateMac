@@ -25,6 +25,7 @@
 		80B7DCDC0FCC5C8F0062FDAB /* Credits.png in Resources */ = {isa = PBXBuildFile; fileRef = 80B7DCDB0FCC5C8F0062FDAB /* Credits.png */; };
 		80B7DD790FCC9D9D0062FDAB /* blueButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 80B7DD770FCC9D9D0062FDAB /* blueButton.png */; };
 		80B7DD7A0FCC9D9D0062FDAB /* whiteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 80B7DD780FCC9D9D0062FDAB /* whiteButton.png */; };
+		80C76B62113DF7880021C249 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80C76B61113DF7880021C249 /* Entitlements.plist */; };
 		80D983FB0FC39FD20020A8F7 /* HeySettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80D983FA0FC39FD20020A8F7 /* HeySettingsTableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		80B7DCDB0FCC5C8F0062FDAB /* Credits.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Credits.png; path = resources/iphone/Credits.png; sourceTree = "<group>"; };
 		80B7DD770FCC9D9D0062FDAB /* blueButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blueButton.png; path = resources/iphone/blueButton.png; sourceTree = "<group>"; };
 		80B7DD780FCC9D9D0062FDAB /* whiteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whiteButton.png; path = resources/iphone/whiteButton.png; sourceTree = "<group>"; };
+		80C76B61113DF7880021C249 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Entitlements.plist; path = resources/iphone/Entitlements.plist; sourceTree = "<group>"; };
 		80D983F90FC39FD20020A8F7 /* HeySettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeySettingsTableViewController.h; path = sources/iphone/HeySettingsTableViewController.h; sourceTree = "<group>"; };
 		80D983FA0FC39FD20020A8F7 /* HeySettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeySettingsTableViewController.m; path = sources/iphone/HeySettingsTableViewController.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = resources/iphone/Info.plist; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				802123A50FC1D14100DD9A3B /* HeySubstrate.m */,
 				802123450FBF42CE00DD9A3B /* HeySubstrateView.h */,
 				802123460FBF42CE00DD9A3B /* HeySubstrateView.m */,
+				80C76B61113DF7880021C249 /* Entitlements.plist */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				80B7DCDC0FCC5C8F0062FDAB /* Credits.png in Resources */,
 				80B7DD790FCC9D9D0062FDAB /* blueButton.png in Resources */,
 				80B7DD7A0FCC9D9D0062FDAB /* whiteButton.png in Resources */,
+				80C76B62113DF7880021C249 /* Entitlements.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,20 +258,100 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hey Daddio, Inc.";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = sources/iphone/SubstrateiPhone_Prefix.pch;
 				GCC_THUMB_SUPPORT = YES;
 				INFOPLIST_FILE = resources/iphone/Info.plist;
 				PRODUCT_NAME = Substrate;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C7E4E8A9-D258-4073-B861-69FA42BDD65F";
 			};
 			name = Release;
+		};
+		80C76B67113DF7D90021C249 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLY_RULES_IN_COPY_FILES = YES;
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				CODE_SIGN_ENTITLEMENTS = resources/iphone/Entitlements.plist;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_THUMB_SUPPORT = YES;
+				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
+				GCC_TREAT_NONCONFORMANT_CODE_ERRORS_AS_WARNINGS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = 4.2;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
+				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = YES;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = YES;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
+				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = YES;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
+				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = NO;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_MISSING_PARENTHESES = YES;
+				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = NO;
+				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
+				GCC_WARN_PEDANTIC = NO;
+				GCC_WARN_PROTOTYPE_CONVERSION = NO;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_STRICT_SELECTOR_MATCH = NO;
+				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = NO;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
+				GCC_WARN_UNUSED_VALUE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					sources,
+					sources/iphone,
+					../HeyDaddioUtilityLibrary/sources,
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 2.0;
+				PREBINDING = NO;
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
+				SDKROOT = iphoneos3.0;
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+				);
+			};
+			name = Distribution;
+		};
+		80C76B68113DF7D90021C249 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hey Daddio, Inc.";
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = sources/iphone/SubstrateiPhone_Prefix.pch;
+				GCC_THUMB_SUPPORT = YES;
+				INFOPLIST_FILE = resources/iphone/Info.plist;
+				PRODUCT_NAME = Substrate;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7D2AE34F-A9FC-46F3-A624-1AD1A335684B";
+			};
+			name = Distribution;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLY_RULES_IN_COPY_FILES = YES;
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				CODE_SIGN_ENTITLEMENTS = resources/iphone/Entitlements.plist;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -332,6 +416,7 @@
 			buildSettings = {
 				APPLY_RULES_IN_COPY_FILES = YES;
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				CODE_SIGN_ENTITLEMENTS = resources/iphone/Entitlements.plist;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = s;
@@ -396,6 +481,7 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
+				80C76B68113DF7D90021C249 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -405,6 +491,7 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+				80C76B67113DF7D90021C249 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
