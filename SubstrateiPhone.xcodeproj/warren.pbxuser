@@ -10,10 +10,10 @@
 	};
 	1D3623250D0F684500981E51 /* HeySubstrateAppDelegate.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {752, 2847}}";
-			sepNavSelRange = "{4083, 0}";
-			sepNavVisRange = "{2767, 1667}";
-			sepNavWindowFrame = "{{145, 0}, {811, 878}}";
+			sepNavIntBoundsRect = "{{0, 0}, {752, 2756}}";
+			sepNavSelRange = "{438, 0}";
+			sepNavVisRange = "{771, 1813}";
+			sepNavWindowFrame = "{{256, 0}, {811, 878}}";
 		};
 	};
 	1D6058900D05DD3D006BFB54 /* HeySubstrate */ = {
@@ -32,16 +32,16 @@
 	};
 	28D7ACF70DDB3853001CB0EB /* HeySubstrateViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {699, 2795}}";
-			sepNavSelRange = "{5400, 0}";
-			sepNavVisRange = "{3910, 1621}";
-			sepNavWindowFrame = "{{77, 2}, {758, 864}}";
+			sepNavIntBoundsRect = "{{0, 0}, {699, 2821}}";
+			sepNavSelRange = "{4671, 16}";
+			sepNavVisRange = "{3722, 1689}";
+			sepNavWindowFrame = "{{245, 14}, {758, 864}}";
 		};
 	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
-		activeBuildConfigurationName = Release;
+		activeBuildConfigurationName = Debug;
 		activeExecutable = 802122B90FBE37F700DD9A3B /* HeySubstrate */;
-		activeSDKPreference = iphoneos3.0;
+		activeSDKPreference = iphonesimulator3.2;
 		activeTarget = 1D6058900D05DD3D006BFB54 /* HeySubstrate */;
 		addToTargets = (
 			1D6058900D05DD3D006BFB54 /* HeySubstrate */,
@@ -99,8 +99,16 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 289273700;
-			PBXWorkspaceStateSaveDate = 289273700;
+			PBXPerProjectTemplateStateSaveDate = 290920174;
+			PBXWorkspaceStateSaveDate = 290920174;
+		};
+		perUserProjectItems = {
+			800AD739115715D1009861D4 /* PBXTextBookmark */ = 800AD739115715D1009861D4 /* PBXTextBookmark */;
+			800AD73A115715D1009861D4 /* PBXTextBookmark */ = 800AD73A115715D1009861D4 /* PBXTextBookmark */;
+			8056956111571705007C697C /* PBXBookmark */ = 8056956111571705007C697C /* PBXBookmark */;
+			8056956611571811007C697C /* PBXTextBookmark */ = 8056956611571811007C697C /* PBXTextBookmark */;
+			8056956711571811007C697C /* PBXTextBookmark */ = 8056956711571811007C697C /* PBXTextBookmark */;
+			8056956811571811007C697C /* PBXTextBookmark */ = 8056956811571811007C697C /* PBXTextBookmark */;
 		};
 		sourceControlManager = 802122C10FBE380400DD9A3B /* Source Control */;
 		userBookmarkGroup = 800834B20FEAF96800802F87 /* PBXBookmarkGroup */;
@@ -139,6 +147,26 @@
 		rType = 0;
 		vrLen = 1329;
 		vrLoc = 10373;
+	};
+	800AD739115715D1009861D4 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* HeySubstrateAppDelegate.m */;
+		name = "HeySubstrateAppDelegate.m: 13";
+		rLen = 0;
+		rLoc = 438;
+		rType = 0;
+		vrLen = 1813;
+		vrLoc = 771;
+	};
+	800AD73A115715D1009861D4 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 805EEC9811570CF4007D55EA /* ObscureMovementiPhoneAppDelegate.m */;
+		name = "ObscureMovementiPhoneAppDelegate.m: 84";
+		rLen = 362;
+		rLoc = 1984;
+		rType = 0;
+		vrLen = 1816;
+		vrLoc = 1532;
 	};
 	802122B90FBE37F700DD9A3B /* HeySubstrate */ = {
 		isa = PBXExecutable;
@@ -249,6 +277,64 @@
 			sepNavWindowFrame = "{{326, 213}, {670, 965}}";
 		};
 	};
+	8056956111571705007C697C /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 80D983FA0FC39FD20020A8F7 /* HeySettingsTableViewController.m */;
+	};
+	8056956611571811007C697C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 80D983FA0FC39FD20020A8F7 /* HeySettingsTableViewController.m */;
+		name = "HeySettingsTableViewController.m: 162";
+		rLen = 101;
+		rLoc = 4608;
+		rType = 0;
+		vrLen = 2641;
+		vrLoc = 4585;
+	};
+	8056956711571811007C697C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* HeySubstrateAppDelegate.m */;
+		name = "HeySubstrateAppDelegate.m: 13";
+		rLen = 0;
+		rLoc = 438;
+		rType = 0;
+		vrLen = 1813;
+		vrLoc = 771;
+	};
+	8056956811571811007C697C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8056956911571811007C697C /* ObscureMovementiPhoneAppDelegate.m */;
+		name = "ObscureMovementiPhoneAppDelegate.m: 84";
+		rLen = 362;
+		rLoc = 1984;
+		rType = 0;
+		vrLen = 1816;
+		vrLoc = 1532;
+	};
+	8056956911571811007C697C /* ObscureMovementiPhoneAppDelegate.m */ = {
+		isa = PBXFileReference;
+		name = ObscureMovementiPhoneAppDelegate.m;
+		path = /Volumes/UserMobile/Users/warren/source/prj/ObscureMovement/sources/iphone/ObscureMovementiPhoneAppDelegate.m;
+		sourceTree = "<absolute>";
+	};
+	805EEC9811570CF4007D55EA /* ObscureMovementiPhoneAppDelegate.m */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.objc;
+		name = ObscureMovementiPhoneAppDelegate.m;
+		path = /Volumes/UserMobile/Users/warren/source/prj/ObscureMovement/sources/iphone/ObscureMovementiPhoneAppDelegate.m;
+		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {596, 2145}}";
+			sepNavSelRange = "{1984, 362}";
+			sepNavVisRange = "{1532, 1816}";
+			sepNavWindowFrame = "{{37, 0}, {655, 818}}";
+		};
+	};
+	80B7DCDB0FCC5C8F0062FDAB /* Credits.png */ = {
+		uiCtxt = {
+			sepNavWindowFrame = "{{15, 55}, {655, 818}}";
+		};
+	};
 	80C76B61113DF7880021C249 /* Entitlements.plist */ = {
 		uiCtxt = {
 			sepNavWindowFrame = "{{15, 9}, {758, 864}}";
@@ -258,21 +344,21 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {662, 936}}";
 			sepNavSelRange = "{1312, 0}";
-			sepNavVisRange = "{102, 2333}";
+			sepNavVisRange = "{394, 2041}";
 			sepNavWindowFrame = "{{103, 82}, {721, 994}}";
 		};
 	};
 	80D983FA0FC39FD20020A8F7 /* HeySettingsTableViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {714, 5304}}";
-			sepNavSelRange = "{6180, 0}";
-			sepNavVisRange = "{5768, 1035}";
-			sepNavWindowFrame = "{{103, 82}, {721, 994}}";
+			sepNavIntBoundsRect = "{{0, 0}, {662, 5980}}";
+			sepNavSelRange = "{4608, 101}";
+			sepNavVisRange = "{4585, 2641}";
+			sepNavWindowFrame = "{{103, 0}, {721, 878}}";
 		};
 	};
 	8D1107310486CEB800E47090 /* Info.plist */ = {
 		uiCtxt = {
-			sepNavWindowFrame = "{{899, 80}, {811, 996}}";
+			sepNavWindowFrame = "{{346, 0}, {811, 878}}";
 		};
 	};
 }

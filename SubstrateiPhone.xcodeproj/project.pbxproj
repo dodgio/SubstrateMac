@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,6 +20,9 @@
 		802123A60FC1D14100DD9A3B /* HeySubstrate.m in Sources */ = {isa = PBXBuildFile; fileRef = 802123A50FC1D14100DD9A3B /* HeySubstrate.m */; };
 		802123B10FC1D9CA00DD9A3B /* HeySubstrateCrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 802123B00FC1D9CA00DD9A3B /* HeySubstrateCrack.m */; };
 		802123C10FC1DEDE00DD9A3B /* UIColor-HeyUIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 802123BF0FC1DEDE00DD9A3B /* UIColor-HeyUIColor.m */; };
+		805EEC70115704E8007D55EA /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 805EEC6F115704E8007D55EA /* MainWindow-iPad.xib */; };
+		805EEC8611570A79007D55EA /* Substrate-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 805EEC8511570A79007D55EA /* Substrate-iPad.png */; };
+		805EEC9111570CE7007D55EA /* HeySubstrateViewController-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 805EEC9011570CE7007D55EA /* HeySubstrateViewController-iPad.xib */; };
 		80B7DC740FCB7A820062FDAB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80B7DC730FCB7A820062FDAB /* QuartzCore.framework */; };
 		80B7DCD00FCB8C350062FDAB /* Substrate.png in Resources */ = {isa = PBXBuildFile; fileRef = 80B7DCCF0FCB8C350062FDAB /* Substrate.png */; };
 		80B7DCDC0FCC5C8F0062FDAB /* Credits.png in Resources */ = {isa = PBXBuildFile; fileRef = 80B7DCDB0FCC5C8F0062FDAB /* Credits.png */; };
@@ -51,6 +54,9 @@
 		802123B00FC1D9CA00DD9A3B /* HeySubstrateCrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeySubstrateCrack.m; path = sources/HeySubstrateCrack.m; sourceTree = "<group>"; };
 		802123BE0FC1DEDE00DD9A3B /* UIColor-HeyUIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor-HeyUIColor.h"; path = "../HeyDaddioUtilityLibrary/sources/UIColor-HeyUIColor.h"; sourceTree = SOURCE_ROOT; };
 		802123BF0FC1DEDE00DD9A3B /* UIColor-HeyUIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor-HeyUIColor.m"; path = "../HeyDaddioUtilityLibrary/sources/UIColor-HeyUIColor.m"; sourceTree = SOURCE_ROOT; };
+		805EEC6F115704E8007D55EA /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "resources/ipad/MainWindow-iPad.xib"; sourceTree = "<group>"; };
+		805EEC8511570A79007D55EA /* Substrate-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Substrate-iPad.png"; path = "resources/ipad/Substrate-iPad.png"; sourceTree = "<group>"; };
+		805EEC9011570CE7007D55EA /* HeySubstrateViewController-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "HeySubstrateViewController-iPad.xib"; path = "resources/ipad/HeySubstrateViewController-iPad.xib"; sourceTree = "<group>"; };
 		80B7DC730FCB7A820062FDAB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		80B7DCCF0FCB8C350062FDAB /* Substrate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Substrate.png; path = resources/iphone/Substrate.png; sourceTree = "<group>"; };
 		80B7DCDB0FCC5C8F0062FDAB /* Credits.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Credits.png; path = resources/iphone/Credits.png; sourceTree = "<group>"; };
@@ -132,9 +138,12 @@
 			children = (
 				80B7DCDB0FCC5C8F0062FDAB /* Credits.png */,
 				80B7DCCF0FCB8C350062FDAB /* Substrate.png */,
+				805EEC8511570A79007D55EA /* Substrate-iPad.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
+				805EEC6F115704E8007D55EA /* MainWindow-iPad.xib */,
 				2899E5210DE3E06400AC0155 /* HeySubstrateViewController.xib */,
+				805EEC9011570CE7007D55EA /* HeySubstrateViewController-iPad.xib */,
 				801B0C9C0FC88B0B0022F3B3 /* infoicon.png */,
 				80B7DD770FCC9D9D0062FDAB /* blueButton.png */,
 				80B7DD780FCC9D9D0062FDAB /* whiteButton.png */,
@@ -191,7 +200,7 @@
 				ORGANIZATIONNAME = "Hey Daddio, Inc.";
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "SubstrateiPhone" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			hasScannedForEncodings = 1;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
@@ -215,6 +224,9 @@
 				80B7DD790FCC9D9D0062FDAB /* blueButton.png in Resources */,
 				80B7DD7A0FCC9D9D0062FDAB /* whiteButton.png in Resources */,
 				80C76B62113DF7880021C249 /* Entitlements.plist in Resources */,
+				805EEC70115704E8007D55EA /* MainWindow-iPad.xib in Resources */,
+				805EEC8611570A79007D55EA /* Substrate-iPad.png in Resources */,
+				805EEC9111570CE7007D55EA /* HeySubstrateViewController-iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +255,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -251,6 +264,8 @@
 				GCC_THUMB_SUPPORT = YES;
 				INFOPLIST_FILE = resources/iphone/Info.plist;
 				PRODUCT_NAME = Substrate;
+				SDKROOT = iphoneos3.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -258,6 +273,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hey Daddio, Inc.";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -266,6 +282,8 @@
 				INFOPLIST_FILE = resources/iphone/Info.plist;
 				PRODUCT_NAME = Substrate;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C7E4E8A9-D258-4073-B861-69FA42BDD65F";
+				SDKROOT = iphoneos3.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -320,10 +338,11 @@
 					sources/iphone,
 					../HeyDaddioUtilityLibrary/sources,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 2.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PREBINDING = NO;
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos3.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Wextra",
@@ -335,6 +354,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hey Daddio, Inc.";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -343,6 +363,8 @@
 				INFOPLIST_FILE = resources/iphone/Info.plist;
 				PRODUCT_NAME = Substrate;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7D2AE34F-A9FC-46F3-A624-1AD1A335684B";
+				SDKROOT = iphoneos3.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Distribution;
 		};
@@ -398,12 +420,13 @@
 					sources/iphone,
 					../HeyDaddioUtilityLibrary/sources,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 2.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos3.2;
 				STRIP_INSTALLED_PRODUCT = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Wextra",
@@ -462,10 +485,11 @@
 					sources/iphone,
 					../HeyDaddioUtilityLibrary/sources,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 2.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PREBINDING = NO;
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos3.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Wextra",

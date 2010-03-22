@@ -162,9 +162,19 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *cellIdentifier = [NSString stringWithFormat:@"%d:%d", [indexPath indexAtPosition:0], [indexPath indexAtPosition:1]];
-    
-    CGRect sliderRect = CGRectMake(120.0f, 0.0f, 175.0f, 50.0f);
-    CGRect switchRect = CGRectMake(200.0f, 10.0f, 0.0f, 0.0f);
+
+    CGRect sliderRect;
+    CGRect switchRect;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        sliderRect = CGRectMake(180.0f, 0.0f, 525.0f, 50.0f);
+        switchRect = CGRectMake(180.0f, 10.0f, 0.0f, 0.0f);
+    }
+    else    // UIUserInterfaceIdiomPhone
+    {
+        sliderRect = CGRectMake(120.0f, 0.0f, 175.0f, 50.0f);
+        switchRect = CGRectMake(200.0f, 10.0f, 0.0f, 0.0f);
+    }
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil)
