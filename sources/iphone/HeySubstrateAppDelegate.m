@@ -156,6 +156,9 @@ static const NSTimeInterval HeySubstrateViewTransitionTime = 0.3f;
 
     // Make the status bar visible.
     [[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
+    // replace with
+    //[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
+    // later
 
     // Make the settings visible.
     [substrateVC.view removeFromSuperview];
@@ -205,6 +208,9 @@ static const NSTimeInterval HeySubstrateViewTransitionTime = 0.3f;
     [substrateVC startAnimation];
     
     [[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
+    // replace with
+    //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:YES];
+    // later
 }
 
 

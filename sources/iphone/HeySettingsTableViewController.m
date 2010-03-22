@@ -42,6 +42,9 @@
 static const CGFloat uitvcHeightDefault = 44.0f;
 static const CGFloat uitvcHeightAboutInfo = 320.0f;
 static const CGFloat uitvcHeightAboutVisit = 70.0f;
+
+static const int aboutInfoTag = 343;
+static const int aboutVisitTag = 344;
           
           
 // -----------------------------------------------------------------------------
@@ -360,21 +363,17 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
                     case HeySubstrateSettingsRowAboutInfo:
                     {
                         UIImage *image = [UIImage imageNamed:@"Credits.png"];
-                        [cell.imageView setImage:image];
+                        CGRect imgFrame = CGRectMake(0.0f, 0.0f, image.size.width, image.size.height);
+                        UIImageView *iv = [[[UIImageView alloc] initWithFrame:imgFrame] autorelease];  // This frame's origin is temporary, see tableView:willDisplayCell:forRowAtIndex:
+                        iv.tag = aboutInfoTag;
+                        iv.image = image;
+                        //[cell.contentView addSubview:iv];
+                        //[cell.contentView setBackgroundColor:[UIColor whiteColor]];
+                        [cell addSubview:iv];
                         break;
                     }
                     case HeySubstrateSettingsRowAboutVisit:
                     {
-                        /*
-                         CGRect labelButtonRect = CGRectInset(cell.bounds, 15.0f, 5.0f);
-                         UILabel *msg = [[UILabel alloc] initWithFrame:labelButtonRect];
-                         msg.opaque = NO;
-                         [msg setBackgroundColor:[UIColor clearColor]];
-                         msg.textAlignment = UITextAlignmentCenter;
-                         msg.text = @"Visit Hey Daddio Website";
-                         [cell addSubview:msg];
-                         [msg release];
-                         */
                         UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
                         // Height of cell has not been changed from default yet. Must manually adjust.
                         CGRect rWork = cell.bounds;
@@ -387,7 +386,7 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
                         UIImage *stretchHighlighted = [highlighted stretchableImageWithLeftCapWidth:12 topCapHeight:12];
                         [button setBackgroundImage:stretchHighlighted forState:UIControlStateHighlighted];
                         [button setTitle:@"Visit Hey Daddio Website" forState:UIControlStateNormal];
-                        button.tag = 8;
+                        button.tag = aboutVisitTag;
                         [button addTarget:self action:@selector(heydaddioAction:) forControlEvents:UIControlEventTouchUpInside];
                         [cell addSubview:button];
                         break;
@@ -451,36 +450,23 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
             {
                 case HeySubstrateSettingsRowAboutInfo:
                 {
-/*                    //UILabel *tempLabel = [[UILabel alloc] initWithFrame:sliderRect];
-                    //tempLabel.text = @"This is the about info.";
-                    //[cell addSubview:tempLabel];
-                    //[tempLabel release];
-                    UIImage *image = [UIImage imageNamed:@"Credits.png"];
-                    //
-                    //
-                    NSUInteger cellWidth = cell.bounds.size.width;
-                    NSUInteger imgWidth = image.size.width;
-                    NSInteger newImgOriginX = floorf((cellWidth / 2.0f)  - (imgWidth / 2.0f));
-                    CGRect oldFrame = cell.bounds;
-                    //                        //CGRect newFrame = CGRectMake(newImgOriginX, oldFrame.origin.y, imgWidth, oldFrame.size.height);
-                    //                        CGRect newFrame = CGRectMake(350.0f, 0.0f, imgWidth, oldFrame.size.height);
-                    //                        //
-                    CGRect newFrame = CGRectMake(350.0f, 0.0f, imgWidth, 300.0f);
-                    UIImageView *newIV = [[UIImageView alloc] initWithFrame:newFrame];
-                    [newIV setImage:image];
-                    UIView *imgParent = cell.imageView.superview;
-                    [cell.imageView removeFromSuperview];
-                    [imgParent addSubview:newIV];
-                    
-                    //cell.imageView.center = CGPointMake(350.0f, 0.0f);
-                    //cell.imageView.frame = newFrame;
-                    //NSLog(@"imgview frame: %f %f %f %f", newFrame.origin.x, newFrame.origin.y, newFrame.size.width, newFrame.size.height);
-                    //
-*/                    
+                    // Determine correct frame for imageview.
+                    UIImageView *iv = (UIImageView *)[cell viewWithTag:aboutInfoTag];
+                    CGRect oldFrame = iv.frame;
+                    CGRect cellFrame = cell.bounds;
+                    CGFloat newImageOriginX = floorf((cellFrame.size.width / 2.0f) - (oldFrame.size.width / 2.0f));
+                    CGFloat newImageOriginY = oldFrame.origin.y + 10.0f;
+                    CGRect newFrame = CGRectMake(newImageOriginX, newImageOriginY, oldFrame.size.width, oldFrame.size.height);
+                    [iv setFrame:newFrame];
                     break;
                 }
                 case HeySubstrateSettingsRowAboutVisit:
                 {
+                    UIButton *button = (UIButton *)[cell viewWithTag:aboutVisitTag];
+                    CGRect rWork = cell.bounds;
+                    CGFloat xInset = rWork.size.width / 10.0f;
+                    rWork.size.height = uitvcHeightAboutVisit;
+                    [button setFrame:CGRectInset(rWork, xInset, 10.0f)];
                     break;
                 }
                 default:
@@ -495,13 +481,6 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
             break;
         }
     }
-    
-    
-    
-    
-    
-    
-                
 }
 
 
