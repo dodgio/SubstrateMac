@@ -315,8 +315,8 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 
 
 // -----------------------------------------------------------------------------
-// MARK Accessors
-
+// MARK: Accessors
+#if TARGET_OS_IPHONE
 - (void)setOffscreenBitmapImage:(CGImageRef)newImgRef
 {
     // We don't own this CGImageRef, the view controller does. Don't retain.
@@ -328,7 +328,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 {
     return offscreenBitmapImage;
 }
-
+#endif
 
 // -----------------------------------------------------------------------------
 // MARK: Drawing and animation methods
