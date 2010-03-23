@@ -315,6 +315,22 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 
 
 // -----------------------------------------------------------------------------
+// MARK Accessors
+
+- (void)setOffscreenBitmapImage:(CGImageRef)newImgRef
+{
+    // We don't own this CGImageRef, the view controller does. Don't retain.
+    offscreenBitmapImage = newImgRef;
+}
+
+
+- (CGImageRef)offscreenBitmapImage
+{
+    return offscreenBitmapImage;
+}
+
+
+// -----------------------------------------------------------------------------
 // MARK: Drawing and animation methods
 
 // Make a new crack if not at maximum number already.

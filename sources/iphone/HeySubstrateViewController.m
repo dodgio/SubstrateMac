@@ -89,7 +89,7 @@
         if (self.view)
         {
             HeySubstrateView *v = (HeySubstrateView *)self.view;
-            v->offscreenBitmapImage = NULL;
+            [v setOffscreenBitmapImage:NULL];
         }
     }
     [super dealloc];
@@ -167,9 +167,9 @@
     if (bitImage)
         CGImageRelease(bitImage);
     bitImage = CGBitmapContextCreateImage(bitContext);
+
     UIGraphicsPopContext();
-    // TODO: change this temp hack!!! 
-    v->offscreenBitmapImage = bitImage;
+    [v setOffscreenBitmapImage:bitImage];
     
     // Tell the system to process user events.
     CFTimeInterval HeySubstrateRunLoopUserInterval = 0.01;

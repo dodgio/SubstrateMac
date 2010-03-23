@@ -74,13 +74,14 @@
     NSInteger infoFadeCountdown;
     CGRect infoRect;            // Rect of info icon/button
     UIImage *infoIcon;          // Info icon/button.
-  @public
     CGImageRef offscreenBitmapImage;
 #endif
 }
 
 #if TARGET_OS_IPHONE
 - (id)initWithFrame:(CGRect)frame;
+- (void)setOffscreenBitmapImage:(CGImageRef)newImgRef;
+- (CGImageRef)offscreenBitmapImage;
 #else
 - (id)initWithFrame:(NSRect)frame isPreview:(BOOL)isPreview;
 - (BOOL)hasConfigureSheet;
