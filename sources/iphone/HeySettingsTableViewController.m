@@ -217,7 +217,6 @@ static const int aboutVisitTag = 344;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil)
     {
-        //cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:cellIdentifier] autorelease];
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -232,7 +231,7 @@ static const int aboutVisitTag = 344;
                         UISlider *numberSlider = [[UISlider alloc] initWithFrame:sliderRect];
                         numberSlider.minimumValue = 1.0f;
                         //numberSlider.maximumValue = 100.0f;
-                        numberSlider.maximumValue = 7.0f;
+                        numberSlider.maximumValue = 25.0f;   // 7.0f
                         numberSlider.value = opts.numberOfCracks;
                         numberSlider.tag = 0;
                         numberSlider.continuous = YES;
@@ -247,7 +246,7 @@ static const int aboutVisitTag = 344;
                         UISlider *speedSlider = [[UISlider alloc] initWithFrame:sliderRect];
                         speedSlider.minimumValue = 1.0f;
                         //speedSlider.maximumValue = 10.0f;
-                        speedSlider.maximumValue = 4.0f;
+                        speedSlider.maximumValue = 10.0f;    // 10.0f
                         speedSlider.value = opts.speedOfCracking;
                         speedSlider.tag = 1;
                         speedSlider.continuous = YES;
@@ -367,9 +366,8 @@ static const int aboutVisitTag = 344;
                         UIImageView *iv = [[[UIImageView alloc] initWithFrame:imgFrame] autorelease];  // This frame's origin is temporary, see tableView:willDisplayCell:forRowAtIndex:
                         iv.tag = aboutInfoTag;
                         iv.image = image;
-                        //[cell.contentView addSubview:iv];
-                        //[cell.contentView setBackgroundColor:[UIColor whiteColor]];
-                        [cell addSubview:iv];
+                        [cell addSubview:iv];   // Note: NOT [cell.contentView addSubview:iv]
+                        cell.backgroundColor = [UIColor whiteColor];
                         break;
                     }
                     case HeySubstrateSettingsRowAboutVisit:
@@ -389,6 +387,7 @@ static const int aboutVisitTag = 344;
                         button.tag = aboutVisitTag;
                         [button addTarget:self action:@selector(heydaddioAction:) forControlEvents:UIControlEventTouchUpInside];
                         [cell addSubview:button];
+                        cell.backgroundColor = [UIColor whiteColor];
                         break;
                     }
                     default:
@@ -401,7 +400,6 @@ static const int aboutVisitTag = 344;
             default:
             {
                 break;
-                
             }
         }
     }
@@ -421,20 +419,30 @@ static const int aboutVisitTag = 344;
     switch ([indexPath indexAtPosition:0]) 
     {
         case HeySubstrateSettingsSectionAbout:
+        {
             switch ([indexPath indexAtPosition:1])
             {
                 case HeySubstrateSettingsRowAboutInfo:
+                {
                     height = uitvcHeightAboutInfo;
                     break;
+                }
                 case HeySubstrateSettingsRowAboutVisit:
+                {
                     height = uitvcHeightAboutVisit;
                     break;
+                }
                 default:
+                {
                     break;
+                }
             }
             break;
+        }
         default:
+        {
             break;
+        }
     }
     return height;
 }
@@ -442,6 +450,8 @@ static const int aboutVisitTag = 344;
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    (void)tableView;
+    
     switch ([indexPath indexAtPosition:0])
     {
         case HeySubstrateSettingsSectionAbout:

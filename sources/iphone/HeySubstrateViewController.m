@@ -79,7 +79,6 @@
 
 - (void)dealloc 
 {
-    // TODO: verify that this works and stops leaks
     if (bitContext)
     {
         CGContextRelease(bitContext), bitContext = NULL;
@@ -93,7 +92,6 @@
             v->offscreenBitmapImage = NULL;
         }
     }
-    
     [super dealloc];
 }
 
@@ -157,10 +155,7 @@
     self.animationTimer = nil;
     HeySubstrateView *v = (HeySubstrateView *)self.view;
     [v stopAnimation];
-    // TODO: verify that this works and fixes leak
     CGContextRelease(bitContext), bitContext = NULL;
-    //if (bitImage)
-    //    CGImageRelease(bitImage);
 }
 
 
