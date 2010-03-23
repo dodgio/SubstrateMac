@@ -42,11 +42,13 @@
 static const CGFloat uitvcHeightDefault = 44.0f;
 static const CGFloat uitvcHeightAboutInfo = 320.0f;
 static const CGFloat uitvcHeightAboutVisit = 70.0f;
+
+static const int aboutInfoTag = 343;
+static const int aboutVisitTag = 344;
           
           
 // -----------------------------------------------------------------------------
-// MARK: HeySettingsTableViewController
-
+// MARK: -
 @implementation HeySettingsTableViewController
 
 
@@ -75,7 +77,70 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
 
 
 // -----------------------------------------------------------------------------
-// MARK: UITableViewDelegate Protocol Methods
+// MARK: Actions
+
+- (void)sliderAction:(UISlider *)sender
+{
+    switch ([sender tag]) 
+    {
+        case 0:                             // Number slider.
+            opts.numberOfCracks = [sender value];
+            break;
+        case 1:                             // Speed slider.
+            opts.speedOfCracking = [sender value];
+            break;
+        case 2:                             // Percent curved slider.
+            opts.percentCurves = [sender value];
+            break;
+        case 4:                             // Amount slider.
+            opts.amountOfSand = [sender value];
+            break;
+        case 5:                             // Density slider.
+            opts.densityOfDrawing = [sender value];
+            break;
+        case 6:                             // Pause between slider.
+            opts.pauseBetweenDrawings = [sender value];  
+            break;
+        default:
+            break;
+    }
+}
+
+
+- (void)switchAction:(UISwitch *)sender
+{
+    switch ([sender tag]) 
+    {
+        case 3:                             // Cracks only switch.
+            opts.drawCracksOnly = sender.on;
+            break;
+        default:
+            break;
+    }
+}
+
+
+- (void)heydaddioAction:(UIButton *)sender
+{
+    (void)sender;
+    [[UIApplication sharedApplication] performSelector:@selector(openURL:) withObject:[NSURL URLWithString:@"http://www.heydaddio.com/"] afterDelay:0.25f];
+}
+
+
+- (void)doneAction:(UIBarButtonItem *)sender
+{
+    (void)sender;
+    HeySubstrateAppDelegate *appDelegate;
+    appDelegate = (HeySubstrateAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate setOptions:&opts];       // Save settings to app delegate.
+    //NSLog(@"Settings: NoOfCracks=%f Speed=%f Sand=%f Density=%f Pause=%f %%Curves=%f CracksOnly=%d", opts.numberOfCracks, opts.speedOfCracking, opts.amountOfSand, opts.densityOfDrawing, opts.pauseBetweenDrawings, opts.percentCurves, opts.drawCracksOnly);
+    [appDelegate showSubstrate];
+}
+
+
+// -----------------------------------------------------------------------------
+// MARK: -
+// MARK: UITableViewDataSource Protocol Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -132,49 +197,33 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
 }
 
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    (void)tableView;
-    CGFloat height = uitvcHeightDefault;
-    
-    switch ([indexPath indexAtPosition:0]) 
-    {
-        case HeySubstrateSettingsSectionAbout:
-            switch ([indexPath indexAtPosition:1])
-            {
-                case HeySubstrateSettingsRowAboutInfo:
-                    height = uitvcHeightAboutInfo;
-                    break;
-                case HeySubstrateSettingsRowAboutVisit:
-                    height = uitvcHeightAboutVisit;
-                    break;
-                default:
-                    break;
-            }
-            break;
-        default:
-            break;
-    }
-    return height;
-}
-
-
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *cellIdentifier = [NSString stringWithFormat:@"%d:%d", [indexPath indexAtPosition:0], [indexPath indexAtPosition:1]];
     
-    CGRect sliderRect = CGRectMake(120.0f, 0.0f, 175.0f, 50.0f);
-    CGRect switchRect = CGRectMake(200.0f, 10.0f, 0.0f, 0.0f);
+    CGRect sliderRect;
+    CGRect switchRect;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        sliderRect = CGRectMake(180.0f, 0.0f, 525.0f, 50.0f);
+        switchRect = CGRectMake(180.0f, 10.0f, 0.0f, 0.0f);
+    }
+    else    // UIUserInterfaceIdiomPhone
+    {
+        sliderRect = CGRectMake(120.0f, 0.0f, 175.0f, 50.0f);
+        switchRect = CGRectMake(200.0f, 10.0f, 0.0f, 0.0f);
+    }
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil)
     {
-        cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:cellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         switch ([indexPath indexAtPosition:0]) 
         {
             case HeySubstrateSettingsSectionCracks:
+            {
                 switch ([indexPath indexAtPosition:1]) 
                 {
                     case HeySubstrateSettingsRowCracksNumber:
@@ -182,7 +231,7 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
                         UISlider *numberSlider = [[UISlider alloc] initWithFrame:sliderRect];
                         numberSlider.minimumValue = 1.0f;
                         //numberSlider.maximumValue = 100.0f;
-                        numberSlider.maximumValue = 7.0f;
+                        numberSlider.maximumValue = 25.0f;   // 7.0f
                         numberSlider.value = opts.numberOfCracks;
                         numberSlider.tag = 0;
                         numberSlider.continuous = YES;
@@ -197,7 +246,7 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
                         UISlider *speedSlider = [[UISlider alloc] initWithFrame:sliderRect];
                         speedSlider.minimumValue = 1.0f;
                         //speedSlider.maximumValue = 10.0f;
-                        speedSlider.maximumValue = 4.0f;
+                        speedSlider.maximumValue = 10.0f;    // 10.0f
                         speedSlider.value = opts.speedOfCracking;
                         speedSlider.tag = 1;
                         speedSlider.continuous = YES;
@@ -233,10 +282,14 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
                         break;
                     }
                     default:
+                    {
                         break;
+                    }
                 }
                 break;
+            }
             case HeySubstrateSettingsSectionSand:
+            {
                 switch ([indexPath indexAtPosition:1]) 
                 {
                     case HeySubstrateSettingsRowSandAmount:
@@ -254,10 +307,14 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
                         break;
                     }
                     default:
+                    {
                         break;
+                    }
                 }
                 break;
+            }
             case HeySubstrateSettingsSectionDrawings:
+            {
                 switch ([indexPath indexAtPosition:1]) 
                 {
                     case HeySubstrateSettingsRowDrawingsDensity:
@@ -292,34 +349,29 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
                         break;
                     }
                     default:
+                    {
                         break;
+                    }
                 }
                 break;
+            }
             case HeySubstrateSettingsSectionAbout:
+            {
                 switch ([indexPath indexAtPosition:1]) 
                 {
                     case HeySubstrateSettingsRowAboutInfo:
                     {
-                        //UILabel *tempLabel = [[UILabel alloc] initWithFrame:sliderRect];
-                        //tempLabel.text = @"This is the about info.";
-                        //[cell addSubview:tempLabel];
-                        //[tempLabel release];
                         UIImage *image = [UIImage imageNamed:@"Credits.png"];
-                        [cell.imageView setImage:image];
+                        CGRect imgFrame = CGRectMake(0.0f, 0.0f, image.size.width, image.size.height);
+                        UIImageView *iv = [[[UIImageView alloc] initWithFrame:imgFrame] autorelease];  // This frame's origin is temporary, see tableView:willDisplayCell:forRowAtIndex:
+                        iv.tag = aboutInfoTag;
+                        iv.image = image;
+                        [cell addSubview:iv];   // Note: NOT [cell.contentView addSubview:iv]
+                        cell.backgroundColor = [UIColor whiteColor];
                         break;
                     }
                     case HeySubstrateSettingsRowAboutVisit:
                     {
-                        /*
-                        CGRect labelButtonRect = CGRectInset(cell.bounds, 15.0f, 5.0f);
-                        UILabel *msg = [[UILabel alloc] initWithFrame:labelButtonRect];
-                        msg.opaque = NO;
-                        [msg setBackgroundColor:[UIColor clearColor]];
-                        msg.textAlignment = UITextAlignmentCenter;
-                        msg.text = @"Visit Hey Daddio Website";
-                        [cell addSubview:msg];
-                        [msg release];
-                        */
                         UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
                         // Height of cell has not been changed from default yet. Must manually adjust.
                         CGRect rWork = cell.bounds;
@@ -332,78 +384,113 @@ static const CGFloat uitvcHeightAboutVisit = 70.0f;
                         UIImage *stretchHighlighted = [highlighted stretchableImageWithLeftCapWidth:12 topCapHeight:12];
                         [button setBackgroundImage:stretchHighlighted forState:UIControlStateHighlighted];
                         [button setTitle:@"Visit Hey Daddio Website" forState:UIControlStateNormal];
-                        button.tag = 8;
+                        button.tag = aboutVisitTag;
                         [button addTarget:self action:@selector(heydaddioAction:) forControlEvents:UIControlEventTouchUpInside];
                         [cell addSubview:button];
+                        cell.backgroundColor = [UIColor whiteColor];
                         break;
                     }
                     default:
+                    {
                         break;
+                    }
                 }
                 break;
+            }
             default:
+            {
                 break;
+            }
         }
     }
     return cell;
 }
 
 
-- (void)sliderAction:(UISlider *)sender
+// -----------------------------------------------------------------------------
+// MARK: -
+// MARK: UITableViewDelegate Protocol Methods
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch ([sender tag]) 
+    (void)tableView;
+    CGFloat height = uitvcHeightDefault;
+    
+    switch ([indexPath indexAtPosition:0]) 
     {
-      case 0:                             // Number slider.
-          opts.numberOfCracks = [sender value];
-          break;
-      case 1:                             // Speed slider.
-          opts.speedOfCracking = [sender value];
-          break;
-      case 2:                             // Percent curved slider.
-          opts.percentCurves = [sender value];
-          break;
-      case 4:                             // Amount slider.
-          opts.amountOfSand = [sender value];
-          break;
-      case 5:                             // Density slider.
-          opts.densityOfDrawing = [sender value];
-          break;
-      case 6:                             // Pause between slider.
-          opts.pauseBetweenDrawings = [sender value];  
-          break;
-      default:
-          break;
+        case HeySubstrateSettingsSectionAbout:
+        {
+            switch ([indexPath indexAtPosition:1])
+            {
+                case HeySubstrateSettingsRowAboutInfo:
+                {
+                    height = uitvcHeightAboutInfo;
+                    break;
+                }
+                case HeySubstrateSettingsRowAboutVisit:
+                {
+                    height = uitvcHeightAboutVisit;
+                    break;
+                }
+                default:
+                {
+                    break;
+                }
+            }
+            break;
+        }
+        default:
+        {
+            break;
+        }
     }
+    return height;
 }
 
 
-- (void)switchAction:(UISwitch *)sender
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch ([sender tag]) 
+    (void)tableView;
+    
+    switch ([indexPath indexAtPosition:0])
     {
-      case 3:                             // Cracks only switch.
-          opts.drawCracksOnly = sender.on;
-          break;
-      default:
-          break;
+        case HeySubstrateSettingsSectionAbout:
+        {
+            switch ([indexPath indexAtPosition:1])
+            {
+                case HeySubstrateSettingsRowAboutInfo:
+                {
+                    // Determine correct frame for imageview.
+                    UIImageView *iv = (UIImageView *)[cell viewWithTag:aboutInfoTag];
+                    CGRect oldFrame = iv.frame;
+                    CGRect cellFrame = cell.bounds;
+                    CGFloat newImageOriginX = floorf((cellFrame.size.width / 2.0f) - (oldFrame.size.width / 2.0f));
+                    CGFloat newImageOriginY = oldFrame.origin.y + 10.0f;
+                    CGRect newFrame = CGRectMake(newImageOriginX, newImageOriginY, oldFrame.size.width, oldFrame.size.height);
+                    [iv setFrame:newFrame];
+                    break;
+                }
+                case HeySubstrateSettingsRowAboutVisit:
+                {
+                    UIButton *button = (UIButton *)[cell viewWithTag:aboutVisitTag];
+                    CGRect rWork = cell.bounds;
+                    CGFloat xInset = rWork.size.width / 10.0f;
+                    rWork.size.height = uitvcHeightAboutVisit;
+                    [button setFrame:CGRectInset(rWork, xInset, 10.0f)];
+                    break;
+                }
+                default:
+                {
+                    break;
+                }
+            }
+            break;
+        }
+        default:
+        {
+            break;
+        }
     }
-}
-
-- (void)heydaddioAction:(UIButton *)sender
-{
-    (void)sender;
-    [[UIApplication sharedApplication] performSelector:@selector(openURL:) withObject:[NSURL URLWithString:@"http://www.heydaddio.com/"] afterDelay:0.25f];
-}
-
-
-- (void)doneAction:(UIBarButtonItem *)sender
-{
-    (void)sender;
-    HeySubstrateAppDelegate *appDelegate;
-    appDelegate = (HeySubstrateAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate setOptions:&opts];       // Save settings to app delegate.
-    //NSLog(@"Settings: NoOfCracks=%f Speed=%f Sand=%f Density=%f Pause=%f %%Curves=%f CracksOnly=%d", opts.numberOfCracks, opts.speedOfCracking, opts.amountOfSand, opts.densityOfDrawing, opts.pauseBetweenDrawings, opts.percentCurves, opts.drawCracksOnly);
-    [appDelegate showSubstrate];
 }
 
 
