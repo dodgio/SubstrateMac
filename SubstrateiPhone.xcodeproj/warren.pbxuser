@@ -39,7 +39,7 @@
 		};
 	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
-		activeBuildConfigurationName = Distribution;
+		activeBuildConfigurationName = Debug;
 		activeExecutable = 802122B90FBE37F700DD9A3B /* HeySubstrate */;
 		activeSDKPreference = iphoneos3.2;
 		activeTarget = 1D6058900D05DD3D006BFB54 /* HeySubstrate */;
@@ -99,8 +99,8 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 291660965;
-			PBXWorkspaceStateSaveDate = 291660965;
+			PBXPerProjectTemplateStateSaveDate = 292180457;
+			PBXWorkspaceStateSaveDate = 292180457;
 		};
 		sourceControlManager = 802122C10FBE380400DD9A3B /* Source Control */;
 		userBookmarkGroup = 800834B20FEAF96800802F87 /* PBXBookmarkGroup */;
