@@ -460,8 +460,8 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>805A9FDE11593DD8000D991A</string>
-				<string>805A9FDF11593DD8000D991A</string>
+				<string>80AC5C0F1226D962004C74F1</string>
+				<string>80AC5C101226D962004C74F1</string>
 				<string>1C9437FD063B20B00039CFAC</string>
 				<string>1C9437FE063B20B00039CFAC</string>
 				<string>1C9437FF063B20B00039CFAC</string>
@@ -479,7 +479,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>291067164.024997</real>
+	<real>304535906.70571399</real>
 	<key>ToolbarDisplayMode</key>
 	<integer>2</integer>
 	<key>ToolbarIsVisible</key>
@@ -494,13 +494,8 @@
 	<integer>0</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>805A9FEC1159551C000D991A</string>
-		<string>805A9FED1159551C000D991A</string>
-		<string>1C530D5B069F1CE1000CFCEE</string>
-		<string>1C530D54069F1CE1000CFCEE</string>
-		<string>805A9FE011593DD8000D991A</string>
 		<string>1C530D52069F1CE1000CFCEE</string>
-		<string>/Volumes/UserMobile/Users/warren/source/prj/SubstrateMac/SubstrateMac.xcodeproj</string>
+		<string>/Users/warren/source/prj/SubstrateMac/SubstrateMac.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>811 414 559 464 0 0 1440 878 </string>
@@ -691,7 +686,7 @@
 								<key>PBXProjectModuleLabel</key>
 								<string>Build Results</string>
 								<key>XCBuildResultsTrigger_Collapse</key>
-								<integer>1024</integer>
+								<integer>1021</integer>
 								<key>XCBuildResultsTrigger_Open</key>
 								<integer>1010</integer>
 							</dict>
@@ -723,7 +718,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C530D52069F1CE1000CFCEE</string>
-				<string>805A9FDD11593DCA000D991A</string>
+				<string>80AC5C0E1226D961004C74F1</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
