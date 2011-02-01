@@ -84,6 +84,15 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     defaults = [NSUserDefaults standardUserDefaults];
     start = 3.0f;
     density = 50000.0f;
+    
+    // !!! trying new stuff
+    [self setOpaque:NO];
+    //[self setBackgroundColor:nil];
+    [self setBackgroundColor:[UIColor clearColor]];
+    //[[self layer] setBackgroundColor:[[UIColor clearColor] CGColor]];
+    //[self setBackgroundColor:[HEYCOLOR HeyColorWithRed:1.0f green:0.9843f blue:0.9373f alpha:1.0f]];
+    [self setClearsContextBeforeDrawing:NO];
+    // !!!
 #else
     ScreenSaverDefaults *defaults;
     defaults = [ScreenSaverDefaults defaultsForModuleWithName:HeySubstrateMacModuleName];
@@ -414,14 +423,37 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 //}
 
 
+//- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx
+//{
+//    //(void)ctx;
+//    //NSLog(@"layer: %@,  ctx:%@", layer, ctx);
+//    [layer setContents:(id)offscreenBitmapImage];
+//}
+
+
+- (void)displayLayer:(CALayer *)layer
+{
+    [layer setContents:(id)offscreenBitmapImage];    
+}
+
+
 - (void)drawRect:(HEYRECT)rect 
 {
 #if TARGET_OS_IPHONE
     (void)rect;
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextDrawImage(ctx, self.bounds, offscreenBitmapImage);
-    if (infoFadeState != kHeySubstrateFadeOff)
-        [infoIcon drawInRect:infoRect blendMode:kCGBlendModeNormal alpha:[self alphaForInfo]];
+
+//    // original
+//    CGContextRef ctx = UIGraphicsGetCurrentContext();
+//    CGContextDrawImage(ctx, self.bounds, offscreenBitmapImage);
+//    if (infoFadeState != kHeySubstrateFadeOff)
+//    {
+//        [infoIcon drawInRect:infoRect blendMode:kCGBlendModeNormal alpha:[self alphaForInfo]];
+//    }
+    
+//    // !!! try CA
+//    // almost works, but flickers like hell
+//    // the calayer insists on clearing itself to background color on every other pass through this method
+//    [[self layer] setContents:(id)offscreenBitmapImage];
 #else
     [super drawRect:rect];
 #endif
@@ -625,7 +657,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 }
 
 
-- (void)getOptions:(HeySubstrateOptions *)options;
+- (void)getOptions:(HeySubstrateOptions *)options
 {
     options->numberOfCracks       = opts.numberOfCracks;
     options->speedOfCracking      = opts.speedOfCracking;

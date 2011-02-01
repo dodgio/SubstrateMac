@@ -71,7 +71,7 @@
 {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
     {
-        animationInterval = 1.0f / HeySubstrateAnimationFPS;
+        animationInterval = 1.0 / HeySubstrateAnimationFPS;
     }
     return self;
 }
@@ -102,7 +102,8 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor clearColor];
+    // !!!
+    //self.view.backgroundColor = [UIColor clearColor];
     [self startAnimation];
 }
 
@@ -161,13 +162,15 @@
 
 - (void)drawView
 {
+    // original
     HeySubstrateView *v = (HeySubstrateView *)self.view;
     UIGraphicsPushContext(bitContext);
     [v animateOneFrame];
     if (bitImage)
+    {
         CGImageRelease(bitImage);
+    }
     bitImage = CGBitmapContextCreateImage(bitContext);
-
     UIGraphicsPopContext();
     [v setOffscreenBitmapImage:bitImage];
     

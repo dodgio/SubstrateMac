@@ -35,6 +35,8 @@
 // -----------------------------------------------------------------------------
 // MARK: System Headers
 
+#import <TargetConditionals.h>
+
 #if TARGET_OS_IPHONE
  #import <Foundation/Foundation.h>         // Apple basics
  #import <UIKit/UIKit.h>                   // Cocoa Touch
