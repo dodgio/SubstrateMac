@@ -35,6 +35,9 @@
 #endif
 
 
+@class HeySubstrateColorPalette;
+
+
 // -----------------------------------------------------------------------------
 // MARK: HeySubstrateView
 #if TARGET_OS_IPHONE
@@ -67,6 +70,7 @@
     int viewWidth;              // Dimensions of view
     int viewHeight;             // Dimensions of view
     int *crackAngleGrid;        // Array/Grid of cracks, one per pixel
+    HeySubstrateColorPalette *palette;  // Palette of sand colors.
     
     
 #if TARGET_OS_IPHONE
@@ -74,14 +78,14 @@
     NSInteger infoFadeCountdown;
     CGRect infoRect;            // Rect of info icon/button
     UIImage *infoIcon;          // Info icon/button.
-    CGImageRef offscreenBitmapImage;
+    CGLayerRef qLayer;
+    NSMutableArray *touchedCrackOrigins;
 #endif
 }
 
 #if TARGET_OS_IPHONE
 - (id)initWithFrame:(CGRect)frame;
-- (void)setOffscreenBitmapImage:(CGImageRef)newImgRef;
-- (CGImageRef)offscreenBitmapImage;
+- (CGPoint)nextCrackOrigin;
 #else
 - (id)initWithFrame:(NSRect)frame isPreview:(BOOL)isPreview;
 - (BOOL)hasConfigureSheet;
@@ -108,6 +112,8 @@
 - (void)getOptions:(HeySubstrateOptions *)options;
 - (void)setOptions:(HeySubstrateOptions *)options;
 - (void)writeOptions;
+- (HeySubstrateColorPalette *)palette;
+- (void)setPalette:(HeySubstrateColorPalette *)aPalette;
 
 
 @end

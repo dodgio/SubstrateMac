@@ -54,12 +54,13 @@ const float HeySubstrateAnimationFPS = 30.0f;    // Frames per second to animate
 
 #if TARGET_OS_IPHONE
 
-// Un-vectorized sinf() for iPhone.
+// Un-vectorized sinf() for iOS < 4.0.
 void Heyvvsinf(float *y, float *x, const int *i)
 {
     if (*i <= 0)
+    {
         return;
-    
+    }
     for (int j = 0; j < *i; j++) 
     {
         y[j] = sinf(x[j]);

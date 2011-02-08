@@ -54,6 +54,8 @@
     float sinAnglePi180;        // Save sine results
     HeyVectF_t *vFSource;          // Vector sin() source (paintToX:Y:FromCrackX:Y)
     HeyVectF_t *vFDest;            // Vector sin() dest ...
+    
+    CGContextRef qLayerContext;    // We don't own this, don't retain/release.
 }
 
 - (id)initWithSSView:(HeySubstrateView *)view;
@@ -63,7 +65,10 @@
 - (void)regionColor;
 - (void)paintToX:(float)xEnd Y:(float)yEnd FromCrackX:(float)crackPosX CrackY:(float)crackPosY;
 - (void)setupSand;
-- (HeySubstrateRGB const *)randomSubstrateRGB;
+
+
+- (void)setQLayerContext:(CGContextRef)ctx;
+
 
 @end
 

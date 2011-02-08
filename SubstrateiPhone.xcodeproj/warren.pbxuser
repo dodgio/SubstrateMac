@@ -8,10 +8,10 @@
 	};
 	28D7ACF70DDB3853001CB0EB /* HeySubstrateViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {629, 2431}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 1909}";
-			sepNavWindowFrame = "{{1, 25}, {688, 853}}";
+			sepNavIntBoundsRect = "{{0, 0}, {629, 2899}}";
+			sepNavSelRange = "{5820, 0}";
+			sepNavVisRange = "{4674, 1360}";
+			sepNavWindowFrame = "{{5, 25}, {688, 853}}";
 		};
 	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
@@ -19,31 +19,227 @@
 		activeExecutable = 80C6912E12F7A9FC00F0769F /* HeySubstrate */;
 		activeSDKPreference = iphonesimulator4.2;
 		activeTarget = 1D6058900D05DD3D006BFB54 /* HeySubstrate */;
+		breakpoints = (
+			8040841412FC9C1800279B0D /* HeySubstrateView.m:427 */,
+		);
 		codeSenseManager = 80C6913712F7AA1A00F0769F /* Code sense */;
 		executables = (
 			80C6912E12F7A9FC00F0769F /* HeySubstrate */,
 		);
 		perUserDictionary = {
-			PBXPerProjectTemplateStateSaveDate = 318220796;
-			PBXWorkspaceStateSaveDate = 318220796;
+			"PBXConfiguration.PBXBreakpointsDataSource.v1:1CA1AED706398EBD00589147" = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXBreakpointsDataSource_BreakpointID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					20,
+					198,
+					20,
+					99,
+					99,
+					29,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXBreakpointsDataSource_ActionID,
+					PBXBreakpointsDataSource_TypeID,
+					PBXBreakpointsDataSource_BreakpointID,
+					PBXBreakpointsDataSource_UseID,
+					PBXBreakpointsDataSource_LocationID,
+					PBXBreakpointsDataSource_ConditionID,
+					PBXBreakpointsDataSource_IgnoreCountID,
+					PBXBreakpointsDataSource_ContinueID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					315,
+					20,
+					48.16259765625,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 318537010;
+			PBXWorkspaceStateSaveDate = 318537010;
 		};
 		perUserProjectItems = {
-			80C6913812F7AA3000F0769F /* PBXBookmark */ = 80C6913812F7AA3000F0769F /* PBXBookmark */;
-			80C6913912F7AA4300F0769F /* PBXBookmark */ = 80C6913912F7AA4300F0769F /* PBXBookmark */;
+			8040840812FC9BF000279B0D /* PBXTextBookmark */ = 8040840812FC9BF000279B0D /* PBXTextBookmark */;
+			8040840B12FC9BF000279B0D /* PBXTextBookmark */ = 8040840B12FC9BF000279B0D /* PBXTextBookmark */;
+			8040840F12FC9BF000279B0D /* PBXTextBookmark */ = 8040840F12FC9BF000279B0D /* PBXTextBookmark */;
+			8040841012FC9BF000279B0D /* PBXTextBookmark */ = 8040841012FC9BF000279B0D /* PBXTextBookmark */;
+			8040842212FC9ED700279B0D /* XCBuildMessageTextBookmark */ = 8040842212FC9ED700279B0D /* XCBuildMessageTextBookmark */;
+			8040842712FC9F2100279B0D /* XCBuildMessageTextBookmark */ = 8040842712FC9F2100279B0D /* XCBuildMessageTextBookmark */;
+			8040843912FCA74900279B0D /* PBXTextBookmark */ = 8040843912FCA74900279B0D /* PBXTextBookmark */;
+			8040843A12FCA74900279B0D /* PBXTextBookmark */ = 8040843A12FCA74900279B0D /* PBXTextBookmark */;
+			8040843B12FCA74900279B0D /* PBXTextBookmark */ = 8040843B12FCA74900279B0D /* PBXTextBookmark */;
+			8040843C12FCA74900279B0D /* PBXTextBookmark */ = 8040843C12FCA74900279B0D /* PBXTextBookmark */;
 			80C6914F12F7AAAA00F0769F /* PBXTextBookmark */ = 80C6914F12F7AAAA00F0769F /* PBXTextBookmark */;
-			80C6915012F7AAAA00F0769F /* PBXTextBookmark */ = 80C6915012F7AAAA00F0769F /* PBXTextBookmark */;
 		};
 		sourceControlManager = 80C6913612F7AA1A00F0769F /* Source Control */;
 		userBuildSettings = {
 		};
 	};
+	802123450FBF42CE00DD9A3B /* HeySubstrateView.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {671, 1547}}";
+			sepNavSelRange = "{3605, 0}";
+			sepNavVisRange = "{2070, 1933}";
+			sepNavWindowFrame = "{{15, 0}, {730, 876}}";
+		};
+	};
 	802123460FBF42CE00DD9A3B /* HeySubstrateView.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {629, 10075}}";
-			sepNavSelRange = "{12793, 37}";
-			sepNavVisRange = "{12164, 1372}";
+			sepNavIntBoundsRect = "{{0, 0}, {629, 10517}}";
+			sepNavSelRange = "{13830, 0}";
+			sepNavVisRange = "{12149, 1188}";
 			sepNavWindowFrame = "{{411, 25}, {688, 853}}";
 		};
+	};
+	802123AF0FC1D9CA00DD9A3B /* HeySubstrateCrack.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {671, 1014}}";
+			sepNavSelRange = "{2497, 0}";
+			sepNavVisRange = "{624, 2222}";
+			sepNavWindowFrame = "{{213, 2}, {730, 876}}";
+		};
+	};
+	802123B00FC1D9CA00DD9A3B /* HeySubstrateCrack.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {671, 6656}}";
+			sepNavSelRange = "{12456, 0}";
+			sepNavVisRange = "{11254, 2266}";
+			sepNavWindowFrame = "{{99, 0}, {730, 876}}";
+		};
+	};
+	8040840812FC9BF000279B0D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 802123AF0FC1D9CA00DD9A3B /* HeySubstrateCrack.h */;
+		name = "HeySubstrateCrack.h: 65";
+		rLen = 0;
+		rLoc = 2559;
+		rType = 0;
+		vrLen = 2222;
+		vrLoc = 624;
+	};
+	8040840B12FC9BF000279B0D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 802123450FBF42CE00DD9A3B /* HeySubstrateView.h */;
+		name = "HeySubstrateView.h: 97";
+		rLen = 0;
+		rLoc = 3602;
+		rType = 0;
+		vrLen = 1851;
+		vrLoc = 2121;
+	};
+	8040840F12FC9BF000279B0D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 802123B00FC1D9CA00DD9A3B /* HeySubstrateCrack.m */;
+		name = "HeySubstrateCrack.m: 249";
+		rLen = 31;
+		rLoc = 10867;
+		rType = 0;
+		vrLen = 1710;
+		vrLoc = 10320;
+	};
+	8040841012FC9BF000279B0D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 802123AF0FC1D9CA00DD9A3B /* HeySubstrateCrack.h */;
+		name = "HeySubstrateCrack.h: 64";
+		rLen = 0;
+		rLoc = 2592;
+		rType = 0;
+		vrLen = 2031;
+		vrLoc = 771;
+	};
+	8040841412FC9C1800279B0D /* HeySubstrateView.m:427 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 802123460FBF42CE00DD9A3B /* HeySubstrateView.m */;
+		functionName = "-drawLayer:inContext:";
+		hitCount = 14;
+		ignoreCount = 0;
+		lineNumber = 427;
+		location = Substrate;
+		modificationTime = 318545783.761779;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	8040842212FC9ED700279B0D /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Incompatible pointer types passing 'CGColorRef' (aka 'struct CGColor *') to parameter of type 'CGFloat const *' (aka 'float const *')";
+		fRef = 802123460FBF42CE00DD9A3B /* HeySubstrateView.m */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 469;
+		rType = 1;
+	};
+	8040842712FC9F2100279B0D /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Incompatible pointer types passing 'CGColorRef' (aka 'struct CGColor *') to parameter of type 'CGFloat const *' (aka 'float const *')";
+		fRef = 802123B00FC1D9CA00DD9A3B /* HeySubstrateCrack.m */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 293;
+		rType = 1;
+	};
+	8040843912FCA74900279B0D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* HeySubstrateViewController.m */;
+		name = "HeySubstrateViewController.m: 195";
+		rLen = 0;
+		rLoc = 5820;
+		rType = 0;
+		vrLen = 1360;
+		vrLoc = 4674;
+	};
+	8040843A12FCA74900279B0D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 802123B00FC1D9CA00DD9A3B /* HeySubstrateCrack.m */;
+		name = "HeySubstrateCrack.m: 295";
+		rLen = 0;
+		rLoc = 12456;
+		rType = 0;
+		vrLen = 2266;
+		vrLoc = 11254;
+	};
+	8040843B12FCA74900279B0D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 802123460FBF42CE00DD9A3B /* HeySubstrateView.m */;
+		name = "HeySubstrateView.m: 470";
+		rLen = 0;
+		rLoc = 13830;
+		rType = 0;
+		vrLen = 1188;
+		vrLoc = 12149;
+	};
+	8040843C12FCA74900279B0D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 802123AF0FC1D9CA00DD9A3B /* HeySubstrateCrack.h */;
+		name = "HeySubstrateCrack.h: 63";
+		rLen = 0;
+		rLoc = 2497;
+		rType = 0;
+		vrLen = 2222;
+		vrLoc = 624;
 	};
 	80C6912E12F7A9FC00F0769F /* HeySubstrate */ = {
 		isa = PBXExecutable;
@@ -52,7 +248,7 @@
 		argumentStrings = (
 		);
 		autoAttachOnCrash = 1;
-		breakpointsEnabled = 0;
+		breakpointsEnabled = 1;
 		configStateDict = {
 		};
 		customDataFormattersEnabled = 1;
@@ -69,9 +265,13 @@
 		executableUserSymbolLevel = 0;
 		libgmallocEnabled = 0;
 		name = HeySubstrate;
+		savedGlobals = {
+		};
 		showTypeColumn = 0;
 		sourceDirectories = (
 		);
+		variableFormatDictionary = {
+		};
 	};
 	80C6913612F7AA1A00F0769F /* Source Control */ = {
 		isa = PBXSourceControlManager;
@@ -87,14 +287,6 @@
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
 	};
-	80C6913812F7AA3000F0769F /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = 802123460FBF42CE00DD9A3B /* HeySubstrateView.m */;
-	};
-	80C6913912F7AA4300F0769F /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = 28D7ACF70DDB3853001CB0EB /* HeySubstrateViewController.m */;
-	};
 	80C6914F12F7AAAA00F0769F /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 28D7ACF70DDB3853001CB0EB /* HeySubstrateViewController.m */;
@@ -104,15 +296,5 @@
 		rType = 0;
 		vrLen = 1909;
 		vrLoc = 0;
-	};
-	80C6915012F7AAAA00F0769F /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 802123460FBF42CE00DD9A3B /* HeySubstrateView.m */;
-		name = "HeySubstrateView.m: 434";
-		rLen = 37;
-		rLoc = 12793;
-		rType = 0;
-		vrLen = 1372;
-		vrLoc = 12164;
 	};
 }

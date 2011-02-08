@@ -31,6 +31,7 @@
 
 #import "HeySubstrateView.h"
 #import "HeySubstrateCrack.h"
+#import "HeySubstrateColorPalette.h"
 
 
 // -----------------------------------------------------------------------------
@@ -84,15 +85,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     defaults = [NSUserDefaults standardUserDefaults];
     start = 3.0f;
     density = 50000.0f;
-    
-    // !!! trying new stuff
-    [self setOpaque:NO];
-    //[self setBackgroundColor:nil];
-    [self setBackgroundColor:[UIColor clearColor]];
-    //[[self layer] setBackgroundColor:[[UIColor clearColor] CGColor]];
-    //[self setBackgroundColor:[HEYCOLOR HeyColorWithRed:1.0f green:0.9843f blue:0.9373f alpha:1.0f]];
-    [self setClearsContextBeforeDrawing:NO];
-    // !!!
+    touchedCrackOrigins = [[NSMutableArray array] retain];
 #else
     ScreenSaverDefaults *defaults;
     defaults = [ScreenSaverDefaults defaultsForModuleWithName:HeySubstrateMacModuleName];
@@ -118,8 +111,8 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     opts.drawCracksOnly        = [defaults boolForKey: defaultsKeyDrawCracksOnly];
     opts.percentCurves         = [defaults floatForKey:defaultsKeyPercentageOfCurvedCracks];
     
-    viewWidth = (float)[self frame].size.width;
-    viewHeight = (float)[self frame].size.height;
+    viewWidth = (float)[self frame].size.width * [[UIScreen mainScreen] scale];
+    viewHeight = (float)[self frame].size.height * [[UIScreen mainScreen] scale];
     maxNumCracks = 100;
     iterationsDone = 0;
     drawingPaused = NO;
@@ -129,14 +122,16 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     //  cracks that pass through the corresponding pixel.
     crackAngleGrid = (int*)malloc(sizeof(int) * viewWidth * viewHeight);
     if (!crackAngleGrid)
+    {
         success = NO;
-
+    }
     // Array of crack objects.
     crackArray = [NSMutableArray arrayWithCapacity:maxNumCracks];
     [crackArray retain];
     if (!crackArray)
+    {
         success = NO;
-    
+    }
     // Color of cracks.
     if (!HeySubstrateCrackColor)
     {
@@ -147,12 +142,14 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     }
     [HeySubstrateCrackColor retain];
 
+    // Palette.
+    palette = [[HeySubstrateColorPalette alloc] init];
+
 #if TARGET_OS_IPHONE    
     // Load the info icon.
     infoIcon = [UIImage imageNamed:@"infoicon.png"];
     if (!infoIcon)
         success = NO;
-    
     infoRect = CGRectMake(self.bounds.size.width - infoSize.width, 
                           self.bounds.size.height - infoSize.height, 
                           infoSize.width, infoSize.height);
@@ -168,6 +165,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     }
     return success;
 }
+
 
 #if TARGET_OS_IPHONE
 // Return the correct alpha value for the Info icon/button.
@@ -260,7 +258,9 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 {
     BOOL success = NO;
     if ((self = [super initWithFrame:frame]))
+    {
         success = [self internalInitializer];
+    }
     if (!success)
     {
         [self release];
@@ -302,6 +302,16 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 // Destroy the view.
 - (void) dealloc 
 {
+#if TARGET_OS_IPHONE
+    if (qLayer)
+    {
+        CGLayerRelease(qLayer);
+        qLayer = NULL;
+    }
+    [palette release], palette = nil;
+    [infoIcon release], infoIcon = nil;
+    [touchedCrackOrigins release], touchedCrackOrigins = nil;
+#endif
     // not sure if these need to be released
     [numberOfCracksSlider release], numberOfCracksSlider = nil;
     [speedOfCrackingSlider release], speedOfCrackingSlider = nil;
@@ -325,19 +335,31 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 
 // -----------------------------------------------------------------------------
 // MARK: Accessors
-#if TARGET_OS_IPHONE
-- (void)setOffscreenBitmapImage:(CGImageRef)newImgRef
+
+// Return CGPointZero if no points.
+- (CGPoint)nextCrackOrigin
 {
-    // We don't own this CGImageRef, the view controller does. Don't retain.
-    offscreenBitmapImage = newImgRef;
+    CGPoint nextP = CGPointZero;
+    if ([touchedCrackOrigins count] > 0)
+    {
+        nextP = [(NSValue *)[touchedCrackOrigins objectAtIndex:0] CGPointValue];
+        [touchedCrackOrigins removeObjectAtIndex:0];
+    }
+    return nextP;
 }
 
 
-- (CGImageRef)offscreenBitmapImage
+- (HeySubstrateColorPalette *)palette
 {
-    return offscreenBitmapImage;
+    return palette;
 }
-#endif
+
+- (void)setPalette:(HeySubstrateColorPalette *)aPalette
+{
+    (void)aPalette;
+    NSLog(@"CONSIDER IMPLEMENTING %@:%@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+}
+
 
 // -----------------------------------------------------------------------------
 // MARK: Drawing and animation methods
@@ -416,44 +438,36 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 }
 
 
-//- (void)setAnimationTimeInterval:(NSTimeInterval)timeInterval
-//{
-//    (void)timeInterval;
-//    // TODO: finish function for mac
-//}
-
-
 //- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx
 //{
-//    //(void)ctx;
-//    //NSLog(@"layer: %@,  ctx:%@", layer, ctx);
-//    [layer setContents:(id)offscreenBitmapImage];
 //}
 
 
-- (void)displayLayer:(CALayer *)layer
-{
-    [layer setContents:(id)offscreenBitmapImage];    
-}
+//- (void)displayLayer:(CALayer *)layer
+//{
+//    [layer setContents:(id)offscreenBitmapImage];    
+//}
 
 
 - (void)drawRect:(HEYRECT)rect 
 {
 #if TARGET_OS_IPHONE
     (void)rect;
-
-//    // original
-//    CGContextRef ctx = UIGraphicsGetCurrentContext();
-//    CGContextDrawImage(ctx, self.bounds, offscreenBitmapImage);
-//    if (infoFadeState != kHeySubstrateFadeOff)
-//    {
-//        [infoIcon drawInRect:infoRect blendMode:kCGBlendModeNormal alpha:[self alphaForInfo]];
-//    }
+    if (qLayer == nil)
+    {
+        CGFloat scaleFactor = [[UIScreen mainScreen] scale];
+        CGSize sz = CGSizeMake([self bounds].size.width * scaleFactor, [self bounds].size.height * scaleFactor);
+        qLayer = CGLayerCreateWithContext(UIGraphicsGetCurrentContext(), sz, NULL);
+    }
     
-//    // !!! try CA
-//    // almost works, but flickers like hell
-//    // the calayer insists on clearing itself to background color on every other pass through this method
-//    [[self layer] setContents:(id)offscreenBitmapImage];
+    [self animateOneFrame];
+    
+    CGContextDrawLayerInRect(UIGraphicsGetCurrentContext(), [self bounds], qLayer);
+    //CGContextDrawLayerAtPoint(UIGraphicsGetCurrentContext(), [self bounds].origin, qLayer);
+    if (infoFadeState != kHeySubstrateFadeOff)
+    {
+        [infoIcon drawInRect:infoRect blendMode:kCGBlendModeNormal alpha:[self alphaForInfo]];
+    }
 #else
     [super drawRect:rect];
 #endif
@@ -462,19 +476,27 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 
 - (void)animateOneFrame 
 {
+    CGContextRef ctx = nil;
     // Clear background
+    // Warm up the canvas a bit: RGB:255/251/239
+#if TARGET_OS_IPHONE
+    ctx = CGLayerGetContext(qLayer);
     if (bgCleared == NO) 
     {
-        // Warm up the canvas a bit: RGB:255/251/239
-        [[HEYCOLOR HeyColorWithRed:1.0f green:0.9843f blue:0.9373f alpha:1.0f] set];
-#if TARGET_OS_IPHONE
-        CGContextRef ctx = UIGraphicsGetCurrentContext();
-        CGContextFillRect(ctx, CGRectMake([self frame].origin.x, [self frame].origin.y, [self frame].size.width, [self frame].size.height));
-#else
-        [NSBezierPath fillRect:[self frame]];
-#endif
+        CGContextSetFillColorWithColor(ctx, [[HEYCOLOR HeyColorWithRed:1.0f green:0.9843f blue:0.9373f alpha:1.0f] CGColor]);
+        CGFloat scaleFactor = [[UIScreen mainScreen] scale];
+        CGRect b = [self bounds];
+        CGContextFillRect(ctx, CGRectMake(b.origin.x * scaleFactor, b.origin.y * scaleFactor, b.size.width * scaleFactor, b.size.height * scaleFactor));
         bgCleared = YES;
     }
+#else
+    if (bgCleared == NO) 
+    {
+        [[HEYCOLOR HeyColorWithRed:1.0f green:0.9843f blue:0.9373f alpha:1.0f] set];
+        [NSBezierPath fillRect:[self frame]];
+        bgCleared = YES;
+    }
+#endif
     
     int i;
     int spdLoops;
@@ -497,6 +519,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
             for (i = 0; i < currNumCracks; i++) 
             {
                 iterationsDone++;
+                [[crackArray objectAtIndex:i] setQLayerContext:ctx];
                 [[crackArray objectAtIndex:i] move];
             }
             if (iterationsDone >= opts.densityOfDrawing) 
@@ -715,6 +738,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     else
     {
         [self showInfo:NO];
+        [touchedCrackOrigins addObject:[NSValue valueWithCGPoint:touchPoint]];
         return NO;
     }
 }

@@ -45,24 +45,12 @@
 // -----------------------------------------------------------------------------
 // MARK: Properties
 
-@synthesize animationTimer;
-- (void)setAnimationTimer:(NSTimer *)newTimer
+@synthesize displayLink;
+- (void)setDisplayLink:(CADisplayLink *)newDisplayLink
 {
-    [animationTimer invalidate];
-    animationTimer = newTimer;
+    [displayLink invalidate];
+    displayLink = newDisplayLink;
 }
-
-@synthesize animationInterval;
-- (void)setAnimationInterval:(NSTimeInterval)interval
-{
-    animationInterval = interval;
-    if (animationTimer)
-    {
-        [self stopAnimation];
-        [self startAnimation];
-    }
-}
-
 
 // -----------------------------------------------------------------------------
 // MARK: Init and dealloc
@@ -71,7 +59,7 @@
 {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
     {
-        animationInterval = 1.0 / HeySubstrateAnimationFPS;
+
     }
     return self;
 }
@@ -79,18 +67,10 @@
 
 - (void)dealloc 
 {
-    if (bitContext)
+    if (displayLink)
     {
-        CGContextRelease(bitContext), bitContext = NULL;
-    }
-    if (bitImage)
-    {
-        CGImageRelease(bitImage), bitImage = NULL;
-        if (self.view)
-        {
-            HeySubstrateView *v = (HeySubstrateView *)self.view;
-            [v setOffscreenBitmapImage:NULL];
-        }
+        [displayLink invalidate];
+        displayLink = nil;
     }
     [super dealloc];
 }
@@ -102,15 +82,13 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
-    // !!!
-    //self.view.backgroundColor = [UIColor clearColor];
     [self startAnimation];
 }
 
 
 - (void)didReceiveMemoryWarning 
 {
-    //[super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
+    [super didReceiveMemoryWarning];
 }
 
 
@@ -119,32 +97,22 @@
 
 - (void)pauseAnimation
 {
-    self.animationTimer = nil;
+    self.displayLink = nil;
 }
 
 
 - (void)unpauseAnimation
 {
-    if (bitContext)
-    {
-        self.animationTimer = [NSTimer scheduledTimerWithTimeInterval:animationInterval target:self selector:@selector(drawView) userInfo:nil repeats:YES];
-    }
+    self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(drawView)];
+#if TARGET_OS_IPHONE
+    [self.displayLink setFrameInterval:4];
+#endif
+    [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
 
 - (void)startAnimation
 {
-    float width = [self.view bounds].size.width;
-    float height = [self.view bounds].size.height;
-    CGColorSpaceRef space;
-    if (!bitContext)
-    {
-        space = CGColorSpaceCreateDeviceRGB();
-        //bitContext = CGBitmapContextCreate(NULL, width, height, 8, 4 * width, space, kCGImageAlphaLast);
-        //bitContext = CGBitmapContextCreate(NULL, width, height, 8, 0, space, (kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst));
-        bitContext = CGBitmapContextCreate(NULL, width, height, 8, 0, space, (kCGBitmapByteOrderDefault | kCGImageAlphaPremultipliedLast));
-        CGColorSpaceRelease(space);
-    }
     HeySubstrateView *v = (HeySubstrateView *)self.view;
     [v restartAnimation];
     [self unpauseAnimation];
@@ -153,38 +121,15 @@
 
 - (void)stopAnimation
 {
-    self.animationTimer = nil;
+    self.displayLink = nil;
     HeySubstrateView *v = (HeySubstrateView *)self.view;
     [v stopAnimation];
-    CGContextRelease(bitContext), bitContext = NULL;
 }
 
 
 - (void)drawView
 {
-    // original
-    HeySubstrateView *v = (HeySubstrateView *)self.view;
-    UIGraphicsPushContext(bitContext);
-    [v animateOneFrame];
-    if (bitImage)
-    {
-        CGImageRelease(bitImage);
-    }
-    bitImage = CGBitmapContextCreateImage(bitContext);
-    UIGraphicsPopContext();
-    [v setOffscreenBitmapImage:bitImage];
-    
-    // Tell the system to process user events.
-    CFTimeInterval HeySubstrateRunLoopUserInterval = 0.01;
-    SInt32 runLoopStatus;
-    while (1)
-    {
-        runLoopStatus = CFRunLoopRunInMode(kCFRunLoopDefaultMode, HeySubstrateRunLoopUserInterval, TRUE);
-        if (runLoopStatus != kCFRunLoopRunHandledSource)
-            break;
-    }
-    
-    [v setNeedsDisplay];
+    [self.view setNeedsDisplay];
 }
 
 
