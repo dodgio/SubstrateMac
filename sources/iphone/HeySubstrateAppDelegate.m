@@ -156,14 +156,10 @@ static const NSTimeInterval HeySubstrateViewTransitionTime = 0.3f;
 
     // Make the status bar visible.
     [[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
-    // replace with
-    //[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
-    // later
 
     // Make the settings visible.
     [substrateVC.view removeFromSuperview];
     [window addSubview:settingsNC.view];
-    //[window makeKeyAndVisible];
     
     // Use explicit animation.
     CATransition *animation = [CATransition animation];
@@ -183,6 +179,7 @@ static const NSTimeInterval HeySubstrateViewTransitionTime = 0.3f;
     
     // Perform the actual switching of view on the next event loop (or so).
     [self performSelector:@selector(reallyShowSubstrateNow:) withObject:self afterDelay:0.001];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
 }
 
 
@@ -191,12 +188,9 @@ static const NSTimeInterval HeySubstrateViewTransitionTime = 0.3f;
 {
     (void)obj;
     [self.settingsNC.view removeFromSuperview];
-    //self.settingsNC = nil;
-    //self.settingsTVC = nil;
     
     // Make the pretty view visible again.
     [window addSubview:substrateVC.view];
-    //[window makeKeyAndVisible];
     CATransition *animation = [CATransition animation];
     [animation setType:kCATransitionReveal];
     [animation setSubtype:kCATransitionFromBottom];
@@ -207,10 +201,7 @@ static const NSTimeInterval HeySubstrateViewTransitionTime = 0.3f;
     // Start the display animation again.
     [substrateVC startAnimation];
     
-    [[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
-    // replace with
-    //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:YES];
-    // later
+//    [[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
 }
 
 

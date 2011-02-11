@@ -1,3 +1,4 @@
+
 // =============================================================================
 /*
     SubstrateMac
@@ -22,62 +23,41 @@
     without express or implied warranty.
 
 
-    HeySubstrate.m
+    HeySubstrateColorPalette.h
     SubstrateMac/SubstrateiPhone Projects
 
-    Project globals.
+    Handle color palette for sand drawing.
 
-    Copyright (c) Hey Daddio! 2009.
+    Copyright (c) Hey Daddio! 2011.
 */
 // -----------------------------------------------------------------------------
+
 
 #import "HeySubstrate.h"
 
 
-// -----------------------------------------------------------------------------
-// MARK: Globals
-
-// Unique module name.
-#if TARGET_OS_IPHONE
- NSString * const HeySubstrateMacModuleName = @"com.heydaddio.substrateiphone";
-#else
- NSString * const HeySubstrateMacModuleName = @"com.heydaddio.substratemac";
-#endif
-const int cagEmpty = 10000;             // Empty test value for crackAngleGrid.
-const int cagEmptyFlag = 10001;         // Empty flag value in crackAngleGrid.
-HEYCOLOR *HeySubstrateCrackColor;       // Color to draw all cracks.
-const float HeySubstrateAnimationFPS = 30.0f;    // Frames per second to animate
-NSString * const kHeySubstrateColorImageThumbnail = @"ColorImageThumbnail.png";
-
-
-// -----------------------------------------------------------------------------
-// MARK: Functions
-
-#if TARGET_OS_IPHONE
-
-// Un-vectorized sinf() for iOS < 4.0.
-void Heyvvsinf(float *y, float *x, const int *i)
+@interface HeySubstrateColorPalette : NSObject 
 {
-    if (*i <= 0)
-    {
-        return;
-    }
-    for (int j = 0; j < *i; j++) 
-    {
-        y[j] = sinf(x[j]);
-    }
+  @protected
+    NSMutableArray *heyColors_;
 }
+// properties
 
-#else
-
-// Call Accelerate framework vectorized sinf() for Mac.
-void Heyvvsinf(float *y, float *x, const int *i)
-{
-    vvsinf(y, x, i);
-}
-
-#endif
+// 
+- (id)init;
+- (void)dealloc;
 
 
-// End of file HeySubstrate.m
+// 
+- (HEYCOLOR *)randomColor;
+- (void)sampleImage:(CGImageRef)anImageRef;
+
+
+
+@end
+
+
+// End of HeySubstrateColorPalette.h
 // =============================================================================
+
+

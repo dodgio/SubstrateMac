@@ -33,20 +33,112 @@
 
 #import "HeySettingsTableViewController.h"
 #import "HeySubstrateAppDelegate.h"
+#import "HeySubstrateViewController.h"
 #import "HeySubstrateView.h"
+#import "HeySubstrateColorPalette.h"
 
 
 // -----------------------------------------------------------------------------
 // MARK: Constants
 
 static const CGFloat uitvcHeightDefault = 44.0f;
+static const CGFloat uitvcHeightSandColors = 128.0f + 10.0f + 12.0f;
 static const CGFloat uitvcHeightAboutInfo = 320.0f;
 static const CGFloat uitvcHeightAboutVisit = 70.0f;
 
 static const int aboutInfoTag = 343;
 static const int aboutVisitTag = 344;
-          
-          
+static const int kSettingsColorButtonTag = 647;
+
+
+// -----------------------------------------------------------------------------
+// MARK: -
+// MARK: Category for UITableViewDataSource Protocol
+
+@interface HeySettingsTableViewController (UITableViewDataSource)
+
+- (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+// @optional
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
+//- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section;
+//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath;
+//- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath;
+//- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView;
+//- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index;
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath;
+//- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath;
+
+@end
+
+
+// -----------------------------------------------------------------------------
+// MARK: -
+// MARK: Category for UITableViewDelegate Protocol
+
+@interface HeySettingsTableViewController (UITableViewDelegate)
+
+//@optional
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
+//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section;
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section;
+//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section;
+//- (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath __OSX_AVAILABLE_BUT_DEPRECATED(__MAC_NA,__MAC_NA,__IPHONE_2_0,__IPHONE_3_0);
+//- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath;
+//- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+//- (NSIndexPath *)tableView:(UITableView *)tableView willDeselectRowAtIndexPath:(NSIndexPath *)indexPath __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+//- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+//- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath;
+//- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+//- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath;
+//- (void)tableView:(UITableView*)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath;
+//- (void)tableView:(UITableView*)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath;
+//- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath;               
+//- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath; // return 'depth' of row for hierarchies
+
+@end
+
+
+// -----------------------------------------------------------------------------
+// MARK: -
+// MARK: Category for UINavigationControllerDelegate Protocol
+
+@interface HeySettingsTableViewController (UINavigationControllerDelegate)
+
+// @optional
+//- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated;
+//- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated;
+
+@end
+
+
+// -----------------------------------------------------------------------------
+// MARK: -
+// MARK: Category for UIImagePickerControllerDelegate Protocol
+
+@interface HeySettingsTableViewController (UIImagePickerControllerDelegate)
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker;
+
+@end
+
+
+// -----------------------------------------------------------------------------
+// MARK: -
+// MARK: Private Class Extension
+
+@interface HeySettingsTableViewController ()
+
+- (UIImage *)imageForColorButton;
+
+@end
+
+
 // -----------------------------------------------------------------------------
 // MARK: -
 @implementation HeySettingsTableViewController
@@ -59,7 +151,7 @@ static const int aboutVisitTag = 344;
 {
     if ((self = [super initWithStyle:UITableViewStyleGrouped]))
     {
-        self.title = @"Settings";
+        self.title = NSLocalizedString(@"Settings", @"Settings");;
         UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneAction:)];
         self.navigationItem.rightBarButtonItem = doneButton;
         [doneButton release];
@@ -72,6 +164,7 @@ static const int aboutVisitTag = 344;
 
 - (void)dealloc 
 {
+    [imagePicker release], imagePicker = nil;
     [super dealloc];
 }
 
@@ -120,6 +213,31 @@ static const int aboutVisitTag = 344;
 }
 
 
+- (void)colorsAction:(UIButton *)sender
+{
+    (void)sender;
+    if (imagePicker == nil)
+    {
+        imagePicker = [[UIImagePickerController alloc] init];
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
+        {
+            [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        }
+        else
+        {
+            [imagePicker setSourceType:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
+        }
+        [imagePicker setDelegate:self];
+    }    
+    NSString *titleMsg = NSLocalizedString(@"Colors", @"Colors");
+    NSString *msg = NSLocalizedString(@"Please choose a picture for Substrate to get colors from.", @"Please choose a picture for Substrate to get colors from.");
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle:titleMsg message:msg delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"OK") otherButtonTitles:nil];
+    [av show];
+    [av release];
+    [self presentModalViewController:imagePicker animated:YES];
+}
+
+
 - (void)heydaddioAction:(UIButton *)sender
 {
     (void)sender;
@@ -140,6 +258,24 @@ static const int aboutVisitTag = 344;
 
 // -----------------------------------------------------------------------------
 // MARK: -
+// MARK: Instance Methods
+
+- (UIImage *)imageForColorButton
+{
+    UIImage *returnImage = nil;
+    NSString *thumbPath = nil;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if ([paths count] > 0)
+    {
+        thumbPath = [(NSString *)[paths objectAtIndex:0] stringByAppendingPathComponent:kHeySubstrateColorImageThumbnail];
+        returnImage = [UIImage imageWithContentsOfFile:thumbPath];
+    }
+    return returnImage;
+}
+
+
+// -----------------------------------------------------------------------------
+// MARK: -
 // MARK: UITableViewDataSource Protocol Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -155,19 +291,19 @@ static const int aboutVisitTag = 344;
     switch (section) 
     {
       case HeySubstrateSettingsSectionCracks:
-          return @"Cracks";
+          return NSLocalizedString(@"Cracks", @"Cracks");
           break;
       case HeySubstrateSettingsSectionSand:
-          return @"Sand";
+          return NSLocalizedString(@"Sand", @"Sand");
           break;
       case HeySubstrateSettingsSectionDrawings:
-          return @"Drawings";
+          return NSLocalizedString(@"Drawings", @"Drawings");
           break;
       case HeySubstrateSettingsSectionAbout:
-          return @"About";
+          return NSLocalizedString(@"About", @"About");
           break;
       default:
-          return @"";
+          return NSLocalizedString(@"", @"");
           break;
     }
 }
@@ -182,7 +318,7 @@ static const int aboutVisitTag = 344;
           return 4;
           break;
       case HeySubstrateSettingsSectionSand:
-          return 1;
+          return 2;
           break;
       case HeySubstrateSettingsSectionDrawings:
           return 2;
@@ -203,15 +339,18 @@ static const int aboutVisitTag = 344;
     
     CGRect sliderRect;
     CGRect switchRect;
+    CGRect imageRect;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         sliderRect = CGRectMake(180.0f, 0.0f, 525.0f, 50.0f);
         switchRect = CGRectMake(180.0f, 10.0f, 0.0f, 0.0f);
+        imageRect = CGRectMake(100.0f, 0.0f, 128.0f, 128.0f);
     }
     else    // UIUserInterfaceIdiomPhone
     {
         sliderRect = CGRectMake(120.0f, 0.0f, 175.0f, 50.0f);
         switchRect = CGRectMake(200.0f, 10.0f, 0.0f, 0.0f);
+        imageRect = CGRectMake(145.0f, 10.0f, 128.0f, 128.0f);
     }
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -237,7 +376,7 @@ static const int aboutVisitTag = 344;
                         numberSlider.continuous = YES;
                         [numberSlider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
                         [cell addSubview:numberSlider];
-                        [cell.textLabel setText:@"Number:"];
+                        [cell.textLabel setText:NSLocalizedString(@"Number:", @"Number:")];
                         [numberSlider release];
                         break;
                     }
@@ -252,7 +391,7 @@ static const int aboutVisitTag = 344;
                         speedSlider.continuous = YES;
                         [speedSlider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
                         [cell addSubview:speedSlider];
-                        [cell.textLabel setText:@"Speed:"];
+                        [cell.textLabel setText:NSLocalizedString(@"Speed:", @"Speed:")];
                         [speedSlider release];
                         break;
                     }
@@ -266,7 +405,7 @@ static const int aboutVisitTag = 344;
                         curvedSlider.continuous = YES;
                         [curvedSlider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
                         [cell addSubview:curvedSlider];
-                        [cell.textLabel setText:@"Curved:"];
+                        [cell.textLabel setText:NSLocalizedString(@"Curved:", @"Curved:")];
                         [curvedSlider release];
                         break;
                     }
@@ -277,7 +416,7 @@ static const int aboutVisitTag = 344;
                         onlySwitch.tag = 3;
                         [onlySwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
                         [cell addSubview:onlySwitch];
-                        [cell.textLabel setText:@"Cracks Only:"];
+                        [cell.textLabel setText:NSLocalizedString(@"Cracks Only:", @"Cracks Only:")];
                         [onlySwitch release];
                         break;
                     }
@@ -302,8 +441,19 @@ static const int aboutVisitTag = 344;
                         sandSlider.continuous = YES;
                         [sandSlider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
                         [cell addSubview:sandSlider];
-                        [cell.textLabel setText:@"Amount:"];
+                        [cell.textLabel setText:NSLocalizedString(@"Amount:", @"Amount:")];
                         [sandSlider release];
+                        break;
+                    }
+                    case HeySubstrateSettingsRowSandColors:
+                    {
+                        UIButton *colorsThumbButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                        [colorsThumbButton setTag:kSettingsColorButtonTag];
+                        [colorsThumbButton setFrame:imageRect];
+                        [colorsThumbButton setImage:[self imageForColorButton] forState:UIControlStateNormal];
+                        [colorsThumbButton addTarget:self action:@selector(colorsAction:) forControlEvents:UIControlEventTouchUpInside];
+                        [cell addSubview:colorsThumbButton];
+                        [cell.textLabel setText:NSLocalizedString(@"Colors:", @"Colors:")];
                         break;
                     }
                     default:
@@ -329,7 +479,7 @@ static const int aboutVisitTag = 344;
                         densitySlider.continuous = YES;
                         [densitySlider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
                         [cell addSubview:densitySlider];
-                        [cell.textLabel setText:@"Density:"];
+                        [cell.textLabel setText:NSLocalizedString(@"Density:", @"Density:")];
                         [densitySlider release];
                         break;
                     }
@@ -344,7 +494,7 @@ static const int aboutVisitTag = 344;
                         pauseSlider.continuous = YES;
                         [pauseSlider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
                         [cell addSubview:pauseSlider];
-                        [cell.textLabel setText:@"Pause:"];
+                        [cell.textLabel setText:NSLocalizedString(@"Pause:", @"Pause:")];
                         [pauseSlider release];
                         break;
                     }
@@ -383,7 +533,7 @@ static const int aboutVisitTag = 344;
                         UIImage *highlighted = [UIImage imageNamed:@"blueButton.png"];
                         UIImage *stretchHighlighted = [highlighted stretchableImageWithLeftCapWidth:12 topCapHeight:12];
                         [button setBackgroundImage:stretchHighlighted forState:UIControlStateHighlighted];
-                        [button setTitle:@"Visit Hey Daddio Website" forState:UIControlStateNormal];
+                        [button setTitle:NSLocalizedString(@"Visit Hey Daddio Website", @"Visit Hey Daddio Website") forState:UIControlStateNormal];
                         button.tag = aboutVisitTag;
                         [button addTarget:self action:@selector(heydaddioAction:) forControlEvents:UIControlEventTouchUpInside];
                         [cell addSubview:button];
@@ -418,24 +568,30 @@ static const int aboutVisitTag = 344;
     
     switch ([indexPath indexAtPosition:0]) 
     {
+        case HeySubstrateSettingsSectionSand:
+        {
+            switch ([indexPath indexAtPosition:1]) 
+            {
+                case HeySubstrateSettingsRowSandColors:
+                    height = uitvcHeightSandColors;
+                    break;
+                default:
+                    break;
+            }
+            break;
+        }
         case HeySubstrateSettingsSectionAbout:
         {
             switch ([indexPath indexAtPosition:1])
             {
                 case HeySubstrateSettingsRowAboutInfo:
-                {
                     height = uitvcHeightAboutInfo;
                     break;
-                }
                 case HeySubstrateSettingsRowAboutVisit:
-                {
                     height = uitvcHeightAboutVisit;
                     break;
-                }
                 default:
-                {
                     break;
-                }
             }
             break;
         }
@@ -454,6 +610,23 @@ static const int aboutVisitTag = 344;
     
     switch ([indexPath indexAtPosition:0])
     {
+        case HeySubstrateSettingsSectionSand:
+        {
+            switch ([indexPath indexAtPosition:1]) 
+            {
+                case HeySubstrateSettingsRowSandColors:
+                {
+                    UIButton *colorsThumbButton = (UIButton *)[cell viewWithTag:kSettingsColorButtonTag];
+                    [colorsThumbButton setImage:[self imageForColorButton] forState:UIControlStateNormal];
+                    break;
+                }
+                default:
+                {
+                    break;
+                }
+            }
+            break;
+        }
         case HeySubstrateSettingsSectionAbout:
         {
             switch ([indexPath indexAtPosition:1])
@@ -491,6 +664,50 @@ static const int aboutVisitTag = 344;
             break;
         }
     }
+}
+
+
+// -----------------------------------------------------------------------------
+// MARK: -
+// MARK: UINavigationControllerDelegate Protocol Methods
+
+//- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+//{    
+//}
+
+
+//- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+//{    
+//}
+
+
+// -----------------------------------------------------------------------------
+// MARK: -
+// MARK: UIImagePickerControllerDelegate Protocol Methods
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    (void)picker;
+    UIImage *picked = [info valueForKey:UIImagePickerControllerOriginalImage];
+    if (picked)
+    {
+        // kinda nasty, reaching all over the app to get the palette
+        HeySubstrateAppDelegate *del = [[UIApplication sharedApplication] delegate];
+        HeySubstrateViewController *svc = [del substrateVC];
+        HeySubstrateView *sv = (HeySubstrateView *)[svc view];
+        HeySubstrateColorPalette *palette = [sv palette];
+        
+        [palette sampleImage:[picked CGImage]];
+        [[self tableView] reloadData];
+    }
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    (void)picker;
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 

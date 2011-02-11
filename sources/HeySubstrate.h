@@ -120,6 +120,7 @@ extern HEYCOLOR *HeySubstrateCrackColor;    // Color to draw _all_ cracks
 extern const int cagEmpty;          // Empty test value for crackAngleGrid
 extern const int cagEmptyFlag;      // Empty flag value in crackAngleGrid
 extern const float HeySubstrateAnimationFPS;    // Frames per second to animate
+extern NSString * const kHeySubstrateColorImageThumbnail;
 
 
 // -----------------------------------------------------------------------------
