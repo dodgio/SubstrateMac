@@ -135,6 +135,7 @@ static const int kSettingsColorButtonTag = 647;
 @interface HeySettingsTableViewController ()
 
 - (UIImage *)imageForColorButton;
+- (void)resamplePalette:(UIImage *)anImage;
 
 @end
 
@@ -157,6 +158,7 @@ static const int kSettingsColorButtonTag = 647;
         [doneButton release];
         
         [((HeySubstrateAppDelegate *)[UIApplication sharedApplication].delegate) getOptions:&opts];
+        [opts.colors retain];
     }
     return self;
 }
@@ -164,6 +166,7 @@ static const int kSettingsColorButtonTag = 647;
 
 - (void)dealloc 
 {
+    [opts.colors release];
     [imagePicker release], imagePicker = nil;
     [super dealloc];
 }
@@ -256,6 +259,14 @@ static const int kSettingsColorButtonTag = 647;
 }
 
 
+- (void)clearColorsAction:(UIButton *)sender
+{
+    (void)sender;
+    [self resamplePalette:nil];
+    [[self tableView] reloadData];
+}
+
+
 // -----------------------------------------------------------------------------
 // MARK: -
 // MARK: Instance Methods
@@ -271,6 +282,20 @@ static const int kSettingsColorButtonTag = 647;
         returnImage = [UIImage imageWithContentsOfFile:thumbPath];
     }
     return returnImage;
+}
+
+
+- (void)resamplePalette:(UIImage *)anImage
+{
+    // kinda nasty, reaching all over the app to get the palette
+    HeySubstrateAppDelegate *del = [[UIApplication sharedApplication] delegate];
+    HeySubstrateViewController *svc = [del substrateVC];
+    HeySubstrateView *sv = (HeySubstrateView *)[svc view];
+    HeySubstrateColorPalette *palette = [sv palette];
+    
+    [palette sampleImage:[anImage CGImage]];
+    [opts.colors release];
+    opts.colors = [[palette heyColors] retain];
 }
 
 
@@ -318,7 +343,7 @@ static const int kSettingsColorButtonTag = 647;
           return 4;
           break;
       case HeySubstrateSettingsSectionSand:
-          return 2;
+          return 3;
           break;
       case HeySubstrateSettingsSectionDrawings:
           return 2;
@@ -447,13 +472,25 @@ static const int kSettingsColorButtonTag = 647;
                     }
                     case HeySubstrateSettingsRowSandColors:
                     {
-                        UIButton *colorsThumbButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                        UIButton *colorsThumbButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
                         [colorsThumbButton setTag:kSettingsColorButtonTag];
                         [colorsThumbButton setFrame:imageRect];
                         [colorsThumbButton setImage:[self imageForColorButton] forState:UIControlStateNormal];
                         [colorsThumbButton addTarget:self action:@selector(colorsAction:) forControlEvents:UIControlEventTouchUpInside];
                         [cell addSubview:colorsThumbButton];
                         [cell.textLabel setText:NSLocalizedString(@"Colors:", @"Colors:")];
+                        break;
+                    }
+                    case HeySubstrateSettingsRowSandColorsClear:
+                    {
+                        [[cell textLabel] setFrame:[cell bounds]];
+                        [[cell textLabel] setTextAlignment:UITextAlignmentCenter];
+                        [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:16.0f]];
+                        [[cell textLabel] setText:NSLocalizedString(@"Clear colors", @"Clear colors")];
+                        UIButton *clearSandColorsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                        [clearSandColorsButton setFrame:[cell bounds]];
+                        [clearSandColorsButton addTarget:self action:@selector(clearColorsAction:) forControlEvents:UIControlEventTouchUpInside];
+                        [cell addSubview:clearSandColorsButton];
                         break;
                     }
                     default:
@@ -691,13 +728,7 @@ static const int kSettingsColorButtonTag = 647;
     UIImage *picked = [info valueForKey:UIImagePickerControllerOriginalImage];
     if (picked)
     {
-        // kinda nasty, reaching all over the app to get the palette
-        HeySubstrateAppDelegate *del = [[UIApplication sharedApplication] delegate];
-        HeySubstrateViewController *svc = [del substrateVC];
-        HeySubstrateView *sv = (HeySubstrateView *)[svc view];
-        HeySubstrateColorPalette *palette = [sv palette];
-        
-        [palette sampleImage:[picked CGImage]];
+        [self resamplePalette:picked];
         [[self tableView] reloadData];
     }
     [self dismissModalViewControllerAnimated:YES];

@@ -45,6 +45,7 @@ static NSString * const defaultsKeyDensityOfDrawing = @"DensityOfDrawing";
 static NSString * const defaultsKeyPauseBetweenDrawings = @"PauseBetweenDrawings";
 static NSString * const defaultsKeyDrawCracksOnly = @"DrawCracksOnly";
 static NSString * const defaultsKeyPercentageOfCurvedCracks = @"PercentageOfCurvedCracks";
+static NSString * const defaultsKeySandColors = @"SandColors";
 static NSString * const optionSheetNibName = @"SubstrateMacOptions";
 
 #if TARGET_OS_IPHONE
@@ -92,17 +93,25 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     start = 11.0f;
     density = 100000.0f;
 #endif
+    palette = [[HeySubstrateColorPalette alloc] init];
+    NSMutableArray *colorStrings = [[NSMutableArray alloc] initWithCapacity:[[palette heyColors] count]];
+    for (HEYCOLOR *c in [palette heyColors])
+    {
+        [colorStrings addObject:[c stringFromHeyColor]];
+    }
     [defaults registerDefaults:
-    [NSDictionary dictionaryWithObjectsAndKeys:
-            [NSNumber numberWithFloat:(float)start],       defaultsKeyNumberOfCracks,
-            [NSNumber numberWithFloat:1.0f],        defaultsKeySpeedOfCracking,
-            [NSNumber numberWithFloat:-0.046f],     defaultsKeyAmountOfSand,
-            [NSNumber numberWithFloat:(float)density],     defaultsKeyDensityOfDrawing,
-            [NSNumber numberWithFloat:10.0f],       defaultsKeyPauseBetweenDrawings,
-            @"NO",                                  defaultsKeyDrawCracksOnly,
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            [NSNumber numberWithFloat:(float)start],    defaultsKeyNumberOfCracks,
+            [NSNumber numberWithFloat:1.0f],            defaultsKeySpeedOfCracking,
+            [NSNumber numberWithFloat:-0.046f],         defaultsKeyAmountOfSand,
+            [NSNumber numberWithFloat:(float)density],  defaultsKeyDensityOfDrawing,
+            [NSNumber numberWithFloat:10.0f],           defaultsKeyPauseBetweenDrawings,
+            @"NO",                                      defaultsKeyDrawCracksOnly,
             [NSNumber numberWithFloat:15.0f],       defaultsKeyPercentageOfCurvedCracks,
-            nil]];
-    
+            colorStrings,                               defaultsKeySandColors,
+            nil]
+     ];
+    [colorStrings release];
     opts.numberOfCracks        = [defaults floatForKey:defaultsKeyNumberOfCracks];
     opts.speedOfCracking       = [defaults floatForKey:defaultsKeySpeedOfCracking];
     opts.amountOfSand          = [defaults floatForKey:defaultsKeyAmountOfSand];
@@ -110,6 +119,20 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     opts.pauseBetweenDrawings  = [defaults floatForKey:defaultsKeyPauseBetweenDrawings];
     opts.drawCracksOnly        = [defaults boolForKey: defaultsKeyDrawCracksOnly];
     opts.percentCurves         = [defaults floatForKey:defaultsKeyPercentageOfCurvedCracks];
+    //opts.colors                = [[defaults arrayForKey:defaultsKeySandColors] retain];
+    NSArray *defColorStrings = [defaults arrayForKey:defaultsKeySandColors];
+    NSMutableArray *colors = [[NSMutableArray alloc] initWithCapacity:[defColorStrings count]];
+    for (NSString *cs in defColorStrings)
+    {
+        HEYCOLOR *c = [HEYCOLOR HeyColorWithString:cs];
+        if (c)
+        {
+            [colors addObject:c];
+        }
+    }
+    opts.colors = colors;
+    [palette setHeyColors:opts.colors];
+    
     
     viewWidth = (float)[self frame].size.width * [[UIScreen mainScreen] scale];
     viewHeight = (float)[self frame].size.height * [[UIScreen mainScreen] scale];
@@ -141,9 +164,6 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
             success = NO;
     }
     [HeySubstrateCrackColor retain];
-
-    // Palette.
-    palette = [[HeySubstrateColorPalette alloc] init];
 
 #if TARGET_OS_IPHONE    
     // Load the info icon.
@@ -312,7 +332,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     [infoIcon release], infoIcon = nil;
     [touchedCrackOrigins release], touchedCrackOrigins = nil;
 #endif
-    // not sure if these need to be released
+    [opts.colors release];
     [numberOfCracksSlider release], numberOfCracksSlider = nil;
     [speedOfCrackingSlider release], speedOfCrackingSlider = nil;
     [amountOfSandSlider release], amountOfSandSlider = nil;
@@ -320,7 +340,6 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     [pauseBetweenDrawingsSlider release], pauseBetweenDrawingsSlider = nil;
     [drawCracksOnlyOption release], drawCracksOnlyOption = nil;
     [percentCurvedSlider release], percentCurvedSlider = nil;
-    // end of not sure
     [optionSheet release], optionSheet = nil;
     
     // This view should be the last thing to be deallocated, so should probably
@@ -619,6 +638,9 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     [defaults setFloat:[pauseBetweenDrawingsSlider  floatValue] forKey:defaultsKeyPauseBetweenDrawings];
     [defaults setBool: [drawCracksOnlyOption        state]      forKey:defaultsKeyDrawCracksOnly];
     [defaults setFloat:[percentCurvedSlider         floatValue] forKey:defaultsKeyPercentageOfCurvedCracks];
+
+// !!!: needs to be updated for sand colors
+    
     [defaults synchronize];
 
     [[NSApplication sharedApplication] endSheet:optionSheet];
@@ -689,6 +711,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     options->pauseBetweenDrawings = opts.pauseBetweenDrawings;
     options->percentCurves        = opts.percentCurves;
     options->drawCracksOnly       = opts.drawCracksOnly;
+    options->colors               = [[opts.colors retain] autorelease];
 }
 
 
@@ -701,6 +724,11 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     opts.pauseBetweenDrawings = options->pauseBetweenDrawings;
     opts.percentCurves        = options->percentCurves;
     opts.drawCracksOnly       = options->drawCracksOnly;
+    if (opts.colors != options->colors)
+    {
+        [opts.colors release];
+        opts.colors = [options->colors retain];
+    }
     [self writeOptions];
 }
 
@@ -716,6 +744,14 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     [defaults setFloat:opts.pauseBetweenDrawings forKey:defaultsKeyPauseBetweenDrawings];
     [defaults setBool:opts.drawCracksOnly forKey:defaultsKeyDrawCracksOnly];
     [defaults setFloat:opts.percentCurves forKey:defaultsKeyPercentageOfCurvedCracks];
+    
+    NSMutableArray *colorStrings = [NSMutableArray arrayWithCapacity:[opts.colors count]];
+    for (HEYCOLOR *c in opts.colors)
+    {
+        [colorStrings addObject:[c stringFromHeyColor]];
+    }
+    [defaults setObject:colorStrings forKey:defaultsKeySandColors];
+
     [defaults synchronize];
 }
 

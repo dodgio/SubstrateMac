@@ -145,6 +145,26 @@ static const int kHeyMaxPaletteEntries = 256;
 
 // -----------------------------------------------------------------------------
 // MARK: -
+// MARK: Properties
+
+- (NSArray *)heyColors
+{
+    return [[(NSArray *)heyColors_ retain] autorelease];
+}
+
+
+- (void)setHeyColors:(NSArray *)newColors
+{
+    if (heyColors_ != newColors)
+    {
+        [heyColors_ release];
+        heyColors_ = [newColors mutableCopy];
+    }
+}
+
+
+// -----------------------------------------------------------------------------
+// MARK: -
 // MARK: Lifecycle
 
 - (id)init
@@ -195,6 +215,12 @@ static const int kHeyMaxPaletteEntries = 256;
 // private
 - (void)sampleImageToPalette:(CGImageRef)anImageRef
 {
+    if (anImageRef == nil)
+    {
+        [self loadDefaultPalette];
+        return;
+    }
+    
     // Create a known-format bitmap context.
     size_t w = CGImageGetWidth(anImageRef);
     size_t h = CGImageGetHeight(anImageRef);
@@ -248,6 +274,20 @@ static const int kHeyMaxPaletteEntries = 256;
 
 - (void)saveColorImageThumbnail:(CGImageRef)anImageRef
 {
+    if (anImageRef == nil)
+    {   // Delete file
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        if ([paths count] > 0)
+        {
+            NSString *docDirPath = [paths objectAtIndex:0];
+            NSString *thumbPath = [docDirPath stringByAppendingPathComponent:kHeySubstrateColorImageThumbnail];
+            NSFileManager *fm = [[NSFileManager alloc] init];
+            [fm removeItemAtPath:thumbPath error:nil];
+            [fm release];
+        }
+        return;
+    }
+    
     CGRect thumbRect = CGRectMake(0.0f, 0.0f, 128.0f, 128.0f);
     CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(anImageRef);
     if (alphaInfo == kCGImageAlphaNone)
@@ -260,6 +300,7 @@ static const int kHeyMaxPaletteEntries = 256;
     CGImageRef img = CGBitmapContextCreateImage(ctx);
     UIImage *uImg = [UIImage imageWithCGImage:img];
     NSData *imgData = UIImagePNGRepresentation(uImg);
+    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     if ([paths count] > 0)
     {
@@ -267,7 +308,6 @@ static const int kHeyMaxPaletteEntries = 256;
         NSString *thumbPath = [docDirPath stringByAppendingPathComponent:kHeySubstrateColorImageThumbnail];
         [imgData writeToFile:thumbPath atomically:YES];
     }
-
     CGImageRelease(img);
     CGContextRelease(ctx);
     free(ctxBytes);

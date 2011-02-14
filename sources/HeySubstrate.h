@@ -91,6 +91,7 @@ typedef struct
     float pauseBetweenDrawings;
     float percentCurves;
     BOOL  drawCracksOnly;
+    NSArray *colors;
 } HeySubstrateOptions;
 
 // Fade in/out states.

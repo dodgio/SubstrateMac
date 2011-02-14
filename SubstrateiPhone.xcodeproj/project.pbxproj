@@ -15,6 +15,7 @@
 		2899E5220DE3E06400AC0155 /* HeySubstrateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* HeySubstrateViewController.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* HeySubstrateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* HeySubstrateViewController.m */; };
+		800A9DE71300C68100539643 /* HeySubstrateColorPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = 800A9DE61300C68100539643 /* HeySubstrateColorPalette.m */; };
 		801B0C9D0FC88B0B0022F3B3 /* infoicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 801B0C9C0FC88B0B0022F3B3 /* infoicon.png */; };
 		802123470FBF42CE00DD9A3B /* HeySubstrateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 802123460FBF42CE00DD9A3B /* HeySubstrateView.m */; };
 		802123A60FC1D14100DD9A3B /* HeySubstrate.m in Sources */ = {isa = PBXBuildFile; fileRef = 802123A50FC1D14100DD9A3B /* HeySubstrate.m */; };
@@ -45,6 +46,8 @@
 		28D7ACF70DDB3853001CB0EB /* HeySubstrateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeySubstrateViewController.m; path = sources/iphone/HeySubstrateViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = sources/iphone/main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* SubstrateiPhone_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SubstrateiPhone_Prefix.pch; path = sources/iphone/SubstrateiPhone_Prefix.pch; sourceTree = "<group>"; };
+		800A9DE51300C68100539643 /* HeySubstrateColorPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeySubstrateColorPalette.h; path = sources/HeySubstrateColorPalette.h; sourceTree = "<group>"; };
+		800A9DE61300C68100539643 /* HeySubstrateColorPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeySubstrateColorPalette.m; path = sources/HeySubstrateColorPalette.m; sourceTree = "<group>"; };
 		801B0C9C0FC88B0B0022F3B3 /* infoicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = infoicon.png; path = resources/iphone/infoicon.png; sourceTree = "<group>"; };
 		802123450FBF42CE00DD9A3B /* HeySubstrateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeySubstrateView.h; path = sources/HeySubstrateView.h; sourceTree = "<group>"; };
 		802123460FBF42CE00DD9A3B /* HeySubstrateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeySubstrateView.m; path = sources/HeySubstrateView.m; sourceTree = "<group>"; };
@@ -124,6 +127,8 @@
 			children = (
 				802123AF0FC1D9CA00DD9A3B /* HeySubstrateCrack.h */,
 				802123B00FC1D9CA00DD9A3B /* HeySubstrateCrack.m */,
+				800A9DE51300C68100539643 /* HeySubstrateColorPalette.h */,
+				800A9DE61300C68100539643 /* HeySubstrateColorPalette.m */,
 				802123A40FC1D14100DD9A3B /* HeySubstrate.h */,
 				802123A50FC1D14100DD9A3B /* HeySubstrate.m */,
 				802123450FBF42CE00DD9A3B /* HeySubstrateView.h */,
@@ -252,6 +257,7 @@
 				802123B10FC1D9CA00DD9A3B /* HeySubstrateCrack.m in Sources */,
 				802123C10FC1DEDE00DD9A3B /* UIColor-HeyUIColor.m in Sources */,
 				80D983FB0FC39FD20020A8F7 /* HeySettingsTableViewController.m in Sources */,
+				800A9DE71300C68100539643 /* HeySubstrateColorPalette.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +336,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = (
@@ -404,6 +411,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -466,9 +474,10 @@
 					../HeyDaddioUtilityLibrary/sources,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PREBINDING = NO;
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = (

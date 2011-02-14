@@ -50,6 +50,7 @@ enum HeySubstrateSettingsEnum
     HeySubstrateSettingsRowCracksOnly = 3,
     HeySubstrateSettingsRowSandAmount = 0,
     HeySubstrateSettingsRowSandColors = 1,
+    HeySubstrateSettingsRowSandColorsClear = 2,
     HeySubstrateSettingsRowDrawingsDensity = 0,
     HeySubstrateSettingsRowDrawingsPause = 1,
     HeySubstrateSettingsRowAboutInfo = 0,

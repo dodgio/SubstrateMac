@@ -78,6 +78,7 @@ static const NSTimeInterval HeySubstrateViewTransitionTime = 0.3f;
     options->pauseBetweenDrawings   = appOptions.pauseBetweenDrawings;
     options->percentCurves          = appOptions.percentCurves;
     options->drawCracksOnly         = appOptions.drawCracksOnly;
+    options->colors                 = [[appOptions.colors retain] autorelease];
 }
 
 
@@ -90,6 +91,11 @@ static const NSTimeInterval HeySubstrateViewTransitionTime = 0.3f;
     appOptions.pauseBetweenDrawings = options->pauseBetweenDrawings;
     appOptions.percentCurves        = options->percentCurves;
     appOptions.drawCracksOnly       = options->drawCracksOnly;
+    if (options->colors != appOptions.colors)
+    {
+        [appOptions.colors release];
+        appOptions.colors = [options->colors retain];
+    }
 }
 
 
@@ -146,8 +152,8 @@ static const NSTimeInterval HeySubstrateViewTransitionTime = 0.3f;
     // Lazy-load the settings classes.
     if (settingsNC == nil)
     {
-        self.settingsNC = [[UINavigationController alloc] init];
-        self.settingsTVC = [[HeySettingsTableViewController alloc] init];
+        self.settingsNC = [[[UINavigationController alloc] init] autorelease];
+        self.settingsTVC = [[[HeySettingsTableViewController alloc] init] autorelease];
         [settingsNC pushViewController:settingsTVC animated:YES];
     }
     

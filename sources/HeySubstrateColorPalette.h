@@ -41,14 +41,15 @@
   @protected
     NSMutableArray *heyColors_;
 }
-// properties
+// MARK: Properties
+@property (nonatomic, retain) NSArray *heyColors;
 
-// 
+// MARK: Lifecycle
 - (id)init;
 - (void)dealloc;
 
 
-// 
+// MARK: Instance Methods
 - (HEYCOLOR *)randomColor;
 - (void)sampleImage:(CGImageRef)anImageRef;
 
