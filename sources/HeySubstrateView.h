@@ -80,6 +80,8 @@
     UIImage *infoIcon;          // Info icon/button.
     CGLayerRef qLayer;
     NSMutableArray *touchedCrackOrigins;
+    BOOL saveNextFrameToPhotoLibrary;
+    NSString *displayMessage;
 #endif
 }
 
@@ -114,7 +116,10 @@
 - (void)writeOptions;
 - (HeySubstrateColorPalette *)palette;
 - (void)setPalette:(HeySubstrateColorPalette *)aPalette;
-
+- (void)saveFrameToLibrary;
+- (NSString *)message;
+- (void)setMessage:(NSString *)newMessage;
+- (void)clearMessage;
 
 @end
 

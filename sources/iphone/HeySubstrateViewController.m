@@ -82,6 +82,35 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
+    
+    // Test if OK to use gestures.
+    UIGestureRecognizer *test = [[UIGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleSwipeUp:)];
+    if ([test respondsToSelector:@selector(locationInView:)])
+    {
+        UISwipeGestureRecognizer *upDblSwipes = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleSwipeUp:)] autorelease];
+        [upDblSwipes setNumberOfTouchesRequired:2];
+        [upDblSwipes setDirection:UISwipeGestureRecognizerDirectionUp];
+        UISwipeGestureRecognizer *downDblSwipes = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleSwipeDown:)] autorelease];
+        [downDblSwipes setNumberOfTouchesRequired:2];
+        [downDblSwipes setDirection:UISwipeGestureRecognizerDirectionDown];
+        UISwipeGestureRecognizer *leftDblSwipes = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleSwipeLeft:)] autorelease];
+        [leftDblSwipes setNumberOfTouchesRequired:2];
+        [leftDblSwipes setDirection:UISwipeGestureRecognizerDirectionLeft];
+        UISwipeGestureRecognizer *rightDblSwipes = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleSwipeRight:)] autorelease];
+        [rightDblSwipes setNumberOfTouchesRequired:2];
+        [rightDblSwipes setDirection:UISwipeGestureRecognizerDirectionRight];
+        
+        [[self view] addGestureRecognizer:upDblSwipes];
+        [[self view] addGestureRecognizer:downDblSwipes];
+        [[self view] addGestureRecognizer:leftDblSwipes];
+        [[self view] addGestureRecognizer:rightDblSwipes];
+        
+        //    [gestures setCancelsTouchesInView:YES];
+        //    [gestures setDelaysTouchesBegan:YES];
+        //    [gestures setDelaysTouchesEnded:YES];
+    }
+    [test release];
+    
     [self startAnimation];
 }
 
@@ -93,16 +122,52 @@
 
 
 // -----------------------------------------------------------------------------
+// MARK: -
+// MARK: Actions
+
+- (void)handleDoubleSwipeUp:(UISwipeGestureRecognizer *)gestureRecognizer
+{
+    (void)gestureRecognizer;
+    //NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+
+- (void)handleDoubleSwipeDown:(UISwipeGestureRecognizer *)gestureRecognizer
+{
+    (void)gestureRecognizer;
+    [(HeySubstrateView *)[self view] saveFrameToLibrary];
+    [(HeySubstrateView *)[self view] setMessage:NSLocalizedString(@"Photo Saved", @"Photo Saved")];
+    [NSTimer scheduledTimerWithTimeInterval:5.0 target:[self view] selector:@selector(clearMessage) userInfo:nil repeats:NO];
+}
+
+
+- (void)handleDoubleSwipeLeft:(UISwipeGestureRecognizer *)gestureRecognizer
+{
+    (void)gestureRecognizer;
+    [self pauseAnimation];
+}
+
+
+- (void)handleDoubleSwipeRight:(UISwipeGestureRecognizer *)gestureRecognizer
+{
+    (void)gestureRecognizer;
+    [self unpauseAnimation];
+}
+
+
+// -----------------------------------------------------------------------------
 // MARK: Animation Methods
 
 - (void)pauseAnimation
 {
     self.displayLink = nil;
+    [(HeySubstrateView *)[self view] setMessage:NSLocalizedString(@"Paused", @"Paused")];
 }
 
 
 - (void)unpauseAnimation
 {
+    [(HeySubstrateView *)[self view] setMessage:nil];
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(drawView)];
 #if TARGET_OS_IPHONE
     [self.displayLink setFrameInterval:4];

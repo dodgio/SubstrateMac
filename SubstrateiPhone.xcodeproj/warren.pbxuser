@@ -10,9 +10,9 @@
 	};
 	1D3623250D0F684500981E51 /* HeySubstrateAppDelegate.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {720, 2912}}";
-			sepNavSelRange = "{5125, 12}";
-			sepNavVisRange = "{4902, 517}";
+			sepNavIntBoundsRect = "{{0, 0}, {649, 2886}}";
+			sepNavSelRange = "{3900, 66}";
+			sepNavVisRange = "{3037, 1535}";
 			sepNavWindowFrame = "{{15, 0}, {708, 874}}";
 		};
 	};
@@ -24,29 +24,28 @@
 	};
 	28D7ACF60DDB3853001CB0EB /* HeySubstrateViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {629, 740}}";
-			sepNavSelRange = "{1743, 0}";
-			sepNavVisRange = "{0, 1743}";
+			sepNavIntBoundsRect = "{{0, 0}, {629, 806}}";
+			sepNavSelRange = "{1925, 0}";
+			sepNavVisRange = "{168, 1884}";
 		};
 	};
 	28D7ACF70DDB3853001CB0EB /* HeySubstrateViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {629, 1859}}";
-			sepNavSelRange = "{2893, 0}";
-			sepNavVisRange = "{2385, 950}";
+			sepNavIntBoundsRect = "{{0, 0}, {629, 2756}}";
+			sepNavSelRange = "{4944, 0}";
+			sepNavVisRange = "{4326, 1479}";
 			sepNavWindowFrame = "{{5, 25}, {688, 853}}";
 		};
 	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
 		activeBuildConfigurationName = Debug;
 		activeExecutable = 80C6912E12F7A9FC00F0769F /* HeySubstrate */;
-		activeSDKPreference = iphonesimulator4.2;
+		activeSDKPreference = iphoneos4.2;
 		activeTarget = 1D6058900D05DD3D006BFB54 /* HeySubstrate */;
 		addToTargets = (
 			1D6058900D05DD3D006BFB54 /* HeySubstrate */,
 		);
 		breakpoints = (
-			80F85BEC130A0FFE00D1C9F2 /* HeySettingsTableViewController.m:804 */,
 		);
 		codeSenseManager = 80C6913712F7AA1A00F0769F /* Code sense */;
 		executables = (
@@ -99,18 +98,16 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 319423089;
-			PBXWorkspaceStateSaveDate = 319423089;
+			PBXPerProjectTemplateStateSaveDate = 319480897;
+			PBXWorkspaceStateSaveDate = 319480897;
 		};
 		perUserProjectItems = {
-			80179CFB1309DBFB00EC10E3 /* PBXTextBookmark */ = 80179CFB1309DBFB00EC10E3 /* PBXTextBookmark */;
-			80F85BF0130A100100D1C9F2 /* PBXTextBookmark */ = 80F85BF0130A100100D1C9F2 /* PBXTextBookmark */;
-			80F85BF6130A100400D1C9F2 /* XCBuildMessageTextBookmark */ = 80F85BF6130A100400D1C9F2 /* XCBuildMessageTextBookmark */;
-			80F85C63130A221900D1C9F2 /* PBXTextBookmark */ = 80F85C63130A221900D1C9F2 /* PBXTextBookmark */;
-			80F85C64130A221900D1C9F2 /* PBXTextBookmark */ = 80F85C64130A221900D1C9F2 /* PBXTextBookmark */;
-			80F85C6F130A226000D1C9F2 /* PBXTextBookmark */ = 80F85C6F130A226000D1C9F2 /* PBXTextBookmark */;
-			80F85C70130A226000D1C9F2 /* PBXTextBookmark */ = 80F85C70130A226000D1C9F2 /* PBXTextBookmark */;
-			80F85C71130A226000D1C9F2 /* PBXTextBookmark */ = 80F85C71130A226000D1C9F2 /* PBXTextBookmark */;
+			80929FA8130AF96900F522E2 /* PBXTextBookmark */ = 80929FA8130AF96900F522E2 /* PBXTextBookmark */;
+			8092A007130B0F7800F522E2 /* PBXTextBookmark */ = 8092A007130B0F7800F522E2 /* PBXTextBookmark */;
+			8092A022130B1CE700F522E2 /* PBXTextBookmark */ = 8092A022130B1CE700F522E2 /* PBXTextBookmark */;
+			8092A023130B1CE700F522E2 /* PBXTextBookmark */ = 8092A023130B1CE700F522E2 /* PBXTextBookmark */;
+			8092A024130B1CE700F522E2 /* PBXTextBookmark */ = 8092A024130B1CE700F522E2 /* PBXTextBookmark */;
+			8092A025130B1CE700F522E2 /* PBXTextBookmark */ = 8092A025130B1CE700F522E2 /* PBXTextBookmark */;
 		};
 		sourceControlManager = 80C6913612F7AA1A00F0769F /* Source Control */;
 		userBuildSettings = {
@@ -126,35 +123,25 @@
 	};
 	800A9DE61300C68100539643 /* HeySubstrateColorPalette.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {671, 5304}}";
-			sepNavSelRange = "{12866, 0}";
-			sepNavVisRange = "{11130, 2125}";
+			sepNavIntBoundsRect = "{{0, 0}, {720, 4849}}";
+			sepNavSelRange = "{9804, 6}";
+			sepNavVisRange = "{9481, 434}";
 			sepNavWindowFrame = "{{699, 0}, {730, 876}}";
 		};
 	};
-	80179CFB1309DBFB00EC10E3 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 802123BF0FC1DEDE00DD9A3B /* UIColor-HeyUIColor.m */;
-		name = "UIColor-HeyUIColor.m: 128";
-		rLen = 0;
-		rLoc = 4154;
-		rType = 0;
-		vrLen = 1728;
-		vrLoc = 2460;
-	};
 	802123450FBF42CE00DD9A3B /* HeySubstrateView.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {671, 1508}}";
-			sepNavSelRange = "{2074, 19}";
-			sepNavVisRange = "{1200, 2105}";
+			sepNavIntBoundsRect = "{{0, 0}, {671, 1677}}";
+			sepNavSelRange = "{4244, 0}";
+			sepNavVisRange = "{2459, 1813}";
 			sepNavWindowFrame = "{{15, 0}, {730, 876}}";
 		};
 	};
 	802123460FBF42CE00DD9A3B /* HeySubstrateView.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {720, 10309}}";
-			sepNavSelRange = "{5945, 0}";
-			sepNavVisRange = "{5435, 449}";
+			sepNavIntBoundsRect = "{{0, 0}, {439, 11479}}";
+			sepNavSelRange = "{15830, 0}";
+			sepNavVisRange = "{15083, 407}";
 			sepNavWindowFrame = "{{34, 2}, {730, 876}}";
 		};
 	};
@@ -199,11 +186,71 @@
 	};
 	802123BF0FC1DEDE00DD9A3B /* UIColor-HeyUIColor.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {649, 1898}}";
+			sepNavIntBoundsRect = "{{0, 0}, {649, 1885}}";
 			sepNavSelRange = "{4154, 0}";
 			sepNavVisRange = "{2480, 1708}";
 			sepNavWindowFrame = "{{651, 1}, {708, 874}}";
 		};
+	};
+	80929FA8130AF96900F522E2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF60DDB3853001CB0EB /* HeySubstrateViewController.h */;
+		name = "HeySubstrateViewController.h: 57";
+		rLen = 0;
+		rLoc = 1925;
+		rType = 0;
+		vrLen = 1884;
+		vrLoc = 168;
+	};
+	8092A007130B0F7800F522E2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 802123450FBF42CE00DD9A3B /* HeySubstrateView.h */;
+		name = "HeySubstrateView.h: 122";
+		rLen = 0;
+		rLoc = 4244;
+		rType = 0;
+		vrLen = 1813;
+		vrLoc = 2459;
+	};
+	8092A022130B1CE700F522E2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 802123460FBF42CE00DD9A3B /* HeySubstrateView.m */;
+		name = "HeySubstrateView.m: 406";
+		rLen = 20;
+		rLoc = 12762;
+		rType = 0;
+		vrLen = 1173;
+		vrLoc = 12219;
+	};
+	8092A023130B1CE700F522E2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 802123460FBF42CE00DD9A3B /* HeySubstrateView.m */;
+		name = "HeySubstrateView.m: 552";
+		rLen = 0;
+		rLoc = 16620;
+		rType = 0;
+		vrLen = 2303;
+		vrLoc = 14998;
+	};
+	8092A024130B1CE700F522E2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* HeySubstrateViewController.m */;
+		name = "HeySubstrateViewController.m: 140";
+		rLen = 0;
+		rLoc = 4997;
+		rType = 0;
+		vrLen = 1479;
+		vrLoc = 4326;
+	};
+	8092A025130B1CE700F522E2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* HeySubstrateViewController.m */;
+		name = "HeySubstrateViewController.m: 140";
+		rLen = 0;
+		rLoc = 4944;
+		rType = 0;
+		vrLen = 1479;
+		vrLoc = 4326;
 	};
 	80C6912E12F7A9FC00F0769F /* HeySubstrate */ = {
 		isa = PBXExecutable;
@@ -261,97 +308,15 @@
 	};
 	80D983FA0FC39FD20020A8F7 /* HeySettingsTableViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {671, 11336}}";
+			sepNavIntBoundsRect = "{{0, 0}, {671, 11414}}";
 			sepNavSelRange = "{33375, 0}";
 			sepNavVisRange = "{31531, 1649}";
-			sepNavWindowFrame = "{{665, 2}, {730, 876}}";
+			sepNavWindowFrame = "{{536, 2}, {730, 876}}";
 		};
 	};
-	80F85BEC130A0FFE00D1C9F2 /* HeySettingsTableViewController.m:804 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		countType = 0;
-		delayBeforeContinue = 0;
-		fileReference = 80D983FA0FC39FD20020A8F7 /* HeySettingsTableViewController.m */;
-		functionName = "-popoverControllerDidDismissPopover:";
-		hitCount = 0;
-		ignoreCount = 0;
-		lineNumber = 804;
-		location = Substrate;
-		modificationTime = 319431222.299583;
-		originalNumberOfMultipleMatches = 1;
-		state = 1;
-	};
-	80F85BF0130A100100D1C9F2 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 80D983F90FC39FD20020A8F7 /* HeySettingsTableViewController.h */;
-		name = "HeySettingsTableViewController.h: 65";
-		rLen = 27;
-		rLoc = 2420;
-		rType = 0;
-		vrLen = 1525;
-		vrLoc = 1101;
-	};
-	80F85BF6130A100400D1C9F2 /* XCBuildMessageTextBookmark */ = {
-		isa = PBXTextBookmark;
-		comments = "@end must appear in an @implementation context";
-		fRef = 80D983FA0FC39FD20020A8F7 /* HeySettingsTableViewController.m */;
-		fallbackIsa = XCBuildMessageTextBookmark;
-		rLen = 0;
-		rLoc = 141;
-		rType = 1;
-	};
-	80F85C63130A221900D1C9F2 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 80D983F90FC39FD20020A8F7 /* HeySettingsTableViewController.h */;
-		name = "HeySettingsTableViewController.h: 74";
-		rLen = 0;
-		rLoc = 2669;
-		rType = 0;
-		vrLen = 1608;
-		vrLoc = 1228;
-	};
-	80F85C64130A221900D1C9F2 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 80D983FA0FC39FD20020A8F7 /* HeySettingsTableViewController.m */;
-		name = "HeySettingsTableViewController.m: 262";
-		rLen = 0;
-		rLoc = 11161;
-		rType = 0;
-		vrLen = 1825;
-		vrLoc = 9692;
-	};
-	80F85C6F130A226000D1C9F2 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 80D983FA0FC39FD20020A8F7 /* HeySettingsTableViewController.m */;
-		name = "HeySettingsTableViewController.m: 250";
-		rLen = 0;
-		rLoc = 10434;
-		rType = 0;
-		vrLen = 1946;
-		vrLoc = 9692;
-	};
-	80F85C70130A226000D1C9F2 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 80D983FA0FC39FD20020A8F7 /* HeySettingsTableViewController.m */;
-		name = "HeySettingsTableViewController.m: 813";
-		rLen = 0;
-		rLoc = 33375;
-		rType = 0;
-		vrLen = 1649;
-		vrLoc = 31531;
-	};
-	80F85C71130A226000D1C9F2 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 802123BF0FC1DEDE00DD9A3B /* UIColor-HeyUIColor.m */;
-		name = "UIColor-HeyUIColor.m: 128";
-		rLen = 0;
-		rLoc = 4154;
-		rType = 0;
-		vrLen = 1708;
-		vrLoc = 2480;
+	8D1107310486CEB800E47090 /* Info.plist */ = {
+		uiCtxt = {
+			sepNavWindowFrame = "{{15, 0}, {708, 874}}";
+		};
 	};
 }

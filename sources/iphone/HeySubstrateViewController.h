@@ -49,6 +49,12 @@
 - (void)unpauseAnimation;
 - (void)drawView;
 
+- (void)handleDoubleSwipeUp:(UISwipeGestureRecognizer *)gestureRecognizer;
+- (void)handleDoubleSwipeDown:(UISwipeGestureRecognizer *)gestureRecognizer;
+- (void)handleDoubleSwipeLeft:(UISwipeGestureRecognizer *)gestureRecognizer;
+- (void)handleDoubleSwipeRight:(UISwipeGestureRecognizer *)gestureRecognizer;
+
+
 @end
 
 // End of HeySubstrateViewController.h

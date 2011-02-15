@@ -388,6 +388,27 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 }
 
 
+- (NSString *)message
+{
+    return [[displayMessage copy] autorelease];
+}
+
+- (void)setMessage:(NSString *)newMessage
+{
+    if (![displayMessage isEqualToString:newMessage])
+    {
+        [displayMessage release];
+        displayMessage = [newMessage copy];
+    }
+    [self setNeedsDisplay];
+}
+
+- (void)clearMessage
+{
+    [self setMessage:nil];
+}
+
+
 // -----------------------------------------------------------------------------
 // MARK: Drawing and animation methods
 
@@ -493,11 +514,42 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     
     [self animateOneFrame];
     
+    if (saveNextFrameToPhotoLibrary)
+    {
+        saveNextFrameToPhotoLibrary = NO;
+        CGSize sz = CGLayerGetSize(qLayer);
+        size_t w = sz.width;
+        size_t h = sz.height;
+        int bitsPerPixel = 8;
+        int bytesPerRow = w * 4;
+        CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
+        void * bmpData = malloc(bytesPerRow * h);
+        CGContextRef bmp = CGBitmapContextCreate(bmpData, w, h, bitsPerPixel, bytesPerRow, space, (kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst));
+        CGColorSpaceRelease(space);
+        CGContextDrawLayerInRect(bmp, CGRectMake(0.0f, 0.0f, sz.width, sz.height), qLayer);
+        CGImageRef cgImg = CGBitmapContextCreateImage(bmp);
+        UIImage *img = [UIImage imageWithCGImage:cgImg];
+        UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil);
+        CGImageRelease(cgImg);
+        CGContextRelease(bmp);
+        free(bmpData);
+    }
+
     CGContextDrawLayerInRect(UIGraphicsGetCurrentContext(), [self bounds], qLayer);
-    //CGContextDrawLayerAtPoint(UIGraphicsGetCurrentContext(), [self bounds].origin, qLayer);
     if (infoFadeState != kHeySubstrateFadeOff)
     {
         [infoIcon drawInRect:infoRect blendMode:kCGBlendModeNormal alpha:[self alphaForInfo]];
+    }
+    if (displayMessage)
+    {
+        //CGRect msgRect = CGRectMake(0.0f, 456.0f, 320.0f, 24.0f);
+        CGRect viewBounds = [self bounds];
+        CGFloat msgHeight = 24.0f;
+        CGRect msgRect = CGRectMake(viewBounds.origin.x, 
+                                    viewBounds.size.height - msgHeight, 
+                                    viewBounds.size.width, 
+                                    msgHeight);
+        [displayMessage drawInRect:msgRect withFont:[UIFont boldSystemFontOfSize:18.0f] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentCenter];
     }
 #else
     [super drawRect:rect];
@@ -769,6 +821,12 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     [defaults setObject:colorStrings forKey:defaultsKeySandColors];
 
     [defaults synchronize];
+}
+
+
+- (void)saveFrameToLibrary
+{
+    saveNextFrameToPhotoLibrary = YES;
 }
 
 
