@@ -133,9 +133,17 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     opts.colors = colors;
     [palette setHeyColors:opts.colors];
     
-    
-    viewWidth = (float)[self frame].size.width * [[UIScreen mainScreen] scale];
-    viewHeight = (float)[self frame].size.height * [[UIScreen mainScreen] scale];
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
+    {
+        viewWidth = (float)[self frame].size.width * [[UIScreen mainScreen] scale];
+        viewHeight = (float)[self frame].size.height * [[UIScreen mainScreen] scale];
+    }
+    else
+    {
+        viewWidth = (float)[self frame].size.width;
+        viewHeight = (float)[self frame].size.height;
+    }
+
     maxNumCracks = 100;
     iterationsDone = 0;
     drawingPaused = NO;
@@ -474,7 +482,11 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     (void)rect;
     if (qLayer == nil)
     {
-        CGFloat scaleFactor = [[UIScreen mainScreen] scale];
+        CGFloat scaleFactor = 1.0f;
+        if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
+        {
+            scaleFactor = [[UIScreen mainScreen] scale];
+        }
         CGSize sz = CGSizeMake([self bounds].size.width * scaleFactor, [self bounds].size.height * scaleFactor);
         qLayer = CGLayerCreateWithContext(UIGraphicsGetCurrentContext(), sz, NULL);
     }
@@ -503,7 +515,11 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     if (bgCleared == NO) 
     {
         CGContextSetFillColorWithColor(ctx, [[HEYCOLOR HeyColorWithRed:1.0f green:0.9843f blue:0.9373f alpha:1.0f] CGColor]);
-        CGFloat scaleFactor = [[UIScreen mainScreen] scale];
+        CGFloat scaleFactor = 1.0f;
+        if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
+        {
+            scaleFactor = [[UIScreen mainScreen] scale];
+        }
         CGRect b = [self bounds];
         CGContextFillRect(ctx, CGRectMake(b.origin.x * scaleFactor, b.origin.y * scaleFactor, b.size.width * scaleFactor, b.size.height * scaleFactor));
         bgCleared = YES;

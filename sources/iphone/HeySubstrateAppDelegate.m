@@ -185,7 +185,8 @@ static const NSTimeInterval HeySubstrateViewTransitionTime = 0.3f;
     
     // Perform the actual switching of view on the next event loop (or so).
     [self performSelector:@selector(reallyShowSubstrateNow:) withObject:self afterDelay:0.001];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
+    //[[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES animated:NO];
 }
 
 

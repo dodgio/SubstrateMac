@@ -130,6 +130,19 @@ static const int kSettingsColorButtonTag = 647;
 
 // -----------------------------------------------------------------------------
 // MARK: -
+// MARK: Category for UIPopoverControllerDelegate Protocol
+
+@interface HeySettingsTableViewController (UIPopoverControllerDelegate)
+
+// @optional
+//- (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController;
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController;
+
+@end
+
+
+// -----------------------------------------------------------------------------
+// MARK: -
 // MARK: Private Class Extension
 
 @interface HeySettingsTableViewController ()
@@ -231,13 +244,29 @@ static const int kSettingsColorButtonTag = 647;
             [imagePicker setSourceType:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
         }
         [imagePicker setDelegate:self];
-    }    
-    NSString *titleMsg = NSLocalizedString(@"Colors", @"Colors");
-    NSString *msg = NSLocalizedString(@"Please choose a picture for Substrate to get colors from.", @"Please choose a picture for Substrate to get colors from.");
-    UIAlertView *av = [[UIAlertView alloc] initWithTitle:titleMsg message:msg delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"OK") otherButtonTitles:nil];
-    [av show];
-    [av release];
-    [self presentModalViewController:imagePicker animated:YES];
+    }
+    if (!hasImagePickerMessageBeenShown)
+    {
+        hasImagePickerMessageBeenShown = YES;
+        NSString *titleMsg = NSLocalizedString(@"Colors", @"Colors");
+        NSString *msg = NSLocalizedString(@"Please choose a picture for Substrate to get colors from.", @"Please choose a picture for Substrate to get colors from.");
+        UIAlertView *av = [[UIAlertView alloc] initWithTitle:titleMsg message:msg delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"OK") otherButtonTitles:nil];
+        [av show];
+        [av release];
+    }
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        if (imagePickerPopover == nil)
+        {
+            imagePickerPopover = [[NSClassFromString(@"UIPopoverController") alloc] initWithContentViewController:imagePicker];
+        }
+        [imagePickerPopover presentPopoverFromRect:[[sender superview] frame] inView:[self view] permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];            
+    }
+    else
+    {
+        [self presentModalViewController:imagePicker animated:YES];
+    }
+
 }
 
 
@@ -369,7 +398,7 @@ static const int kSettingsColorButtonTag = 647;
     {
         sliderRect = CGRectMake(180.0f, 0.0f, 525.0f, 50.0f);
         switchRect = CGRectMake(180.0f, 10.0f, 0.0f, 0.0f);
-        imageRect = CGRectMake(100.0f, 0.0f, 128.0f, 128.0f);
+        imageRect = CGRectMake(340.0f, 10.0f, 128.0f, 128.0f);
     }
     else    // UIUserInterfaceIdiomPhone
     {
@@ -488,8 +517,10 @@ static const int kSettingsColorButtonTag = 647;
                         [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:16.0f]];
                         [[cell textLabel] setText:NSLocalizedString(@"Clear colors", @"Clear colors")];
                         UIButton *clearSandColorsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                        [clearSandColorsButton setAutoresizingMask:(UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth)];
                         [clearSandColorsButton setFrame:[cell bounds]];
                         [clearSandColorsButton addTarget:self action:@selector(clearColorsAction:) forControlEvents:UIControlEventTouchUpInside];
+                        //[clearSandColorsButton setBackgroundColor:[UIColor redColor]];
                         [cell addSubview:clearSandColorsButton];
                         break;
                     }
@@ -731,14 +762,46 @@ static const int kSettingsColorButtonTag = 647;
         [self resamplePalette:picked];
         [[self tableView] reloadData];
     }
-    [self dismissModalViewControllerAnimated:YES];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        [imagePickerPopover dismissPopoverAnimated:YES];
+        [imagePickerPopover release], imagePickerPopover = nil;
+    }
+    else
+    {
+        [self dismissModalViewControllerAnimated:YES];
+    }
 }
 
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     (void)picker;
-    [self dismissModalViewControllerAnimated:YES];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        [imagePickerPopover dismissPopoverAnimated:YES];
+        [imagePickerPopover release], imagePickerPopover = nil;
+    }
+    else
+    {
+        [self dismissModalViewControllerAnimated:YES];
+    }
+}
+
+
+// -----------------------------------------------------------------------------
+// MARK: -
+// MARK: UIPopoverControllerDelegate Protocol Methods
+
+//- (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController
+//{
+//}
+
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    (void)popoverController;
+    [imagePickerPopover release], imagePickerPopover = nil;
 }
 
 

@@ -132,8 +132,13 @@ static const int sandGrainVecCnt = 16;  // sandGrainCnt / sandGrainVecLen
     else
     {
         found = NO;
-        randomX = (int)(touched.x * [[UIScreen mainScreen] scale]);
-        randomY = (int)(touched.y * [[UIScreen mainScreen] scale]);
+        CGFloat scaleFactor = 1.0f;
+        if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
+        {
+            scaleFactor = [[UIScreen mainScreen] scale];
+        }
+        randomX = (int)(touched.x * scaleFactor);
+        randomY = (int)(touched.y * scaleFactor);
     }
     
     // Start crack

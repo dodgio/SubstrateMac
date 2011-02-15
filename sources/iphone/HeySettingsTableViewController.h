@@ -61,11 +61,17 @@ enum HeySubstrateSettingsEnum
 // -----------------------------------------------------------------------------
 // MARK: HeySettingsTableViewController
 
-@interface HeySettingsTableViewController : UITableViewController <UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface HeySettingsTableViewController : UITableViewController 
+    <UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate>
 {
   @private
     HeySubstrateOptions opts;
     UIImagePickerController *imagePicker;
+    
+    // For iPad
+    //UIPopoverController *imagePickerPopover;
+    id imagePickerPopover;
+    BOOL hasImagePickerMessageBeenShown;
 }
 
 
