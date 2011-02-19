@@ -42,7 +42,8 @@ enum HeySubstrateSettingsEnum
     HeySubstrateSettingsSectionCracks = 0,
     HeySubstrateSettingsSectionSand = 1,
     HeySubstrateSettingsSectionDrawings = 2,
-    HeySubstrateSettingsSectionAbout = 3,
+    HeySubstrateSettingsSectionHelp = 3,
+    HeySubstrateSettingsSectionAbout = 4,
     
     HeySubstrateSettingsRowCracksNumber = 0,
     HeySubstrateSettingsRowCracksSpeed = 1,
@@ -53,6 +54,7 @@ enum HeySubstrateSettingsEnum
     HeySubstrateSettingsRowSandColorsClear = 2,
     HeySubstrateSettingsRowDrawingsDensity = 0,
     HeySubstrateSettingsRowDrawingsPause = 1,
+    HeySubstrateSettingsRowHelpInfo = 0,
     HeySubstrateSettingsRowAboutInfo = 0,
     HeySubstrateSettingsRowAboutVisit = 1
 };

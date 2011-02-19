@@ -43,6 +43,8 @@
 
 static const CGFloat uitvcHeightDefault = 44.0f;
 static const CGFloat uitvcHeightSandColors = 128.0f + 10.0f + 12.0f;
+static const CGFloat uitvcHeightHelpInfo_pad = 240.0f;
+static const CGFloat uitvcHeightHelpInfo_phone = 360.0f;
 static const CGFloat uitvcHeightAboutInfo = 320.0f;
 static const CGFloat uitvcHeightAboutVisit = 70.0f;
 
@@ -335,7 +337,7 @@ static const int kSettingsColorButtonTag = 647;
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     (void)tableView;
-    return 4;
+    return 5;
 }
 
 
@@ -344,21 +346,24 @@ static const int kSettingsColorButtonTag = 647;
     (void)tableView;
     switch (section) 
     {
-      case HeySubstrateSettingsSectionCracks:
-          return NSLocalizedString(@"Cracks", @"Cracks");
-          break;
-      case HeySubstrateSettingsSectionSand:
-          return NSLocalizedString(@"Sand", @"Sand");
-          break;
-      case HeySubstrateSettingsSectionDrawings:
-          return NSLocalizedString(@"Drawings", @"Drawings");
-          break;
-      case HeySubstrateSettingsSectionAbout:
-          return NSLocalizedString(@"About", @"About");
-          break;
-      default:
-          return NSLocalizedString(@"", @"");
-          break;
+        case HeySubstrateSettingsSectionCracks:
+            return NSLocalizedString(@"Cracks", @"Cracks");
+            break;
+        case HeySubstrateSettingsSectionSand:
+            return NSLocalizedString(@"Sand", @"Sand");
+            break;
+        case HeySubstrateSettingsSectionDrawings:
+            return NSLocalizedString(@"Drawings", @"Drawings");
+            break;
+        case HeySubstrateSettingsSectionHelp:
+            return NSLocalizedString(@"Help", @"Help");
+            break;
+        case HeySubstrateSettingsSectionAbout:
+            return NSLocalizedString(@"About", @"About");
+            break;
+        default:
+            return NSLocalizedString(@"", @"");
+            break;
     }
 }
 
@@ -368,21 +373,24 @@ static const int kSettingsColorButtonTag = 647;
     (void)tableView;
     switch (section) 
     {
-      case HeySubstrateSettingsSectionCracks:
-          return 4;
-          break;
-      case HeySubstrateSettingsSectionSand:
-          return 3;
-          break;
-      case HeySubstrateSettingsSectionDrawings:
-          return 2;
-          break;
-      case HeySubstrateSettingsSectionAbout:
-          return 2;
-          break;
-      default:
-          return 0;
-          break;
+        case HeySubstrateSettingsSectionCracks:
+            return 4;
+            break;
+        case HeySubstrateSettingsSectionSand:
+            return 3;
+            break;
+        case HeySubstrateSettingsSectionDrawings:
+            return 2;
+            break;
+        case HeySubstrateSettingsSectionHelp:
+            return 1;
+            break;
+        case HeySubstrateSettingsSectionAbout:
+            return 2;
+            break;
+        default:
+            return 0;
+            break;
     }
 }
 
@@ -394,17 +402,20 @@ static const int kSettingsColorButtonTag = 647;
     CGRect sliderRect;
     CGRect switchRect;
     CGRect imageRect;
+    CGRect helpRect;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         sliderRect = CGRectMake(180.0f, 0.0f, 525.0f, 50.0f);
         switchRect = CGRectMake(180.0f, 10.0f, 0.0f, 0.0f);
         imageRect = CGRectMake(340.0f, 10.0f, 128.0f, 128.0f);
+        helpRect = CGRectMake(60.0f, 12.0f, 768.0f - (2.0f * 60.0f), uitvcHeightHelpInfo_pad);
     }
     else    // UIUserInterfaceIdiomPhone
     {
         sliderRect = CGRectMake(120.0f, 0.0f, 175.0f, 50.0f);
         switchRect = CGRectMake(200.0f, 10.0f, 0.0f, 0.0f);
         imageRect = CGRectMake(145.0f, 10.0f, 128.0f, 128.0f);
+        helpRect = CGRectMake(12.0f, 12.0f, 320.0f - (2.0f * 12.0f), uitvcHeightHelpInfo_phone);
     }
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -573,6 +584,31 @@ static const int kSettingsColorButtonTag = 647;
                 }
                 break;
             }
+            case HeySubstrateSettingsSectionHelp:
+            {
+                switch ([indexPath indexAtPosition:1])
+                {
+                    case HeySubstrateSettingsRowHelpInfo:
+                    {
+                        NSString *helpText = NSLocalizedString(
+                            @"While Substrate is drawing, you can tap the screen to set the position of the next crack. Swipe fast or slow to set many start positions along your swipe. \n\nOn iOS 4.0+ use two-finger swipes to control Substrate. A two-finger swipe to the left pauses the animation; to the right resumes. A two-finger swipe down saves the display to the Photos app. If you want to use a saved display as your wallpaper, you can choose it in the Photos app.\n\nOn iOS 3.x you can still save the display, even though the two-finger swipes aren't available. Just use the standard shortcut of pressing the power and home buttons simultaneously. You'll see the screen flash, and your display is saved to the Photos app.\n\nTap the i icon in the bottom right of the display screen to modify the drawing settings.\n\nNow you can set the color palette of the 'sand' by choosing a saved picture from your photo library. ", 
+                            @"Help text.");
+                        UITextView *helpTextView = [[[UITextView alloc] initWithFrame:helpRect] autorelease];
+                        helpTextView.editable = NO;
+                        helpTextView.scrollEnabled = NO;
+                        helpTextView.opaque = NO;
+                        helpTextView.backgroundColor = [UIColor clearColor];
+                        helpTextView.text = helpText;
+                        [cell addSubview:helpTextView];
+                        break;
+                    }
+                    default:
+                    {
+                        break;
+                    }
+                }
+                break;
+            }
             case HeySubstrateSettingsSectionAbout:
             {
                 switch ([indexPath indexAtPosition:1]) 
@@ -642,6 +678,25 @@ static const int kSettingsColorButtonTag = 647;
             {
                 case HeySubstrateSettingsRowSandColors:
                     height = uitvcHeightSandColors;
+                    break;
+                default:
+                    break;
+            }
+            break;
+        }
+        case HeySubstrateSettingsSectionHelp:
+        {
+            switch ([indexPath indexAtPosition:1])
+            {
+                case HeySubstrateSettingsRowHelpInfo:
+                    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                    {
+                        height = uitvcHeightHelpInfo_pad;
+                    }
+                    else
+                    {
+                        height = uitvcHeightHelpInfo_phone;
+                    }
                     break;
                 default:
                     break;

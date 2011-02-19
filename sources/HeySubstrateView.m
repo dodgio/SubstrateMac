@@ -175,7 +175,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
 
 #if TARGET_OS_IPHONE    
     // Load the info icon.
-    infoIcon = [UIImage imageNamed:@"infoicon.png"];
+    infoIcon = [[UIImage imageNamed:@"infoicon.png"] retain];
     if (!infoIcon)
         success = NO;
     infoRect = CGRectMake(self.bounds.size.width - infoSize.width, 
