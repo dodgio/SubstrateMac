@@ -2,3 +2,6 @@
 build/*
 intermediate/*
 .svn
+*.mode2v3
+*.pbxuser
+*.xcuserstate
