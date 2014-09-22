@@ -38,20 +38,22 @@
 @interface HeySubstrateViewController : UIViewController 
 {
   @private
-    NSTimer *animationTimer;
-    NSTimeInterval animationInterval;
-    CGContextRef bitContext;
-    CGImageRef bitImage;
+    CADisplayLink *displayLink;
 }
 
-@property (nonatomic, assign) NSTimer *animationTimer;
-@property (nonatomic, assign) NSTimeInterval animationInterval;
+@property (nonatomic, assign) CADisplayLink *displayLink;
 
 - (void)startAnimation;
 - (void)stopAnimation;
 - (void)pauseAnimation;
 - (void)unpauseAnimation;
 - (void)drawView;
+
+- (void)handleDoubleSwipeUp:(UISwipeGestureRecognizer *)gestureRecognizer;
+- (void)handleDoubleSwipeDown:(UISwipeGestureRecognizer *)gestureRecognizer;
+- (void)handleDoubleSwipeLeft:(UISwipeGestureRecognizer *)gestureRecognizer;
+- (void)handleDoubleSwipeRight:(UISwipeGestureRecognizer *)gestureRecognizer;
+
 
 @end
 

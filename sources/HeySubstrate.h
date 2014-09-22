@@ -35,6 +35,8 @@
 // -----------------------------------------------------------------------------
 // MARK: System Headers
 
+#import <TargetConditionals.h>
+
 #if TARGET_OS_IPHONE
  #import <Foundation/Foundation.h>         // Apple basics
  #import <UIKit/UIKit.h>                   // Cocoa Touch
@@ -89,6 +91,7 @@ typedef struct
     float pauseBetweenDrawings;
     float percentCurves;
     BOOL  drawCracksOnly;
+    NSArray *colors;
 } HeySubstrateOptions;
 
 // Fade in/out states.
@@ -118,6 +121,7 @@ extern HEYCOLOR *HeySubstrateCrackColor;    // Color to draw _all_ cracks
 extern const int cagEmpty;          // Empty test value for crackAngleGrid
 extern const int cagEmptyFlag;      // Empty flag value in crackAngleGrid
 extern const float HeySubstrateAnimationFPS;    // Frames per second to animate
+extern NSString * const kHeySubstrateColorImageThumbnail;
 
 
 // -----------------------------------------------------------------------------

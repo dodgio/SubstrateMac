@@ -15,6 +15,7 @@
 		2899E5220DE3E06400AC0155 /* HeySubstrateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* HeySubstrateViewController.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* HeySubstrateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* HeySubstrateViewController.m */; };
+		800A9DE71300C68100539643 /* HeySubstrateColorPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = 800A9DE61300C68100539643 /* HeySubstrateColorPalette.m */; };
 		801B0C9D0FC88B0B0022F3B3 /* infoicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 801B0C9C0FC88B0B0022F3B3 /* infoicon.png */; };
 		802123470FBF42CE00DD9A3B /* HeySubstrateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 802123460FBF42CE00DD9A3B /* HeySubstrateView.m */; };
 		802123A60FC1D14100DD9A3B /* HeySubstrate.m in Sources */ = {isa = PBXBuildFile; fileRef = 802123A50FC1D14100DD9A3B /* HeySubstrate.m */; };
@@ -23,6 +24,12 @@
 		805EEC70115704E8007D55EA /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 805EEC6F115704E8007D55EA /* MainWindow-iPad.xib */; };
 		805EEC8611570A79007D55EA /* Substrate-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 805EEC8511570A79007D55EA /* Substrate-iPad.png */; };
 		805EEC9111570CE7007D55EA /* HeySubstrateViewController-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 805EEC9011570CE7007D55EA /* HeySubstrateViewController-iPad.xib */; };
+		8078E794130F41BD0064496D /* infoicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8078E793130F41BD0064496D /* infoicon@2x.png */; };
+		8078E796130F41EE0064496D /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8078E795130F41EE0064496D /* Icon@2x.png */; };
+		8078E799130F420F0064496D /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 8078E797130F420F0064496D /* Icon-Small.png */; };
+		8078E79A130F420F0064496D /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8078E798130F420F0064496D /* Icon-Small@2x.png */; };
+		8078E79C130F421E0064496D /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 8078E79B130F421E0064496D /* Icon-Small-50.png */; };
+		8078E7A7130F429C0064496D /* Credits@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8078E7A6130F429C0064496D /* Credits@2x.png */; };
 		80B7DC740FCB7A820062FDAB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80B7DC730FCB7A820062FDAB /* QuartzCore.framework */; };
 		80B7DCD00FCB8C350062FDAB /* Substrate.png in Resources */ = {isa = PBXBuildFile; fileRef = 80B7DCCF0FCB8C350062FDAB /* Substrate.png */; };
 		80B7DCDC0FCC5C8F0062FDAB /* Credits.png in Resources */ = {isa = PBXBuildFile; fileRef = 80B7DCDB0FCC5C8F0062FDAB /* Credits.png */; };
@@ -45,6 +52,8 @@
 		28D7ACF70DDB3853001CB0EB /* HeySubstrateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeySubstrateViewController.m; path = sources/iphone/HeySubstrateViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = sources/iphone/main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* SubstrateiPhone_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SubstrateiPhone_Prefix.pch; path = sources/iphone/SubstrateiPhone_Prefix.pch; sourceTree = "<group>"; };
+		800A9DE51300C68100539643 /* HeySubstrateColorPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeySubstrateColorPalette.h; path = sources/HeySubstrateColorPalette.h; sourceTree = "<group>"; };
+		800A9DE61300C68100539643 /* HeySubstrateColorPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeySubstrateColorPalette.m; path = sources/HeySubstrateColorPalette.m; sourceTree = "<group>"; };
 		801B0C9C0FC88B0B0022F3B3 /* infoicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = infoicon.png; path = resources/iphone/infoicon.png; sourceTree = "<group>"; };
 		802123450FBF42CE00DD9A3B /* HeySubstrateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeySubstrateView.h; path = sources/HeySubstrateView.h; sourceTree = "<group>"; };
 		802123460FBF42CE00DD9A3B /* HeySubstrateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeySubstrateView.m; path = sources/HeySubstrateView.m; sourceTree = "<group>"; };
@@ -57,6 +66,12 @@
 		805EEC6F115704E8007D55EA /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "resources/ipad/MainWindow-iPad.xib"; sourceTree = "<group>"; };
 		805EEC8511570A79007D55EA /* Substrate-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Substrate-iPad.png"; path = "resources/ipad/Substrate-iPad.png"; sourceTree = "<group>"; };
 		805EEC9011570CE7007D55EA /* HeySubstrateViewController-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "HeySubstrateViewController-iPad.xib"; path = "resources/ipad/HeySubstrateViewController-iPad.xib"; sourceTree = "<group>"; };
+		8078E793130F41BD0064496D /* infoicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "infoicon@2x.png"; path = "resources/iphone/infoicon@2x.png"; sourceTree = "<group>"; };
+		8078E795130F41EE0064496D /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "resources/iphone/Icon@2x.png"; sourceTree = "<group>"; };
+		8078E797130F420F0064496D /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "resources/iphone/Icon-Small.png"; sourceTree = "<group>"; };
+		8078E798130F420F0064496D /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small@2x.png"; path = "resources/iphone/Icon-Small@2x.png"; sourceTree = "<group>"; };
+		8078E79B130F421E0064496D /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "resources/ipad/Icon-Small-50.png"; sourceTree = "<group>"; };
+		8078E7A6130F429C0064496D /* Credits@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Credits@2x.png"; path = "resources/iphone/Credits@2x.png"; sourceTree = "<group>"; };
 		80B7DC730FCB7A820062FDAB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		80B7DCCF0FCB8C350062FDAB /* Substrate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Substrate.png; path = resources/iphone/Substrate.png; sourceTree = "<group>"; };
 		80B7DCDB0FCC5C8F0062FDAB /* Credits.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Credits.png; path = resources/iphone/Credits.png; sourceTree = "<group>"; };
@@ -124,6 +139,8 @@
 			children = (
 				802123AF0FC1D9CA00DD9A3B /* HeySubstrateCrack.h */,
 				802123B00FC1D9CA00DD9A3B /* HeySubstrateCrack.m */,
+				800A9DE51300C68100539643 /* HeySubstrateColorPalette.h */,
+				800A9DE61300C68100539643 /* HeySubstrateColorPalette.m */,
 				802123A40FC1D14100DD9A3B /* HeySubstrate.h */,
 				802123A50FC1D14100DD9A3B /* HeySubstrate.m */,
 				802123450FBF42CE00DD9A3B /* HeySubstrateView.h */,
@@ -136,16 +153,22 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				80B7DD770FCC9D9D0062FDAB /* blueButton.png */,
 				80B7DCDB0FCC5C8F0062FDAB /* Credits.png */,
-				80B7DCCF0FCB8C350062FDAB /* Substrate.png */,
-				805EEC8511570A79007D55EA /* Substrate-iPad.png */,
-				8D1107310486CEB800E47090 /* Info.plist */,
-				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
-				805EEC6F115704E8007D55EA /* MainWindow-iPad.xib */,
+				8078E7A6130F429C0064496D /* Credits@2x.png */,
 				2899E5210DE3E06400AC0155 /* HeySubstrateViewController.xib */,
 				805EEC9011570CE7007D55EA /* HeySubstrateViewController-iPad.xib */,
+				8078E795130F41EE0064496D /* Icon@2x.png */,
+				8078E797130F420F0064496D /* Icon-Small.png */,
+				8078E798130F420F0064496D /* Icon-Small@2x.png */,
+				8078E79B130F421E0064496D /* Icon-Small-50.png */,
+				8D1107310486CEB800E47090 /* Info.plist */,
 				801B0C9C0FC88B0B0022F3B3 /* infoicon.png */,
-				80B7DD770FCC9D9D0062FDAB /* blueButton.png */,
+				8078E793130F41BD0064496D /* infoicon@2x.png */,
+				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
+				805EEC6F115704E8007D55EA /* MainWindow-iPad.xib */,
+				80B7DCCF0FCB8C350062FDAB /* Substrate.png */,
+				805EEC8511570A79007D55EA /* Substrate-iPad.png */,
 				80B7DD780FCC9D9D0062FDAB /* whiteButton.png */,
 			);
 			name = Resources;
@@ -201,7 +224,14 @@
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "SubstrateiPhone" */;
 			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -227,6 +257,12 @@
 				805EEC70115704E8007D55EA /* MainWindow-iPad.xib in Resources */,
 				805EEC8611570A79007D55EA /* Substrate-iPad.png in Resources */,
 				805EEC9111570CE7007D55EA /* HeySubstrateViewController-iPad.xib in Resources */,
+				8078E794130F41BD0064496D /* infoicon@2x.png in Resources */,
+				8078E796130F41EE0064496D /* Icon@2x.png in Resources */,
+				8078E799130F420F0064496D /* Icon-Small.png in Resources */,
+				8078E79A130F420F0064496D /* Icon-Small@2x.png in Resources */,
+				8078E79C130F421E0064496D /* Icon-Small-50.png in Resources */,
+				8078E7A7130F429C0064496D /* Credits@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +281,7 @@
 				802123B10FC1D9CA00DD9A3B /* HeySubstrateCrack.m in Sources */,
 				802123C10FC1DEDE00DD9A3B /* UIColor-HeyUIColor.m in Sources */,
 				80D983FB0FC39FD20020A8F7 /* HeySettingsTableViewController.m in Sources */,
+				800A9DE71300C68100539643 /* HeySubstrateColorPalette.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,38 +291,16 @@
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
-				CODE_SIGN_ENTITLEMENTS = "";
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = sources/iphone/SubstrateiPhone_Prefix.pch;
-				GCC_THUMB_SUPPORT = YES;
 				INFOPLIST_FILE = resources/iphone/Info.plist;
 				PRODUCT_NAME = Substrate;
-				SDKROOT = iphoneos3.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
-				CODE_SIGN_ENTITLEMENTS = resources/iphone/Entitlements.plist;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hey Daddio, Inc.";
-				COPY_PHASE_STRIP = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = sources/iphone/SubstrateiPhone_Prefix.pch;
-				GCC_THUMB_SUPPORT = YES;
 				INFOPLIST_FILE = resources/iphone/Info.plist;
 				PRODUCT_NAME = Substrate;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C7E4E8A9-D258-4073-B861-69FA42BDD65F";
-				SDKROOT = iphoneos3.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -293,15 +308,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLY_RULES_IN_COPY_FILES = YES;
-				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hey Daddio, Inc.";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_THUMB_SUPPORT = YES;
+				GCC_THUMB_SUPPORT = NO;
+				"GCC_THUMB_SUPPORT[arch=armv6]" = NO;
+				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_TREAT_NONCONFORMANT_CODE_ERRORS_AS_WARNINGS = NO;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				GCC_VERSION = 4.2;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
 				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = YES;
@@ -339,10 +357,13 @@
 					sources/iphone,
 					../HeyDaddioUtilityLibrary/sources,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1.3;
+				ONLY_ACTIVE_ARCH = NO;
 				PREBINDING = NO;
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
-				SDKROOT = iphoneos3.2;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "151F598A-12D8-4E7D-B591-0FF860E4BCC6";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = (
 					"-Wall",
@@ -354,19 +375,9 @@
 		80C76B68113DF7D90021C249 /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
 				CODE_SIGN_ENTITLEMENTS = resources/iphone/Entitlements.plist;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hey Daddio, Inc.";
-				COPY_PHASE_STRIP = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = sources/iphone/SubstrateiPhone_Prefix.pch;
-				GCC_THUMB_SUPPORT = YES;
 				INFOPLIST_FILE = resources/iphone/Info.plist;
 				PRODUCT_NAME = Substrate;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7D2AE34F-A9FC-46F3-A624-1AD1A335684B";
-				SDKROOT = iphoneos3.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Distribution;
 		};
@@ -374,17 +385,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLY_RULES_IN_COPY_FILES = YES;
-				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
-				CODE_SIGN_ENTITLEMENTS = resources/iphone/Entitlements.plist;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_THUMB_SUPPORT = YES;
+				GCC_THUMB_SUPPORT = NO;
+				"GCC_THUMB_SUPPORT[arch=armv6]" = NO;
+				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_TREAT_NONCONFORMANT_CODE_ERRORS_AS_WARNINGS = NO;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				GCC_VERSION = 4.2;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
 				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = YES;
@@ -422,11 +435,12 @@
 					sources/iphone,
 					../HeyDaddioUtilityLibrary/sources,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
-				ONLY_ACTIVE_ARCH = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1.3;
+				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
-				SDKROOT = iphoneos3.2;
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = (
@@ -440,16 +454,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLY_RULES_IN_COPY_FILES = YES;
-				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
-				CODE_SIGN_ENTITLEMENTS = resources/iphone/Entitlements.plist;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hey Daddio, Inc.";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_THUMB_SUPPORT = YES;
+				GCC_THUMB_SUPPORT = NO;
+				"GCC_THUMB_SUPPORT[arch=armv6]" = NO;
+				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_TREAT_NONCONFORMANT_CODE_ERRORS_AS_WARNINGS = NO;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				GCC_VERSION = 4.2;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
 				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = YES;
@@ -487,10 +503,13 @@
 					sources/iphone,
 					../HeyDaddioUtilityLibrary/sources,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1.3;
+				ONLY_ACTIVE_ARCH = NO;
 				PREBINDING = NO;
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
-				SDKROOT = iphoneos3.2;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7D2AE34F-A9FC-46F3-A624-1AD1A335684B";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = (
 					"-Wall",

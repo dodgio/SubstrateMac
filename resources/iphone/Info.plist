@@ -13,7 +13,11 @@
 	<key>CFBundleIconFiles</key>
 	<array>
 		<string>Substrate.png</string>
+		<string>Icon@2x.png</string>
 		<string>Substrate-iPad.png</string>
+		<string>Icon-Small.png</string>
+		<string>Icon-Small-50.png</string>
+		<string>Icon-Small@2x.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>com.heydaddio.${PRODUCT_NAME:identifier}</string>
@@ -26,7 +30,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.3</string>
+	<string>2.0.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMainNibFile</key>
