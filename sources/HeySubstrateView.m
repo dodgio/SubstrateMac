@@ -133,6 +133,7 @@ static const NSInteger infoFadeFrames = 30 * 2;     // Fade time of info button.
     opts.colors = colors;
     [palette setHeyColors:opts.colors];
     
+    [self setFrame:[UIScreen mainScreen].bounds];
     if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
     {
         viewWidth = (float)[self frame].size.width * [[UIScreen mainScreen] scale];

@@ -119,8 +119,9 @@ static const NSTimeInterval HeySubstrateViewTransitionTime = 0.3f;
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {
     (void)application;
-    [window addSubview:substrateVC.view];
-    [window makeKeyAndVisible];
+    [self.window setFrame:[UIScreen mainScreen].bounds];
+    
+    [self.window setRootViewController:self.substrateVC];
 }
 
 
